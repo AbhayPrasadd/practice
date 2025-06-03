@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import BottomTabBar from "./BottomTabBar";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -13,20 +14,22 @@ const Layout = () => {
       <Navbar setIsSidebarOpen={setIsSidebarOpen} />
 
       {/* Page content */}
-      <div className="flex flex-1 pt-16 md:pt-0">
-        <main className="w-full overflow-auto md:ml-64">
-          <Outlet />
-        </main>
-      </div>
+  <div className="flex flex-1">
+  <main className="w-full overflow-auto pt-16 md:ml-64">
+    <Outlet />
+  </main>
+</div>
+
 
       {/* Sidebar for mobile (slides in from left, under navbar) */}
-      <div
-        className={`fixed top-0 left-0 h-full w-64 z-40 transform transition-transform duration-300 bg-green-900 md:hidden ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
-      </div>
+     <div
+  className={`fixed top-16 left-0 h-[calc(100%-4rem)] w-64 z-40 transform transition-transform duration-300 bg-green-900 md:hidden ${
+    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+  }`}
+>
+  <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
+</div>
+
 
       {/* Sidebar always visible on desktop (left side) */}
       <div className="hidden md:block fixed top-0 left-0 w-64 h-full z-30">
@@ -40,6 +43,7 @@ const Layout = () => {
           onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
+      <BottomTabBar />
     </div>
   );
 };

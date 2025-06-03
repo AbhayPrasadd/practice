@@ -33,35 +33,39 @@ const Sidebar = ({ setIsSidebarOpen }) => {
     [t]
   );
 
-  return (
-    <div className="bg-green-900 text-white h-full w-64 p-4">
-      {/* Logo at the top (for mobile sidebar only) */}
-      <div className="md:hidden flex justify-between items-center mb-6">
-        <img src="/logo-preview.png" alt="Logo" className="h-10 w-auto" />
-        <button onClick={() => setIsSidebarOpen(false)} className="text-white">
-          <X size={24} />
-        </button>
-      </div>
-
-      {/* Sidebar Links */}
-      <ul className="space-y-4">
-        {menuItems.map((item) => (
-          <li key={item.path}>
-            <Link
-              to={item.path}
-              className={`flex items-center space-x-3 p-3 rounded-lg ${
-                location.pathname === item.path ? "bg-green-700" : "hover:bg-green-800"
-              }`}
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              {item.icon}
-              <span className="block transition-all duration-300">{item.name}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+return (
+  <div className="bg-green-900 text-white h-full w-64 p-4 pt-20 md:pt-24">
+    {/* Logo + Close for Mobile */}
+    <div className="md:hidden flex justify-between items-center mb-4 absolute top-4 left-4 right-4">
+      <img src="/logo-preview.png" alt="Logo" className="h-10 w-auto" />
+      <button onClick={() => setIsSidebarOpen(false)} className="text-white">
+        <X size={24} />
+      </button>
     </div>
-  );
+
+    {/* Sidebar Links */}
+    <ul className="space-y-3">
+      {menuItems.map((item) => (
+        <li key={item.path}>
+          <Link
+            to={item.path}
+            className={`flex items-center space-x-3 p-3 rounded-lg text-base ${
+              location.pathname === item.path
+                ? "bg-green-700"
+                : "hover:bg-green-800"
+            }`}
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            {item.icon}
+            <span>{item.name}</span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+
 };
 
 export default Sidebar;

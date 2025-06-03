@@ -58,7 +58,7 @@ const Navbar = ({ setIsSidebarOpen }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full h-16 bg-green-900 shadow-md flex items-center justify-between px-4 md:px-6 z-40">
+    <nav className="fixed top-0 left-0 w-full h-16 bg-green-900 shadow-md flex items-center justify-between px-4 md:px-6 z-40 ">
       {/* Left section */}
       <div className="flex items-center gap-3">
         <button className="text-white p-2 md:hidden" onClick={() => setIsSidebarOpen(true)}>
