@@ -1,4 +1,3 @@
-// ✅ Layout.js
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
@@ -14,16 +13,16 @@ const Layout = () => {
       <Navbar setIsSidebarOpen={setIsSidebarOpen} />
 
       {/* Page content */}
-  <div className="flex flex-1">
-  <main className="w-full overflow-auto pt-16 md:ml-64">
-    <Outlet />
-  </main>
-</div>
+      <div className="flex flex-1">
+        <main className="w-full overflow-auto pt-16 md:ml-64">
+          <Outlet />
+        </main>
+      </div>
 
-
-      {/* Sidebar for mobile (slides in from left, under navbar) */}
-     <div
-  className={`fixed top-16 left-0 h-[calc(100%-4rem)] w-64 z-40 transform transition-transform duration-300 bg-green-900 md:hidden ${
+     
+     {/* Sidebar for mobile (slides in from left, ABOVE navbar and bottom bar) */}
+<div
+  className={`fixed top-0 left-0 h-full w-64 z-50 transform transition-transform duration-300 bg-green-900 md:hidden ${
     isSidebarOpen ? "translate-x-0" : "-translate-x-full"
   }`}
 >
@@ -39,11 +38,15 @@ const Layout = () => {
       {/* Overlay for mobile */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
           onClick={() => setIsSidebarOpen(false)}
         ></div>
       )}
-      <BottomTabBar />
+
+      {/* Bottom tab bar (visible only on mobile) */}
+      <div className="md:hidden z-30">
+        <BottomTabBar />
+      </div>
     </div>
   );
 };
