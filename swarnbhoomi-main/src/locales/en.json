@@ -1,0 +1,17 @@
+{
+  "loading": "Loading...",
+  "welcome": "Welcome",
+  "farmer": "Farmer",
+  "weather_forecast": "Weather Forecast",
+  "weather_tip": "Rain expected in 2 days. Prepare fields.",
+  "advisory_schemes": "Advisory & Schemes",
+  "advisory_tip": "Latest farming tips & gov. subsidies.",
+  "market_prices": "Market Prices",
+  "price_tip": "Wheat: ₹2000/qtl | Corn: ₹1800/qtl",
+  "crop_planner": "Crop Planner",
+  "crop_tip": "Sowing & harvesting schedule updated.",
+  "farming_alerts": "Farming Alerts",
+  "alert_tip": "Pest risk detected in next 3 days.",
+  "inventory_management": "Inventory Management",
+  "inventory_tip": "Track fertilizers, seeds, & pesticides."
+}

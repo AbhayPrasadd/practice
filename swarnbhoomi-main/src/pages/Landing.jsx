@@ -1,30 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Facebook, Twitter, Instagram } from 'lucide-react';
-
-// Navbar Component
-const Navbar = () => {
-  return (
-    <nav className="fixed top-0 left-0 w-full bg-green-700 text-white py-4 shadow-lg z-50">
-      <div className="container mx-auto flex justify-between items-center px-6">
-        <motion.h1
-          className="text-2xl font-bold"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          SwarnBhoomi 🌿
-        </motion.h1>
-        <div className="space-x-6">
-          <a href="/" className="hover:text-yellow-400">Home</a>
-          <a href="/about" className="hover:text-yellow-400">About</a>
-          <a href="/contact" className="hover:text-yellow-400">Contact</a>
-        </div>
-      </div>
-    </nav>
-  );
-};
+import i18n from '../i18n'; // Adjust path if needed
 
 // Section Component
 const Section = ({ title, description, image, reverse }) => {
@@ -53,7 +31,7 @@ const Section = ({ title, description, image, reverse }) => {
   );
 };
 
-// Footer
+// Footer Component
 const Footer = () => {
   return (
     <footer className="bg-green-700 text-white py-6 text-center">
@@ -72,48 +50,72 @@ const Footer = () => {
 // Landing Page Component
 const LandingPage = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem('lang');
+    if (savedLang) i18n.changeLanguage(savedLang);
+  }, []);
+
+  const handleLanguageChange = (e) => {
+    const lang = e.target.value;
+    i18n.changeLanguage(lang);
+    localStorage.setItem('lang', lang);
+  };
+
   return (
     <div className="min-h-screen">
-      <Navbar />
-
+      {/* Splash Section with Language Selector */}
       <section
-  className="flex flex-col items-center justify-center min-h-screen text-center text-white px-6"
-  style={{
-    backgroundImage: "url('landing_page/agri.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  <div className="bg-black bg-opacity-50 absolute inset-0"></div>
-  <motion.h1
-    className="text-5xl font-extrabold relative z-10"
-    initial={{ opacity: 0, y: -50 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.7 }}
-  >
-    Welcome to SwarnBhoomi 🌱
-  </motion.h1>
-  <motion.p
-    className="mt-4 text-lg text-gray-200 max-w-2xl relative z-10"
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ delay: 0.3, duration: 0.7 }}
-  >
-    Transforming agriculture with AI and smart data solutions to improve crop yields, reduce waste, and support sustainable farming.
-  </motion.p>
-  <motion.button
-    onClick={() => navigate('/auth')}
-    className="mt-6 bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition relative z-10"
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
-  >
-    Get Started
-  </motion.button>
-</section>
+        className="flex flex-col items-center justify-center min-h-screen text-center text-white px-6 relative"
+        style={{
+          backgroundImage: "url('landing_page/agri.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Overlay */}
+        <div className="bg-black bg-opacity-50 absolute inset-0 z-0"></div>
 
+        {/* Language Selector */}
+        <div className="absolute top-4 right-4 z-50">
+          <select
+            onChange={handleLanguageChange}
+            defaultValue={i18n.language || 'en'}
+            className="bg-white text-black rounded px-2 py-1 shadow-md text-sm"
+          >
+            <option value="en">EN</option>
+            <option value="hi">हि</option>
+          </select>
+        </div>
 
+        {/* Content */}
+        <motion.h1
+          className="text-5xl font-extrabold relative z-10"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+        >
+          Welcome to SwarnBhoomi 🌱
+        </motion.h1>
+        <motion.p
+          className="mt-4 text-lg text-gray-200 max-w-2xl relative z-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.7 }}
+        >
+          Transforming agriculture with AI and smart data solutions to improve crop yields, reduce waste, and support sustainable farming.
+        </motion.p>
+        <motion.button
+          onClick={() => navigate('/auth')}
+          className="mt-6 bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition relative z-10"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          Get Started
+        </motion.button>
+      </section>
 
-
+      {/* Sections */}
       <Section 
         title="Who We Are" 
         description="We are a passionate team of innovators working towards revolutionizing agriculture through technology."
@@ -141,6 +143,7 @@ const LandingPage = () => {
         description="Be a part of the future of agriculture. Sign up now to start using AgriTech and help farmers worldwide."
         image="landing_page/joinus.jpg" 
       />
+      
       <Footer />
     </div>
   );
