@@ -26,6 +26,7 @@ import FarmerAlerts from "./pages/FarmerAlerts";
 import FPO from "./pages/FPO";
 import Inventory from "./pages/Inventory";
 import SoilAdvisory from "./pages/SoilAdvisory";
+import Profile from "./pages/Profile";
 
 
 
@@ -75,6 +76,7 @@ const App = () => {
           <Route path="soiladvisory" element={<SoilAdvisory />} />
           <Route path="cropplanner" element={<CropPlanner />} />
           <Route path="farmeralerts" element={<FarmerAlerts />} />
+          <Route path="profile" element={<Profile />} />
 
          
 
