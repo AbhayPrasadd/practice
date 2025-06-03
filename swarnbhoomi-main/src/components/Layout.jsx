@@ -1,28 +1,45 @@
+// ✅ Layout.js
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
-import { useTranslation } from "react-i18next"; // ✅ Import the hook
 
 const Layout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { t } = useTranslation(); // ✅ Initialize translator (optional for now)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar isSidebarOpen={isSidebarOpen} />
+    <div className="flex flex-col min-h-screen">
+      {/* Navbar at top */}
+      <Navbar setIsSidebarOpen={setIsSidebarOpen} />
 
-      {/* Main content area */}
-      <div className="flex flex-col flex-1 bg-gray-100 transition-all duration-300 overflow-auto">
-        <Navbar setIsSidebarOpen={setIsSidebarOpen} />
-
-        {/* Page Content */}
-        <div className="p-6 pt-16 h-full overflow-y-auto">
-          {/* You can use t('some_key') here for titles if needed */}
+      {/* Page content */}
+      <div className="flex flex-1 pt-16 md:pt-0">
+        <main className="w-full overflow-auto md:ml-64">
           <Outlet />
-        </div>
+        </main>
       </div>
+
+      {/* Sidebar for mobile (slides in from left, under navbar) */}
+      <div
+        className={`fixed top-0 left-0 h-full w-64 z-40 transform transition-transform duration-300 bg-green-900 md:hidden ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
+      </div>
+
+      {/* Sidebar always visible on desktop (left side) */}
+      <div className="hidden md:block fixed top-0 left-0 w-64 h-full z-30">
+        <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
+      </div>
+
+      {/* Overlay for mobile */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
     </div>
   );
 };

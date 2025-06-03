@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Menu, Bell } from "lucide-react";
-import { useTranslation } from "react-i18next"; // ✅ Import i18next hook
+// ✅ Navbar.js
+import React, { useEffect, useState } from "react";
+import { Menu, Bell, Mic, Image as ImageIcon, Search } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
-// Custom Popover Component
 const Popover = ({ children, content }) => {
   const [open, setOpen] = useState(false);
-
   return (
     <div className="relative">
       <button onClick={() => setOpen(!open)} className="relative text-white p-2">
@@ -21,77 +19,74 @@ const Popover = ({ children, content }) => {
   );
 };
 
-// Custom Dropdown Menu Component
-const DropdownMenu = ({ children, menuItems }) => {
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-
-  return (
-    <div className="relative">
-      <button onClick={() => setOpen(!open)} className="flex items-center space-x-2">
-        {children}
-      </button>
-      {open && (
-        <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg p-2 z-50">
-          {menuItems.map((item, index) => (
-            <button
-              key={index}
-              className="block w-full text-left px-3 py-2 hover:bg-gray-100"
-              onClick={() => {
-                if (item === "Logout") navigate("/");
-              }}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-// Avatar Component
-const Avatar = ({ src, fallback }) => (
-  <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-    {src ? <img src={src} alt="User" className="w-full h-full object-cover" /> : <span>{fallback}</span>}
-  </div>
-);
-
-// Main Navbar
 const Navbar = ({ setIsSidebarOpen }) => {
-  const { t, i18n } = useTranslation(); // ✅ Hook
+  const { t } = useTranslation();
   const [notifications] = useState([
     t("notification1"),
     t("notification2"),
     t("notification3"),
-    t("notification3"),
   ]);
+  const [searchText, setSearchText] = useState("");
+  const [recognition, setRecognition] = useState(null);
 
-  const handleLanguageChange = (e) => {
-    i18n.changeLanguage(e.target.value);
+  useEffect(() => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recog = new SpeechRecognition();
+      recog.lang = 'hi-IN';
+      recog.continuous = true;
+      recog.interimResults = true;
+
+      recog.onresult = (event) => {
+        let interimTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          interimTranscript += event.results[i][0].transcript;
+        }
+        setSearchText(interimTranscript);
+      };
+
+      setRecognition(recog);
+    }
+  }, []);
+
+  const handleVoiceInput = () => {
+    if (recognition) {
+      recognition.start();
+    } else {
+      alert("Speech recognition not supported in this browser.");
+    }
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full h-16 bg-green-900 shadow-md flex items-center justify-between px-6 z-50">
-      <button className="text-white p-2 z-50" onClick={() => setIsSidebarOpen((prev) => !prev)}>
-        <Menu className="h-6 w-6" />
-      </button>
+    <nav className="fixed top-0 left-0 w-full h-16 bg-green-900 shadow-md flex items-center justify-between px-4 md:px-6 z-40">
+      {/* Left section */}
+      <div className="flex items-center gap-3">
+        <button className="text-white p-2 md:hidden" onClick={() => setIsSidebarOpen(true)}>
+          <Menu className="h-6 w-6" />
+        </button>
+        <img src="/logo-preview.png" alt="Logo" className="h-8 w-auto hidden md:block" />
+      </div>
 
-      {/* Optional Title */}
-      <div className="text-xl font-semibold text-white">{t("dashboard")}</div>
+      {/* Center: Search bar */}
+      <div className="flex items-center flex-1 mx-4 max-w-xl bg-white rounded-md px-3 py-1 shadow-sm">
+        <Search className="w-5 h-5 text-gray-500" />
+        <input
+          type="text"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          placeholder={t("search_placeholder") || "Search..."}
+          className="flex-1 px-2 py-1 outline-none text-sm text-gray-700 bg-transparent"
+        />
+        <button className="p-1 text-gray-600 hover:text-black" onClick={handleVoiceInput}>
+          <Mic className="w-5 h-5" />
+        </button>
+        <button className="p-1 text-gray-600 hover:text-black">
+          <ImageIcon className="w-5 h-5" />
+        </button>
+      </div>
 
-      <div className="flex items-center gap-6">
-        {/* Language Selector */}
-        <select
-          onChange={handleLanguageChange}
-          className="text-black rounded p-1 bg-white"
-          defaultValue={i18n.language}
-        >
-          <option value="en">English</option>
-          <option value="hi">हिन्दी</option>
-        </select>
-
-        {/* Notifications */}
+      {/* Right section: Only notifications */}
+      <div className="flex items-center gap-3">
         <Popover
           content={
             <div>
@@ -110,13 +105,8 @@ const Navbar = ({ setIsSidebarOpen }) => {
             </div>
           }
         >
-          <Bell className="h-8 w-8" />
+          <Bell className="h-6 w-6 text-white" />
         </Popover>
-
-        {/* Profile Dropdown */}
-        <DropdownMenu menuItems={[t("profile"), t("settings"), t("logout")]}>
-          <Avatar src="/dashboard/profile.png" fallback="U" />
-        </DropdownMenu>
       </div>
     </nav>
   );
