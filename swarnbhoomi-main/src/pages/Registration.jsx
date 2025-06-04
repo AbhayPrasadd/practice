@@ -3,12 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 const Registration = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
+    phone: "",
     country: "",
     state: "",
     district: "",
@@ -29,51 +32,57 @@ const Registration = () => {
     try {
       const { user } = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
 
-      // Store user details in Firestore under "users" collection
+      // Save to Firestore
       await setDoc(doc(db, "users", user.uid), {
         fullName: formData.fullName,
         email: formData.email,
+        phone: formData.phone,
         country: formData.country,
         state: formData.state,
         district: formData.district,
         farmerType: formData.farmerType,
       });
 
-      navigate("/dashboard"); // Redirect after successful registration
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-semibold mb-4">Sign Up</h2>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-semibold mb-4 text-center text-green-700">
+          {t("signup_title")}
+        </h2>
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
 
         <form className="space-y-4" onSubmit={handleRegister}>
-          <input type="text" name="fullName" placeholder="Full Name" className="w-full p-2 border rounded" onChange={handleChange} required />
-          <input type="email" name="email" placeholder="Email" className="w-full p-2 border rounded" onChange={handleChange} required />
-          <input type="password" name="password" placeholder="Password" className="w-full p-2 border rounded" onChange={handleChange} required />
-          <input type="text" name="country" placeholder="Country" className="w-full p-2 border rounded" onChange={handleChange} required />
-          <input type="text" name="state" placeholder="State" className="w-full p-2 border rounded" onChange={handleChange} required />
-          <input type="text" name="district" placeholder="District" className="w-full p-2 border rounded" onChange={handleChange} required />
+          <input type="text" name="fullName" placeholder={t("full_name")} className="w-full p-2 border rounded" onChange={handleChange} required />
+          <input type="email" name="email" placeholder={t("email")} className="w-full p-2 border rounded" onChange={handleChange} required />
+          <input type="password" name="password" placeholder={t("password")} className="w-full p-2 border rounded" onChange={handleChange} required />
+          <input type="tel" name="phone" placeholder={t("phone")} className="w-full p-2 border rounded" onChange={handleChange} required />
+          <input type="text" name="country" placeholder={t("country")} className="w-full p-2 border rounded" onChange={handleChange} required />
+          <input type="text" name="state" placeholder={t("state")} className="w-full p-2 border rounded" onChange={handleChange} required />
+          <input type="text" name="district" placeholder={t("district")} className="w-full p-2 border rounded" onChange={handleChange} required />
           <select name="farmerType" className="w-full p-2 border rounded" onChange={handleChange} required>
-            <option value="">Select Farmer Type</option>
-            <option value="Organic">Organic Farmer</option>
-            <option value="Commercial">Commercial Farmer</option>
-            <option value="Livestock">Livestock Farmer</option>
+            <option value="">{t("select_farmer_type")}</option>
+            <option value="Organic">{t("organic")}</option>
+            <option value="Commercial">{t("commercial")}</option>
+            <option value="Livestock">{t("livestock")}</option>
           </select>
 
           <button type="submit" className="w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700">
-            Register
+            {t("register")}
           </button>
         </form>
 
         <p className="mt-4 text-sm text-center">
-          Already have an account?
-          <span className="text-green-600 cursor-pointer" onClick={() => navigate("/auth")}> Login</span>
+          {t("already_account")}
+          <span className="text-green-600 cursor-pointer ml-1" onClick={() => navigate("/auth")}>
+            {t("login")}
+          </span>
         </p>
       </div>
     </div>

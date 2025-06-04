@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../firebase"; // Import Firestore config
+import { db } from "../firebase";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 
 const MachineryList = () => {
@@ -7,6 +7,10 @@ const MachineryList = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [filterCategory, setFilterCategory] = useState("");
+  const [filterRentType, setFilterRentType] = useState("");
+  const [filterLocation, setFilterLocation] = useState("");
+
   const [newMachinery, setNewMachinery] = useState({
     name: "",
     category: "",
@@ -37,9 +41,10 @@ const MachineryList = () => {
     fetchMachinery();
   }, []);
 
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-  };
+  const handleSearchChange = (e) => setSearch(e.target.value);
+  const handleFilterCategory = (e) => setFilterCategory(e.target.value);
+  const handleFilterRentType = (e) => setFilterRentType(e.target.value);
+  const handleFilterLocation = (e) => setFilterLocation(e.target.value);
 
   const handleInputChange = (e) => {
     setNewMachinery({ ...newMachinery, [e.target.name]: e.target.value });
@@ -68,43 +73,73 @@ const MachineryList = () => {
 
   if (loading) return <p className="text-center text-gray-500">Loading...</p>;
 
+  const filteredMachinery = machinery.filter((item) => {
+    return (
+      item.name.toLowerCase().includes(search.toLowerCase()) &&
+      (filterCategory ? item.category === filterCategory : true) &&
+      (filterRentType ? item.rentType === filterRentType : true) &&
+      (filterLocation ? item.location.toLowerCase().includes(filterLocation.toLowerCase()) : true)
+    );
+  });
+
   return (
-    <div className="container mx-auto p-6 max-w-8xl">
-      <div className="flex flex-col sm:flex-row  items-center mb-6">
+    <div className="container mx-auto p-6 max-w-7xl">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
         <input
           type="text"
-          placeholder="Search machinery..."
+          placeholder="Search by name..."
           value={search}
           onChange={handleSearchChange}
-          className="border p-3 rounded w-[500px] mb-2 sm:mb-0"
+          className="border p-3 rounded w-full sm:w-[250px]"
+        />
+        <select value={filterCategory} onChange={handleFilterCategory} className="border p-3 rounded w-full sm:w-[200px]">
+          <option value="">All Categories</option>
+          <option value="Tractor">Tractor</option>
+          <option value="Plough">Plough</option>
+          <option value="Seeder">Seeder</option>
+          <option value="Harvester">Harvester</option>
+        </select>
+        <select value={filterRentType} onChange={handleFilterRentType} className="border p-3 rounded w-full sm:w-[200px]">
+          <option value="">All Rent Types</option>
+          <option value="Hourly">Hourly</option>
+          <option value="Daily">Daily</option>
+          <option value="Weekly">Weekly</option>
+        </select>
+        <input
+          type="text"
+          placeholder="Filter by location..."
+          value={filterLocation}
+          onChange={handleFilterLocation}
+          className="border p-3 rounded w-full sm:w-[200px]"
         />
         <button
           onClick={() => setShowForm(!showForm)}
-          className="bg-green-500 text-white px-5 py-2 ml-40 rounded-lg hover:bg-green-700"
+          className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 w-full sm:w-auto"
         >
-          {showForm ? "Cancel" : "Add Product"}
+          {showForm ? "Close Form" : "List Your Equipment"}
         </button>
       </div>
 
       {showForm && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-md w-500">
-            
-            <h2 className="text-xl font-bold mb-4">Add Machinery</h2>
-            <form onSubmit={handleAddMachinery}>
-              <div className="grid grid-cols-1 gap-4">
-                <input type="text" name="name" placeholder="Name" value={newMachinery.name} onChange={handleInputChange} className="border p-3 rounded" required />
-                <input type="text" name="category" placeholder="Category" value={newMachinery.category} onChange={handleInputChange} className="border p-3 rounded" required />
-                <input type="text" name="price" placeholder="Price" value={newMachinery.price} onChange={handleInputChange} className="border p-3 rounded" required />
-                <input type="text" name="rentType" placeholder="Rent Type" value={newMachinery.rentType} onChange={handleInputChange} className="border p-3 rounded" required />
-                <input type="text" name="location" placeholder="Location" value={newMachinery.location} onChange={handleInputChange} className="border p-3 rounded" required />
-                <input type="text" name="ownerName" placeholder="Owner Name" value={newMachinery.ownerName} onChange={handleInputChange} className="border p-3 rounded" required />
-                <input type="text" name="contact" placeholder="Contact" value={newMachinery.contact} onChange={handleInputChange} className="border p-3 rounded" required />
-                <input type="text" name="image" placeholder="Image URL" value={newMachinery.image} onChange={handleInputChange} className="border p-3 rounded" required />
-              </div>
-              <div className="flex justify-between mt-4">
-                <button type="submit" className="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-700">Add</button>
-                <button type="button" onClick={() => setShowForm(false)} className="bg-red-500 text-white px-5 py-2 rounded-lg hover:bg-red-700">Cancel</button>
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-xl w-[90%] sm:w-[500px] shadow-lg">
+            <h2 className="text-xl font-bold mb-4 text-center">Add Your Equipment</h2>
+            <form onSubmit={handleAddMachinery} className="space-y-4">
+              {Object.entries(newMachinery).map(([key, value]) => (
+                <input
+                  key={key}
+                  type="text"
+                  name={key}
+                  placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+                  value={value}
+                  onChange={handleInputChange}
+                  className="border w-full p-3 rounded"
+                  required
+                />
+              ))}
+              <div className="flex justify-between pt-2">
+                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Submit</button>
+                <button type="button" onClick={() => setShowForm(false)} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Cancel</button>
               </div>
             </form>
           </div>
@@ -112,26 +147,26 @@ const MachineryList = () => {
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {machinery.filter((item) =>
-          item.name.toLowerCase().includes(search.toLowerCase())
-        ).map((item) => (
-          <div key={item.id} className="bg-white shadow-lg rounded-lg p-4 border">
+        {filteredMachinery.map((item) => (
+          <div key={item.id} className="bg-white shadow-md rounded-xl overflow-hidden border">
             <img
-              src={item.image}
+              src={item.image || 'https://via.placeholder.com/400'}
               alt={item.name}
-              className="w-full h-48 object-cover rounded-lg"
+              className="w-full h-48 object-cover"
             />
-            <h3 className="text-lg font-semibold mt-3">{item.name}</h3>
-            <p className="text-gray-600">{item.category}</p>
-            <p className="text-green-600 font-bold">{item.price} ({item.rentType})</p>
-            <p className="text-gray-500">{item.location}</p>
-            <p className="text-gray-700">Owner: {item.ownerName}</p>
-            <a
-              href={`tel:${item.contact}`}
-              className="mt-3 block bg-blue-500 text-white text-center py-2 rounded-lg hover:bg-blue-700"
-            >
-              Contact: {item.contact}
-            </a>
+            <div className="p-4">
+              <h3 className="text-xl font-semibold text-gray-800">{item.name}</h3>
+              <p className="text-sm text-gray-600">Category: {item.category}</p>
+              <p className="text-sm text-green-700 font-medium">₹{item.price} / {item.rentType}</p>
+              <p className="text-sm text-gray-500">Location: {item.location}</p>
+              <p className="text-sm text-gray-700 mt-1">Owner: {item.ownerName}</p>
+              <a
+                href={`tel:${item.contact}`}
+                className="mt-3 inline-block bg-blue-600 text-white text-sm px-4 py-2 rounded-lg hover:bg-blue-700"
+              >
+                Call Owner
+              </a>
+            </div>
           </div>
         ))}
       </div>

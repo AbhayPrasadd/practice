@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Facebook, Twitter, Instagram } from 'lucide-react';
-import i18n from '../i18n'; // Adjust path if needed
+import i18n from '../i18n';
 
-// Section Component
 const Section = ({ title, description, image, reverse }) => {
   return (
     <section className={`py-16 px-6 ${reverse ? 'bg-gray-100' : 'bg-white'}`}>
@@ -31,7 +30,6 @@ const Section = ({ title, description, image, reverse }) => {
   );
 };
 
-// Footer Component
 const Footer = () => {
   return (
     <footer className="bg-green-700 text-white py-6 text-center">
@@ -47,7 +45,6 @@ const Footer = () => {
   );
 };
 
-// Landing Page Component
 const LandingPage = () => {
   const navigate = useNavigate();
 
@@ -64,7 +61,6 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Splash Section with Language Selector */}
       <section
         className="flex flex-col items-center justify-center min-h-screen text-center text-white px-6 relative"
         style={{
@@ -73,24 +69,22 @@ const LandingPage = () => {
           backgroundPosition: "center",
         }}
       >
-        {/* Overlay */}
-        <div className="bg-black bg-opacity-50 absolute inset-0 z-0"></div>
+        <div className="bg-black bg-opacity-60 absolute inset-0 z-0"></div>
 
-        {/* Language Selector */}
-        <div className="absolute top-4 right-4 z-50">
+        {/* Language Selector Centered */}
+        <div className="relative z-10 mb-8">
           <select
             onChange={handleLanguageChange}
             defaultValue={i18n.language || 'en'}
-            className="bg-white text-black rounded px-2 py-1 shadow-md text-sm"
+            className="bg-white text-black rounded px-4 py-2 shadow-md text-sm font-semibold"
           >
-            <option value="en">EN</option>
-            <option value="hi">हि</option>
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
           </select>
         </div>
 
-        {/* Content */}
         <motion.h1
-          className="text-5xl font-extrabold relative z-10"
+          className="text-4xl md:text-5xl font-extrabold relative z-10 leading-snug"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
@@ -98,7 +92,7 @@ const LandingPage = () => {
           Welcome to SwarnBhoomi 🌱
         </motion.h1>
         <motion.p
-          className="mt-4 text-lg text-gray-200 max-w-2xl relative z-10"
+          className="mt-4 text-lg text-gray-200 max-w-xl relative z-10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.7 }}
@@ -115,7 +109,6 @@ const LandingPage = () => {
         </motion.button>
       </section>
 
-      {/* Sections */}
       <Section 
         title="Who We Are" 
         description="We are a passionate team of innovators working towards revolutionizing agriculture through technology."

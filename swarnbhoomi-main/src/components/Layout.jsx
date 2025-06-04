@@ -27,7 +27,8 @@ const Layout = () => {
       </div>
 
       {/* Page Content */}
-        <div className="flex-1 pt-16 md:ml-64 flex">
+      {/* Change the css of main content from left side from here */}
+        <div className="flex-1 pt-16 md:ml-60 flex">
            <main className="flex-1 px-4 pb-20 overflow-y-auto h-[calc(100vh-4rem)]">
              <Outlet />
            </main>

@@ -26,7 +26,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       { name: t("Soil Health"), path: "/dashboard/soiladvisory", icon: <Leaf size={20} /> },
       { name: t("Fpo"), path: "/dashboard/fpo", icon: <Users size={20} /> },
       { name: t("Mandi Rates"), path: "/dashboard/market-prices", icon: <BadgeIndianRupee size={20} /> },
-      { name: t("Market"), path: "/dashboard/market", icon: <ShoppingCart size={20} /> },
+      { name: t("Agri-Rent"), path: "/dashboard/market", icon: <ShoppingCart size={20} /> },
       { name: t("Schemes"), path: "/dashboard/schemes", icon: <ClipboardList size={20} /> },
       { name: t("Learning"), path: "/dashboard/learning", icon: <BookOpen size={20} /> },
       { name: t("Community"), path: "/dashboard/community", icon: <MessageSquare size={20} /> },

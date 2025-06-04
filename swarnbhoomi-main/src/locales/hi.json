@@ -13,5 +13,27 @@
   "farming_alerts": "कृषि अलर्ट",
   "alert_tip": "अगले 3 दिनों में कीट जोखिम की संभावना।",
   "inventory_management": "इन्वेंट्री प्रबंधन",
-  "inventory_tip": "उर्वरक, बीज और कीटनाशक ट्रैक करें।"
+  "inventory_tip": "उर्वरक, बीज और कीटनाशक ट्रैक करें।",
+  "login": "लॉगिन करें",
+  "email": "ईमेल",
+  "password": "पासवर्ड",
+  "signin_google": "Google से साइन इन करें",
+  "no_account": "कोई खाता नहीं है?",
+  "signup": "साइन अप करें",
+   "signup_title": "किसान पंजीकरण",
+  "full_name": "पूरा नाम",
+  "email": "ईमेल",
+  "password": "पासवर्ड",
+  "phone": "फ़ोन नंबर",
+  "country": "देश",
+  "state": "राज्य",
+  "district": "जिला",
+  "select_farmer_type": "किसान का प्रकार चुनें",
+  "organic": "जैविक किसान",
+  "commercial": "व्यावसायिक किसान",
+  "livestock": "पशुपालन किसान",
+  "register": "पंजीकरण करें",
+  "already_account": "पहले से खाता है?",
+  "login": "लॉगिन"
+
 }
