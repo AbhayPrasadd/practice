@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { BookOpen } from "lucide-react";
 
 const topics = [
   { id: 1, title: "How to Join an FPO", image: "/fpo.jpg" },
@@ -6,22 +8,48 @@ const topics = [
   { id: 3, title: "Government Schemes & Subsidies", image: "/schemes.jpeg" },
   { id: 4, title: "Market Trends & Crop Pricing", image: "/cp.png" },
   { id: 5, title: "AI-Based Farming Techniques", image: "/ai_farming.png" },
+  { id: 6, title: "Organic Farming Essentials", image: "/organic.jpeg" },
+  { id: 7, title: "Soil Health Management", image: "/soil.png" },
+  { id: 8, title: "Efficient Water Use & Irrigation", image: "/irrigation.jpg" },
 ];
 
 const Learning = () => {
+  const navigate = useNavigate();
+
+  const handleTopicClick = (id) => {
+    navigate(`/dashboard/learning/${id}`);
+  };
+
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold text-center">Learning & Guidance Hub</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {topics.map(topic => (
-          <div 
-            key={topic.id} 
-            className="border p-4 rounded shadow-lg cursor-pointer transition transform hover:scale-105 hover:shadow-xl"
-          >
-            <img src={topic.image} alt={topic.title} className="w-full h-50 object-cover rounded" />
-            <h3 className="text-lg font-semibold mt-2 text-center">{topic.title}</h3>
-          </div>
-        ))}
+    <div className="min-h-[calc(100vh-4rem)] p-4 md:p-6 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center gap-3 mb-6">
+          <BookOpen className="text-green-700 w-7 h-7" />
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+            Learning & Guidance Hub
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {topics.map((topic) => (
+            <div
+              key={topic.id}
+              className="bg-white rounded-xl shadow hover:shadow-lg transition hover:scale-[1.02] overflow-hidden cursor-pointer"
+              onClick={() => handleTopicClick(topic.id)}
+            >
+              <img
+                src={topic.image}
+                alt={topic.title}
+                className="w-full h-44 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-md md:text-lg font-semibold text-center text-gray-800">
+                  {topic.title}
+                </h3>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
