@@ -32,6 +32,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       { name: t("Learning"), path: "/dashboard/learning", icon: <BookOpen size={20} /> },
       { name: t("Community"), path: "/dashboard/community", icon: <MessageSquare size={20} /> },
        { name: t("Mandi Price"), path: "/dashboard/mandiPriceFetcher", icon: <MessageSquare size={20} /> },
+        { name: t("Commodity "), path: "/dashboard/commoditySelection", icon: <MessageSquare size={20} /> },
      
     ],
     [t]

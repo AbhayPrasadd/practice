@@ -3,6 +3,30 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import filterData from "../data/mandiData"; // import your full filter data
 
+const commodityImages = {
+  Mango: "/commodities/mango.jpg",
+  Wheat: "/commodities/wheat.jpg",
+  Onion: "/commodities/onion.jpg",
+  Tomato: "/commodities/tomato.jpg",
+  Potato: "/commodities/potato.jpg",
+  "Green Chilli": "/commodities/greenchilli.jpg",
+  Soyabean: "/commodities/soyabean.jpg",
+  Groundnut: "/commodities/groundnut.jpg",
+  Brinjal: "/commodities/brinjal.jpg",
+  Apple: "/commodities/apple.jpg",
+  Banana: "/commodities/banana.jpg",
+  Grapes: "/commodities/grapes.jpg",
+  Cabbage: "/commodities/cabbage.jpg",
+  Cauliflower: "/commodities/cauliflower.jpg",
+  Carrot: "/commodities/carrot.jpg",
+  Peas: "/commodities/peas.jpg",
+  Garlic: "/commodities/garlic.jpg",
+  Ginger: "/commodities/ginger.jpg",
+  Papaya: "/commodities/papaya.jpg",
+  Pomegranate: "/commodities/pomegranate.jpg"
+};
+
+
 const MandiPriceFetcher = () => {
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
@@ -87,31 +111,24 @@ const MandiPriceFetcher = () => {
       </button>
 
       {prices.length > 0 && (
-        <div className="mt-6 overflow-x-auto">
-          <table className="w-full border text-sm">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="p-2">Commodity</th>
-                <th className="p-2">Market</th>
-                <th className="p-2">Modal Price</th>
-                <th className="p-2">Min Price</th>
-                <th className="p-2">Max Price</th>
-                <th className="p-2">Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {prices.map((item, idx) => (
-                <tr key={idx} className="border-t">
-                  <td className="p-2">{item.commodity}</td>
-                  <td className="p-2">{item.market}</td>
-                  <td className="p-2">{item.modal_price}</td>
-                  <td className="p-2">{item.min_price}</td>
-                  <td className="p-2">{item.max_price}</td>
-                  <td className="p-2">{item.arrival_date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          {prices.map((item, idx) => (
+            <div key={idx} className="border rounded shadow p-4 flex flex-col md:flex-row items-start gap-4">
+              <img
+                src={commodityImages[item.commodity] || "/images/commodities/default.jpg"}
+                alt={item.commodity}
+                className="w-32 h-32 object-cover rounded"
+              />
+              <div className="text-sm">
+                <p><strong>Commodity:</strong> {item.commodity}</p>
+                <p><strong>Market:</strong> {item.market}</p>
+                <p><strong>Modal Price:</strong> ₹{item.modal_price}</p>
+                <p><strong>Min Price:</strong> ₹{item.min_price}</p>
+                <p><strong>Max Price:</strong> ₹{item.max_price}</p>
+                <p><strong>Date:</strong> {item.arrival_date}</p>
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
