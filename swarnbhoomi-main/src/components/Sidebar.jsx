@@ -21,6 +21,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
 
   const menuItems = useMemo(
     () => [
+      { name: t("Profile"), path: "/dashboard/profile", icon: <User size={20} /> },
       { name: t("Dashboard"), path: "/dashboard", icon: <Home size={20} /> },
       { name: t("Advisory"), path: "/dashboard/advisory", icon: <UserCheck size={20} /> },
       { name: t("Soil Health"), path: "/dashboard/soiladvisory", icon: <Leaf size={20} /> },
@@ -30,7 +31,8 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       { name: t("Schemes"), path: "/dashboard/schemes", icon: <ClipboardList size={20} /> },
       { name: t("Learning"), path: "/dashboard/learning", icon: <BookOpen size={20} /> },
       { name: t("Community"), path: "/dashboard/community", icon: <MessageSquare size={20} /> },
-      { name: t("Profile"), path: "/dashboard/profile", icon: <User size={20} /> },
+       { name: t("Mandi Price"), path: "/dashboard/mandiPriceFetcher", icon: <MessageSquare size={20} /> },
+     
     ],
     [t]
   );

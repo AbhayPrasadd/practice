@@ -22,6 +22,7 @@ import CropAdvisory from "./pages/CropAdvisory";
 import Community from "./pages/Community";
 import MyCrop from "./pages/MyCrop";
 import CropPlanner from "./pages/CropPlanner";
+import VoiceBot from "./pages/VoiceBot";
 
 import FPO from "./pages/FPO";
 import Inventory from "./pages/Inventory";
@@ -29,6 +30,7 @@ import SoilAdvisory from "./pages/SoilAdvisory";
 import Profile from "./pages/Profile";
 import Learning from "./pages/Learning";
 import TopicDetail from "./pages/TopicDetail"; // ✅ New page for topic details
+import MandiPriceFetcher from "./pages/MandiPriceFetcher";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -75,7 +77,8 @@ const App = () => {
           <Route path="inventory" element={<Inventory />} />
           <Route path="mycrop" element={<MyCrop />} />
           <Route path="soiladvisory" element={<SoilAdvisory />} />
-          <Route path="cropplanner" element={<CropPlanner />} />
+            <Route path="mandiPriceFetcher" element={<MandiPriceFetcher />} />
+          <Route path="voiceBot" element={<VoiceBot />} />
           
           <Route path="profile" element={<Profile />} />
         </Route>
