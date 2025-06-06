@@ -21,29 +21,32 @@ const Learning = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] p-4 md:p-6 bg-gray-50">
+    <div className="min-h-screen p-3 sm:p-6 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center gap-3 mb-6">
-          <BookOpen className="text-green-700 w-7 h-7" />
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+        
+        {/* Header */}
+        <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+          <BookOpen className="text-green-700 w-6 h-6 sm:w-7 sm:h-7" />
+          <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-gray-800">
             Learning & Guidance Hub
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Topic Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
           {topics.map((topic) => (
             <div
               key={topic.id}
-              className="bg-white rounded-xl shadow hover:shadow-lg transition hover:scale-[1.02] overflow-hidden cursor-pointer"
+              className="bg-white rounded-xl shadow hover:shadow-lg transition-transform hover:scale-[1.02] overflow-hidden cursor-pointer"
               onClick={() => handleTopicClick(topic.id)}
             >
               <img
                 src={topic.image}
                 alt={topic.title}
-                className="w-full h-44 object-cover"
+                className="w-full h-28 sm:h-36 object-cover"
               />
-              <div className="p-4">
-                <h3 className="text-md md:text-lg font-semibold text-center text-gray-800">
+              <div className="p-2 sm:p-4">
+                <h3 className="text-xs sm:text-base md:text-lg font-semibold text-center text-gray-800 leading-tight">
                   {topic.title}
                 </h3>
               </div>
