@@ -24,6 +24,7 @@ import MyCrop from "./pages/MyCrop";
 import CropPlanner from "./pages/CropPlanner";
 import VoiceBot from "./pages/VoiceBot";
 import CommodityPrices from "./pages/CommodityPrices";
+import Waste from "./pages/Waste";
 
 import FPO from "./pages/FPO";
 import Inventory from "./pages/Inventory";
@@ -82,6 +83,8 @@ const App = () => {
           <Route path="soiladvisory" element={<SoilAdvisory />} />
           <Route path="mandiPriceFetcher" element={<MandiPriceFetcher />} />
           <Route path="voiceBot" element={<VoiceBot />} />
+          <Route path="waste" element={<Waste />} />
+          
 
 
          

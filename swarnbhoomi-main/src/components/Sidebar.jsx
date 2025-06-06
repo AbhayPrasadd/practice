@@ -33,6 +33,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       { name: t("Community"), path: "/dashboard/community", icon: <MessageSquare size={20} /> },
        { name: t("Mandi Price"), path: "/dashboard/mandiPriceFetcher", icon: <MessageSquare size={20} /> },
         { name: t("Commodity "), path: "/dashboard/commoditySelection", icon: <MessageSquare size={20} /> },
+         { name: t("Waste "), path: "/dashboard/waste", icon: <MessageSquare size={20} /> },
      
     ],
     [t]
