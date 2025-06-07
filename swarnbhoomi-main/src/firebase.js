@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, collection, addDoc,setDoc,doc ,getDocs } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { getMessaging } from "firebase/messaging";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA_3YGUhreHbPhmghGDKczL4T77pcRmjNo",
@@ -18,7 +19,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const storage = getStorage(app);
 const googleProvider = new GoogleAuthProvider();
-const db = getFirestore(app);  
+const db = getFirestore(app); 
+const messaging = getMessaging(app);
 
 // ✅ Export Firestore
-export { auth, googleProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, db, collection, addDoc,setDoc,doc ,getDocs,storage};
+export { auth, googleProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, db, collection, addDoc,setDoc,doc ,getDocs,storage,messaging,};

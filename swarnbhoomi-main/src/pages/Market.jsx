@@ -84,40 +84,43 @@ const MachineryList = () => {
 
   return (
     <div className="container mx-auto p-6 max-w-7xl">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
-        <input
-          type="text"
-          placeholder="Search by name..."
-          value={search}
-          onChange={handleSearchChange}
-          className="border p-3 rounded w-full sm:w-[250px]"
-        />
-        <select value={filterCategory} onChange={handleFilterCategory} className="border p-3 rounded w-full sm:w-[200px]">
-          <option value="">All Categories</option>
-          <option value="Tractor">Tractor</option>
-          <option value="Plough">Plough</option>
-          <option value="Seeder">Seeder</option>
-          <option value="Harvester">Harvester</option>
-        </select>
-        <select value={filterRentType} onChange={handleFilterRentType} className="border p-3 rounded w-full sm:w-[200px]">
-          <option value="">All Rent Types</option>
-          <option value="Hourly">Hourly</option>
-          <option value="Daily">Daily</option>
-          <option value="Weekly">Weekly</option>
-        </select>
-        <input
-          type="text"
-          placeholder="Filter by location..."
-          value={filterLocation}
-          onChange={handleFilterLocation}
-          className="border p-3 rounded w-full sm:w-[200px]"
-        />
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 w-full sm:w-auto"
-        >
-          {showForm ? "Close Form" : "List Your Equipment"}
-        </button>
+      <div className="bg-white p-4 rounded-lg shadow mb-6">
+        <h2 className="text-xl font-semibold mb-4 text-green-800 text-center">Find Equipment Near You</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <input
+            type="text"
+            placeholder="Search by name..."
+            value={search}
+            onChange={handleSearchChange}
+            className="border p-3 rounded w-full"
+          />
+          <select value={filterCategory} onChange={handleFilterCategory} className="border p-3 rounded w-full">
+            <option value="">All Categories</option>
+            <option value="Tractor">Tractor</option>
+            <option value="Plough">Plough</option>
+            <option value="Seeder">Seeder</option>
+            <option value="Harvester">Harvester</option>
+          </select>
+          <select value={filterRentType} onChange={handleFilterRentType} className="border p-3 rounded w-full">
+            <option value="">All Rent Types</option>
+            <option value="Hourly">Hourly</option>
+            <option value="Daily">Daily</option>
+            <option value="Weekly">Weekly</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Your District / Area..."
+            value={filterLocation}
+            onChange={handleFilterLocation}
+            className="border p-3 rounded w-full"
+          />
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 w-full"
+          >
+            {showForm ? "Close Form" : "List Your Equipment"}
+          </button>
+        </div>
       </div>
 
       {showForm && (
