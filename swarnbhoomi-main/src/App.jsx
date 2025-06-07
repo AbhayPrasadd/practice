@@ -33,6 +33,7 @@ import Profile from "./pages/Profile";
 import Learning from "./pages/Learning";
 import TopicDetail from "./pages/TopicDetail"; // ✅ New page for topic details
 import MandiPriceFetcher from "./pages/MandiPriceFetcher";
+import Test from "./pages/Test";
 
 import CommoditySelection from "./pages/CommoditySelection";
 
@@ -84,7 +85,7 @@ const App = () => {
           <Route path="mandiPriceFetcher" element={<MandiPriceFetcher />} />
           <Route path="voiceBot" element={<VoiceBot />} />
           <Route path="waste" element={<Waste />} />
-          
+           <Route path="test" element={<Test />} />
 
 
          
