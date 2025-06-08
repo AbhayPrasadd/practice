@@ -2,8 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { CloudSun, BarChart3, Leaf, Bell, FileText, ShoppingBag } from "lucide-react";
+import {
+  CloudSun,
+  BarChart3,
+  Leaf,
+  Bell,
+  FileText,
+  ShoppingBag,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
+import "@fontsource/poppins/400.css";
+import "@fontsource/poppins/600.css";
+import "@fontsource/poppins/700.css";
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -64,86 +74,69 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div className="p-4 bg-gray-100 min-h-screen text-sm">{t("loading")}</div>;
+    return <div className="p-4 bg-gray-100 min-h-screen text-base font-poppins">{t("loading")}</div>;
   }
 
   return (
-    <div className="p-3 sm:p-4 bg-gray-100 min-h-screen max-w-7xl mx-auto">
-      {/* Header */}
-      <div className="mb-4">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
-          {t("welcome")}, {userData?.fullName || t("farmer")} 👋
-        </h1>
-        <p className="text-sm sm:text-base text-gray-600">
-          {userData?.district}, {userData?.state}
-        </p>
-      </div>
+    <div className="px-4 py-6 sm:px-8 bg-gradient-to-br  min-h-screen font-poppins text-gray-800">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-6">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-green-800">
+            {t("welcome")}, {userData?.fullName || t("farmer")} 👋
+          </h1>
+          <p className="text-base text-gray-700">{userData?.district}, {userData?.state}</p>
+        </div>
 
-      {/* Weather Section */}
-      <div className="bg-white p-3 sm:p-4 rounded-lg shadow-md mb-5">
-        {weatherData ? (
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center gap-4">
-              <img src={weatherData.current.condition.icon} alt="Weather Icon" className="h-12 w-12 sm:h-16 sm:w-16" />
+        <div className="bg-white p-5 rounded-md shadow-sm border mb-8">
+          {weatherData ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="flex items-center gap-4">
+                <img src={weatherData.current.condition.icon} alt="Weather Icon" className="h-16 w-16" />
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900">
+                    {weatherData.location.name}, {weatherData.location.country}
+                  </h2>
+                  <p className="text-gray-800 text-base">Temperature: {weatherData.current.temp_c}°C</p>
+                  <p className="text-gray-600 text-sm">{weatherData.current.condition.text}</p>
+                </div>
+              </div>
               <div>
-                <h2 className="text-lg sm:text-2xl font-bold text-black">
-                  {weatherData.location.name}, {weatherData.location.country}
-                </h2>
-                <p className="text-sm sm:text-lg text-black font-medium">Temperature: {weatherData.current.temp_c}°C</p>
-                <p className="text-sm sm:text-lg text-black font-medium">{weatherData.current.condition.text}</p>
+                <h3 className="text-md font-semibold text-green-700 mb-2">{t("Suggestions")}</h3>
+                {generateSuggestions()?.map((suggestion, index) => (
+                  <p key={index} className="text-sm text-gray-700">• {suggestion}</p>
+                ))}
               </div>
             </div>
-            <div className="mt-2 sm:mt-0 sm:w-1/2">
-              <h3 className="text-sm sm:text-lg font-semibold text-black mb-2">{t("Suggestions")}</h3>
-              {generateSuggestions()?.map((suggestion, index) => (
-                <p key={index} className="text-xs sm:text-sm text-green-700">• {suggestion}</p>
-              ))}
-            </div>
-          </div>
-        ) : (
-          <p className="text-sm">{t("loading_weather")}</p>
-        )}
-      </div>
+          ) : (
+            <p className="text-sm text-gray-500">{t("loading_weather")}</p>
+          )}
+        </div>
 
-      {/* Dashboard Cards */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-        <Link to="/dashboard/weather" className="bg-white p-3 sm:p-4 rounded-lg shadow-md hover:bg-gray-100 transition flex flex-col justify-center text-center sm:text-left">
-          <CloudSun className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500 mb-2 mx-auto sm:mx-0" />
-          <h3 className="text-sm sm:text-base font-semibold">{t("weather_forecast")}</h3>
-          <p className="text-[11px] sm:text-sm text-gray-600">{t("weather_tip")}</p>
-        </Link>
-
-        <Link to="/dashboard/advisory" className="bg-white p-3 sm:p-4 rounded-lg shadow-md hover:bg-gray-100 transition flex flex-col justify-center text-center sm:text-left">
-          <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500 mb-2 mx-auto sm:mx-0" />
-          <h3 className="text-sm sm:text-base font-semibold">{t("advisory_schemes")}</h3>
-          <p className="text-[11px] sm:text-sm text-gray-600">{t("advisory_tip")}</p>
-        </Link>
-
-        <Link to="/dashboard/mycrop" className="bg-white p-3 sm:p-4 rounded-lg shadow-md hover:bg-gray-100 transition flex flex-col justify-center text-center sm:text-left">
-          <BarChart3 className="h-6 w-6 sm:h-8 sm:w-8 text-green-500 mb-2 mx-auto sm:mx-0" />
-          <h3 className="text-sm sm:text-base font-semibold">{t("market_prices")}</h3>
-          <p className="text-[11px] sm:text-sm text-gray-600">{t("price_tip")}</p>
-        </Link>
-
-        <Link to="/dashboard/voiceBot" className="bg-white p-3 sm:p-4 rounded-lg shadow-md hover:bg-gray-100 transition flex flex-col justify-center text-center sm:text-left">
-          <Leaf className="h-6 w-6 sm:h-8 sm:w-8 text-green-600 mb-2 mx-auto sm:mx-0" />
-          <h3 className="text-sm sm:text-base font-semibold">{t("crop_planner")}</h3>
-          <p className="text-[11px] sm:text-sm text-gray-600">{t("crop_tip")}</p>
-        </Link>
-
-        <Link to="/dashboard/farmeralerts" className="bg-white p-3 sm:p-4 rounded-lg shadow-md hover:bg-gray-100 transition flex flex-col justify-center text-center sm:text-left">
-          <Bell className="h-6 w-6 sm:h-8 sm:w-8 text-red-500 mb-2 mx-auto sm:mx-0" />
-          <h3 className="text-sm sm:text-base font-semibold">{t("farming_alerts")}</h3>
-          <p className="text-[11px] sm:text-sm text-gray-600">{t("alert_tip")}</p>
-        </Link>
-
-        <Link to="/dashboard/inventory" className="bg-white p-3 sm:p-4 rounded-lg shadow-md hover:bg-gray-100 transition flex flex-col justify-center text-center sm:text-left">
-          <ShoppingBag className="h-6 w-6 sm:h-8 sm:w-8 text-orange-500 mb-2 mx-auto sm:mx-0" />
-          <h3 className="text-sm sm:text-base font-semibold">{t("inventory_management")}</h3>
-          <p className="text-[11px] sm:text-sm text-gray-600">{t("inventory_tip")}</p>
-        </Link>
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          <Card to="/dashboard/weather" icon={<CloudSun className="text-yellow-500" />} title={t("weather_forecast")} subtitle={t("weather_tip")} />
+          <Card to="/dashboard/advisory" icon={<FileText className="text-blue-600" />} title={t("advisory_schemes")} subtitle={t("advisory_tip")} />
+          <Card to="/dashboard/mycrop" icon={<BarChart3 className="text-green-600" />} title={t("market_prices")} subtitle={t("price_tip")} />
+          <Card to="/dashboard/voiceBot" icon={<Leaf className="text-green-500" />} title={t("crop_planner")} subtitle={t("crop_tip")} />
+          <Card to="/dashboard/farmeralerts" icon={<Bell className="text-red-500" />} title={t("farming_alerts")} subtitle={t("alert_tip")} />
+          <Card to="/dashboard/inventory" icon={<ShoppingBag className="text-orange-500" />} title={t("inventory_management")} subtitle={t("inventory_tip")} />
+        </div>
       </div>
     </div>
+  );
+};
+
+const Card = ({ to, icon, title, subtitle }) => {
+  return (
+    <Link
+      to={to}
+      className="bg-white border border-gray-300 p-5 rounded-md shadow hover:shadow-md transition-all flex flex-col gap-3 text-center items-center hover:border-green-400"
+    >
+      <div className="w-12 h-12 flex items-center justify-center rounded-full bg-green-50">
+        {icon}
+      </div>
+      <h3 className="text-base font-semibold text-gray-900">{title}</h3>
+      <p className="text-sm text-gray-600 leading-snug">{subtitle}</p>
+    </Link>
   );
 };
 

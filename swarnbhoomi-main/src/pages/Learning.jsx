@@ -21,32 +21,36 @@ const Learning = () => {
   };
 
   return (
-    <div className="min-h-screen p-3 sm:p-6 bg-gray-50">
+    <div className="min-h-screen bg-gray-50 py-5 px-3 sm:px-8">
       <div className="max-w-7xl mx-auto">
-        
         {/* Header */}
-        <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+        <div className="flex items-center gap-2 mb-6 border-b pb-2 animate-fade-in">
           <BookOpen className="text-green-700 w-6 h-6 sm:w-7 sm:h-7" />
-          <h1 className="text-lg sm:text-2xl md:text-3xl font-bold text-gray-800">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
             Learning & Guidance Hub
           </h1>
         </div>
 
-        {/* Topic Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-          {topics.map((topic) => (
+        {/* Topics Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          {topics.map((topic, index) => (
             <div
               key={topic.id}
-              className="bg-white rounded-xl shadow hover:shadow-lg transition-transform hover:scale-[1.02] overflow-hidden cursor-pointer"
+              className="bg-white border border-gray-200 rounded-md hover:border-green-500 transition duration-300 ease-in-out transform hover:-translate-y-1 will-change-transform shadow-sm hover:shadow-md cursor-pointer"
               onClick={() => handleTopicClick(topic.id)}
+              style={{
+                animation: `fadeInUp 0.4s ease-out`,
+                animationDelay: `${index * 80}ms`,
+                animationFillMode: "forwards",
+              }}
             >
               <img
                 src={topic.image}
                 alt={topic.title}
                 className="w-full h-28 sm:h-36 object-cover"
               />
-              <div className="p-2 sm:p-4">
-                <h3 className="text-xs sm:text-base md:text-lg font-semibold text-center text-gray-800 leading-tight">
+              <div className="p-3">
+                <h3 className="text-xs sm:text-base font-semibold text-center text-gray-800 leading-snug">
                   {topic.title}
                 </h3>
               </div>
