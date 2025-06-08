@@ -1,45 +1,51 @@
-// src/pages/SchemesPage.jsx
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FileText, Banknote, ShieldCheck, Landmark, Leaf, Users, Droplet, Wrench } from "lucide-react";
+import {
+  FileText,
+  Banknote,
+  Leaf,
+  Users,
+  Droplet,
+  Wrench,
+} from "lucide-react";
 
 const schemeCategories = [
   {
-    title: "🌾 Agriculture Schemes",
+    title: "Agriculture Schemes",
     description: "Support for crop production, irrigation, and soil health.",
-    icon: <Leaf className="text-green-600 w-6 h-6" />,
-    link: "/schemes/category/agriculture"
+    icon: <Leaf className="w-10 h-10 text-green-600" />,
+    link: "/dashboard/schemes/agriculture",
   },
   {
-    title: "💧 Irrigation Schemes",
+    title: "Irrigation Schemes",
     description: "Schemes focused on water resource management and irrigation.",
-    icon: <Droplet className="text-blue-400 w-6 h-6" />,
-    link: "/schemes/category/irrigation"
+    icon: <Droplet className="w-10 h-10 text-blue-500" />,
+    link: "/dashboard/schemes/irrigation",
   },
   {
-    title: "🥕 Horticulture Schemes",
+    title: "Horticulture Schemes",
     description: "Schemes promoting fruits, vegetables, and flower farming.",
-    icon: <FileText className="text-orange-500 w-6 h-6" />,
-    link: "/schemes/category/horticulture"
+    icon: <FileText className="w-10 h-10 text-orange-500" />,
+    link: "/dashboard/schemes/horticulture",
   },
   {
-    title: "🔧 Agriculture Instruments",
-    description: "Subsidies and support for tools, machines, and modern equipment.",
-    icon: <Wrench className="text-gray-600 w-6 h-6" />,
-    link: "/schemes/category/instruments"
+    title: "Agriculture Instruments",
+    description: "Subsidies and support for tools and modern equipment.",
+    icon: <Wrench className="w-10 h-10 text-gray-600" />,
+    link: "/dashboard/schemes/machines",
   },
   {
-    title: "🐄 Allied Sector Schemes",
+    title: "Allied Sector Schemes",
     description: "Support for animal husbandry, fisheries, and poultry.",
-    icon: <Users className="text-blue-600 w-6 h-6" />,
-    link: "/schemes/category/allied"
+    icon: <Users className="w-10 h-10 text-blue-600" />,
+    link: "/dashboard/schemes/animal",
   },
   {
-    title: "📋 Other Schemes",
-    description: "General support, market reforms, and financial inclusion schemes.",
-    icon: <Banknote className="text-yellow-600 w-6 h-6" />,
-    link: "/schemes/category/others"
-  }
+    title: "Other Schemes",
+    description: "General support, reforms, and financial inclusion schemes.",
+    icon: <Banknote className="w-10 h-10 text-yellow-500" />,
+    link: "/dashboard/schemes/others",
+  },
 ];
 
 const SchemesPage = () => {
@@ -50,26 +56,25 @@ const SchemesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-6 py-10 md:px-12">
-      <h1 className="text-3xl md:text-4xl font-extrabold text-center text-green-800 mb-10">
-        🏛️ Government Schemes for Farmers
+    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6">
+      <h1 className="text-3xl font-bold text-center text-green-800 mb-10">
+        🏩 Government Schemes for Farmers
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
         {schemeCategories.map((category, idx) => (
           <div
             key={idx}
-            className="bg-white border border-gray-200 shadow-md rounded-xl p-6 hover:shadow-lg transition cursor-pointer"
             onClick={() => handleCardClick(category.link)}
+            className="bg-white border border-gray-200 shadow-sm hover:shadow-lg transition p-4 sm:p-6 cursor-pointer text-center"
           >
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2 text-lg font-semibold text-gray-800">
-                {category.icon}
-                {category.title}
-              </div>
-              <span className="text-sm text-gray-500">➔</span>
+            <div className="flex justify-center mb-4">
+              {category.icon}
             </div>
-            <p className="text-sm text-gray-600">{category.description}</p>
+            <h2 className="text-sm sm:text-base font-semibold text-gray-800 mb-2">
+              {category.title}
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-600">{category.description}</p>
           </div>
         ))}
       </div>
