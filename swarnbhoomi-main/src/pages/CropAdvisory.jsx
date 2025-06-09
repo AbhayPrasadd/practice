@@ -76,7 +76,6 @@ const CropAdvisory = () => {
   const processAdvisory = (text) => {
     if (!text) return;
 
-    // Remove * and split lines
     const cleanText = text.replace(/\*/g, "").trim();
     const lines = cleanText.split("\n").map(line => line.trim()).filter(Boolean);
 
@@ -87,7 +86,7 @@ const CropAdvisory = () => {
     const generalLines = lines.filter(line => !actionLines.includes(line));
 
     const createList = (items) =>
-      `<ul class="list-disc ml-5 space-y-1">${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
+      `<ul class="list-disc pl-6 space-y-1 text-gray-800">${items.map(item => `<li>${item}</li>`).join("")}</ul>`;
 
     setAdvisory({
       generalText: generalLines.length > 0
@@ -100,72 +99,42 @@ const CropAdvisory = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gray-100 flex items-center justify-center p-6">
-      <div className="w-full max-w-6xl bg-white p-8 rounded-lg shadow-lg border">
-        <h2 className="text-4xl font-bold text-green-700 mb-8 text-center">
+    <div className="min-h-screen bg-gradient-to-br from-green-100 to-white flex items-center justify-center px-4 py-10">
+      <div className="w-full max-w-6xl bg-white p-6 sm:p-10 rounded-3xl shadow-xl border border-green-200">
+        <h2 className="text-3xl sm:text-4xl font-bold text-green-800 mb-10 text-center">
           🌾 Crop Advisory System
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-          <select
-            value={selectedState}
-            onChange={(e) => {
-              setSelectedState(e.target.value);
-              setLocation("");
-            }}
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-green-500"
-          >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+          <select value={selectedState} onChange={(e) => { setSelectedState(e.target.value); setLocation(""); }} className="p-3 border rounded-xl focus:ring-2 focus:ring-green-500">
             <option value="">🏞️ Select State</option>
             {Object.keys(stateDistrictMap).map((state) => (
               <option key={state} value={state}>{state}</option>
             ))}
           </select>
 
-          <select
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            disabled={!selectedState}
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-green-500"
-          >
+          <select value={location} onChange={(e) => setLocation(e.target.value)} disabled={!selectedState} className="p-3 border rounded-xl focus:ring-2 focus:ring-green-500">
             <option value="">📍 Select District</option>
-            {selectedState &&
-              stateDistrictMap[selectedState].map((district) => (
-                <option key={district} value={district}>{district}</option>
-              ))}
+            {selectedState && stateDistrictMap[selectedState].map((district) => (
+              <option key={district} value={district}>{district}</option>
+            ))}
           </select>
 
-          <select
-            value={cropType}
-            onChange={(e) => {
-              setCropType(e.target.value);
-              setCropName("");
-            }}
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-green-500"
-          >
+          <select value={cropType} onChange={(e) => { setCropType(e.target.value); setCropName(""); }} className="p-3 border rounded-xl focus:ring-2 focus:ring-green-500">
             <option value="">🌱 Crop Type</option>
             {Object.keys(crops).map((type) => (
               <option key={type} value={type}>{type}</option>
             ))}
           </select>
 
-          <select
-            value={cropName}
-            onChange={(e) => setCropName(e.target.value)}
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-green-500"
-            disabled={!cropType}
-          >
+          <select value={cropName} onChange={(e) => setCropName(e.target.value)} className="p-3 border rounded-xl focus:ring-2 focus:ring-green-500" disabled={!cropType}>
             <option value="">🌾 Crop Name</option>
-            {cropType &&
-              crops[cropType].map((crop) => (
-                <option key={crop} value={crop}>{crop}</option>
-              ))}
+            {cropType && crops[cropType].map((crop) => (
+              <option key={crop} value={crop}>{crop}</option>
+            ))}
           </select>
 
-          <select
-            value={activity}
-            onChange={(e) => setActivity(e.target.value)}
-            className="p-3 border rounded-lg focus:ring-2 focus:ring-green-500"
-          >
+          <select value={activity} onChange={(e) => setActivity(e.target.value)} className="p-3 border rounded-xl focus:ring-2 focus:ring-green-500">
             <option value="">🚜 Activity</option>
             <option value="Sowing">Sowing</option>
             <option value="Harvesting">Harvesting</option>
@@ -173,31 +142,28 @@ const CropAdvisory = () => {
           </select>
         </div>
 
-        <div className="text-center">
-          <button
-            onClick={fetchAdvisory}
-            className="px-6 py-3 bg-green-600 text-white text-lg rounded-lg hover:bg-green-700 transition"
-          >
+        <div className="text-center mb-6">
+          <button onClick={fetchAdvisory} className="px-6 py-3 bg-green-600 text-white text-lg rounded-xl hover:bg-green-700 transition-all duration-200">
             🔍 Get Advisory
           </button>
         </div>
 
         {loading && (
-          <p className="mt-6 animate-pulse text-green-600 text-center text-lg">⏳ Fetching advisory...</p>
+          <p className="mt-4 animate-pulse text-green-700 text-center text-lg">⏳ Fetching advisory...</p>
         )}
         {error && (
           <p className="text-red-600 mt-4 text-center text-lg">{error}</p>
         )}
 
         {advisory && (
-          <div className="mt-8 grid md:grid-cols-2 gap-6 text-lg">
-            <div className="bg-yellow-100 border-l-4 border-yellow-500 p-5 rounded-lg">
-              <h3 className="font-semibold text-2xl mb-2">📢 General Advisory</h3>
+          <div className="mt-10 grid md:grid-cols-2 gap-8 text-base">
+            <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-xl">
+              <h3 className="font-semibold text-2xl mb-4 text-yellow-700">📢 General Advisory</h3>
               <div dangerouslySetInnerHTML={{ __html: advisory.generalText }}></div>
             </div>
 
-            <div className="bg-green-100 border-l-4 border-green-500 p-5 rounded-lg text-green-800">
-              <h3 className="font-semibold text-2xl mb-2">🚜 Farmer Actions</h3>
+            <div className="bg-green-50 border-l-4 border-green-500 p-6 rounded-xl">
+              <h3 className="font-semibold text-2xl mb-4 text-green-800">🚜 Farmer Actions</h3>
               <div dangerouslySetInnerHTML={{ __html: advisory.actionText }}></div>
             </div>
           </div>

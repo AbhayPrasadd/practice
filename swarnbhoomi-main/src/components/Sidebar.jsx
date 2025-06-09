@@ -12,6 +12,11 @@ import {
   UserCheck,
   X,
   User,
+  AlertCircle,
+  Landmark,
+  Package,
+  Trash2,
+  FlaskConical,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -31,18 +36,16 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       { name: t("Schemes"), path: "/dashboard/schemes", icon: <ClipboardList size={20} /> },
       { name: t("Learning"), path: "/dashboard/learning", icon: <BookOpen size={20} /> },
       { name: t("Community"), path: "/dashboard/community", icon: <MessageSquare size={20} /> },
-       { name: t("Mandi Price"), path: "/dashboard/mandiPriceFetcher", icon: <MessageSquare size={20} /> },
-        { name: t("Commodity "), path: "/dashboard/commoditySelection", icon: <MessageSquare size={20} /> },
-        { name: t("Waste "), path: "/dashboard/waste", icon: <MessageSquare size={20} /> },
-        { name: t("Test "), path: "/dashboard/test", icon: <MessageSquare size={20} /> },
-     
+      { name: t("Mandi Price"), path: "/dashboard/mandiPriceFetcher", icon: <Landmark size={20} /> },
+      { name: t("Commodity"), path: "/dashboard/commoditySelection", icon: <Package size={20} /> },
+      { name: t("Waste"), path: "/dashboard/waste", icon: <Trash2 size={20} /> },
+      { name: t("Test"), path: "/dashboard/test", icon: <FlaskConical size={20} /> },
     ],
     [t]
   );
 
   return (
     <div className="bg-green-900 text-white h-full w-64 p-4 pt-20 md:pt-24 relative">
-
       {/* Logo and Close button (mobile only) */}
       <div className="md:hidden absolute top-4 left-4 right-4 flex justify-between items-center">
         <img src="/logo-preview.png" alt="Logo" className="h-9 w-auto" />
@@ -52,12 +55,12 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       </div>
 
       {/* Navigation Links */}
-      <nav className="space-y-1">
+      <nav className="space-y-1 mt-4">
         {menuItems.map((item) => (
           <Link
             key={item.path}
             to={item.path}
-            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm md:text-lg font-medium transition-all ${
+            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm md:text-base font-medium transition-all ${
               location.pathname === item.path
                 ? "bg-green-700 text-white"
                 : "hover:bg-green-800 text-white/90"

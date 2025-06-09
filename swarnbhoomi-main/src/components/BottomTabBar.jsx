@@ -1,4 +1,4 @@
-import { Home, Leaf, PlusCircle, User } from "lucide-react";
+import { Home, Leaf, PlusCircle, User, MessageSquare } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 const BottomTabBar = ({ isSidebarOpen }) => {
@@ -23,10 +23,16 @@ const BottomTabBar = ({ isSidebarOpen }) => {
             <span className="text-xs">Advisory</span>
           </div>
         </Link>
-        <Link to="/dashboard/extra">
+        <Link to="/dashboard/community">
+          <div className="flex flex-col items-center scale-125">
+            <PlusCircle size={28} className="text-yellow-300" />
+            <span className="text-xs">Ask</span>
+          </div>
+        </Link>
+        <Link to="/dashboard/alerts">
           <div className="flex flex-col items-center">
-            <PlusCircle size={20} className={location.pathname === "/dashboard/extra" ? "text-yellow-300" : "text-white"} />
-            <span className="text-xs">Extra</span>
+            <MessageSquare size={20} className={location.pathname === "/dashboard/alerts" ? "text-yellow-300" : "text-white"} />
+            <span className="text-xs">Alerts</span>
           </div>
         </Link>
         <Link to="/dashboard/profile">
