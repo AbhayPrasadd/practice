@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   Home,
   BookOpen,
-  Leaf,
   Users,
   ShoppingCart,
   MessageSquare,
@@ -12,8 +11,6 @@ import {
   UserCheck,
   X,
   User,
-  AlertCircle,
-  Landmark,
   Package,
   Trash2,
   FlaskConical,
@@ -45,11 +42,12 @@ const Sidebar = ({ setIsSidebarOpen }) => {
 
   return (
     <div className="bg-green-900 text-white h-full w-64 p-4 pt-20 md:pt-24 relative">
+
       {/* Logo and Close button (mobile only) */}
-      <div className="md:hidden absolute top-4 left-4 right-4 flex justify-between items-center">
-        <img src="/logo-preview.png" alt="Logo" className="h-9 w-auto" />
+      <div className="md:hidden absolute top-2 left-4 right-2 flex justify-between items-center">
+        <img src="/swarnbhoomi-logo.png" alt="SwLogo" className="h-18 w-auto" />
         <button onClick={() => setIsSidebarOpen(false)} className="text-white">
-          <X size={24} />
+          <X size={22} />
         </button>
       </div>
 

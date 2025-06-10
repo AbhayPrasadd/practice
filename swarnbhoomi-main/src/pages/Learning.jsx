@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { BookOpen } from "lucide-react";
 
 const topics = [
-  { id: 1, title: "How to Join an FPO", image: "/fpo.jpg" },
-  { id: 2, title: "Best Farming Practices", image: "/farming.jpeg" },
-  { id: 3, title: "Government Schemes & Subsidies", image: "/schemes.jpeg" },
-  { id: 4, title: "Market Trends & Crop Pricing", image: "/cp.png" },
-  { id: 5, title: "AI-Based Farming Techniques", image: "/ai_farming.png" },
-  { id: 6, title: "Organic Farming Essentials", image: "/organic.jpeg" },
-  { id: 7, title: "Soil Health Management", image: "/soil.png" },
-  { id: 8, title: "Efficient Water Use & Irrigation", image: "/irrigation.jpg" },
+  { id: 1, title: "How to Join an FPO", image: "/learningPage/fpo.jpg" },
+  { id: 2, title: "Best Farming Practices", image: "/learningPage/farming.jpeg" },
+  { id: 3, title: "Government Schemes & Subsidies", image: "/learningPage/schemes.jpeg" },
+  { id: 4, title: "Market Trends & Crop Pricing", image: "/learningPage/cp.png" },
+  { id: 5, title: "AI-Based Farming Techniques", image: "/learningPage/ai_farming.png" },
+  { id: 6, title: "Organic Farming Essentials", image: "/learningPage/organic.jpeg" },
+  { id: 7, title: "Soil Health Management", image: "/learningPage/soil.png" },
+  { id: 8, title: "Efficient Water Use & Irrigation", image: "/learningPage/irrigation.jpg" },
 ];
 
 const Learning = () => {

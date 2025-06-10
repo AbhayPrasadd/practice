@@ -89,7 +89,7 @@ const saveTokenToFirestore = async (token) => {
             >
               <Menu className="h-6 w-6" />
             </button>
-            <img src="/logo-preview.png" alt="Logo" className="h-8 w-auto hidden sm:block" />
+            <img src="/swarnbhoomi-logo.png" alt="Logo" className="h-16 w-auto hidden sm:block" />
           </div>
 
           {/* Right: Bell + Avatar */}

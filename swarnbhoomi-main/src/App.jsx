@@ -11,17 +11,17 @@ import AuthPage from "./pages/AuthPage";
 import Registration from "./pages/Registration";
 
 // Dashboard Pages
-import Profile from "./pages/Profile";
-import Advisory from  "./pages/Advisory";
+import Profile from "./pages/ProfilePage";
+import Advisory from  "./pages/AdvisoryPage";
 import Dashboard from "./pages/Dashboard";
-import Market from "./pages/Market";
+import Market from "./pages/AgroRentPage";
 import CropAdvisory from "./pages/CropAdvisory";
-import Community from "./pages/Community";
+import Community from "./pages/CommunityPage";
 import MyCrop from "./pages/MyCrop";
 import VoiceBot from "./pages/VoiceBot";
 import CommodityPrices from "./pages/CommodityPrices";
 import Waste from "./pages/Waste";
-import FPO from "./pages/FPO";
+import FPO from "./pages/FpoPage";
 import Inventory from "./pages/Inventory";
 import Learning from "./pages/Learning";
 import TopicDetail from "./pages/TopicDetail";
@@ -29,9 +29,10 @@ import MandiPriceFetcher from "./pages/MandiPriceFetcher";
 import Test from "./pages/Test";
 import CommoditySelection from "./pages/CommoditySelection";
 import Ndvi from "./pages/Ndvi";
+import Weather from "./pages/Weather";
 
 // Schemes Section
-import SchemesPage from "./pages/Schemes";
+import SchemesPage from "./pages/SchemesPage";
 import SchemesLayout from "./pages/SchemesLayout";
 import Agriculture from "./pages/schemes/Agriculture";
 import Irrigation from "./pages/schemes/Irrigation";
@@ -94,6 +95,7 @@ const App = () => {
           <Route path="fpo" element={<FPO />} />
           <Route path="profile" element={<Profile />} />
           <Route path="Ndvi" element={<Ndvi />} />
+            <Route path="weather" element={<Weather />} />
 
 
           {/* Learning Section */}
