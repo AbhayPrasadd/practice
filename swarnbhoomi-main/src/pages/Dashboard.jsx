@@ -117,7 +117,7 @@ const Dashboard = () => {
           <Card to="/dashboard/advisory" icon={<FileText className="text-blue-600" />} title={t("advisory_schemes")} subtitle={t("advisory_tip")} />
           <Card to="/dashboard/mycrop" icon={<BarChart3 className="text-green-600" />} title={t("market_prices")} subtitle={t("price_tip")} />
           <Card to="/dashboard/voiceBot" icon={<Leaf className="text-green-500" />} title={t("crop_planner")} subtitle={t("crop_tip")} />
-          <Card to="/dashboard/farmeralerts" icon={<Bell className="text-red-500" />} title={t("farming_alerts")} subtitle={t("alert_tip")} />
+          <Card to="/dashboard/Ndvi" icon={<Bell className="text-red-500" />} title={t("farming_alerts")} subtitle={t("alert_tip")} />
           <Card to="/dashboard/inventory" icon={<ShoppingBag className="text-orange-500" />} title={t("inventory_management")} subtitle={t("inventory_tip")} />
         </div>
       </div>

@@ -11,6 +11,7 @@ import AuthPage from "./pages/AuthPage";
 import Registration from "./pages/Registration";
 
 // Dashboard Pages
+import Advisory from  "./pages/Advisory";
 import Dashboard from "./pages/Dashboard";
 import Market from "./pages/Market";
 import SoilType from "./pages/SoilType";
@@ -31,6 +32,7 @@ import TopicDetail from "./pages/TopicDetail";
 import MandiPriceFetcher from "./pages/MandiPriceFetcher";
 import Test from "./pages/Test";
 import CommoditySelection from "./pages/CommoditySelection";
+import Ndvi from "./pages/Ndvi";
 
 // Schemes Section
 import SchemesPage from "./pages/Schemes";
@@ -80,11 +82,12 @@ const App = () => {
           <Route index element={<Dashboard />} />
 
           {/* Feature Routes */}
+          <Route path="advisory" element={<Advisory />} />
           <Route path="market-prices" element={<MarketPrices />} />
           <Route path="soiltype" element={<SoilType />} />
           <Route path="cropdoctor" element={<ImageAnalyzer />} />
           <Route path="market" element={<Market />} />
-          <Route path="advisory" element={<CropAdvisory />} />
+          <Route path="cropAdvisory" element={<CropAdvisory />} />
           <Route path="community" element={<Community />} />
           <Route path="mycrop" element={<MyCrop />} />
           <Route path="soiladvisory" element={<SoilAdvisory />} />
@@ -95,6 +98,8 @@ const App = () => {
           <Route path="inventory" element={<Inventory />} />
           <Route path="fpo" element={<FPO />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="Ndvi" element={<Ndvi />} />
+
 
           {/* Learning Section */}
           <Route path="learning" element={<Learning />} />

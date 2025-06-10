@@ -28,7 +28,8 @@ const Sidebar = ({ setIsSidebarOpen }) => {
     () => [
       { name: t("Profile"), path: "/dashboard/profile", icon: <User size={20} /> },
       { name: t("Dashboard"), path: "/dashboard", icon: <Home size={20} /> },
-      { name: t("Advisory"), path: "/dashboard/advisory", icon: <UserCheck size={20} /> },
+       { name: t("Advisory"), path: "/dashboard/advisory", icon: <UserCheck size={20} /> },
+      { name: t("Crop Advisory"), path: "/dashboard/cropAdvisory", icon: <UserCheck size={20} /> },
       { name: t("Soil Health"), path: "/dashboard/soiladvisory", icon: <Leaf size={20} /> },
       { name: t("Fpo"), path: "/dashboard/fpo", icon: <Users size={20} /> },
       { name: t("Mandi Rates"), path: "/dashboard/market-prices", icon: <BadgeIndianRupee size={20} /> },
