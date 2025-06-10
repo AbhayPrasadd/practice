@@ -11,12 +11,10 @@ import AuthPage from "./pages/AuthPage";
 import Registration from "./pages/Registration";
 
 // Dashboard Pages
+import Profile from "./pages/Profile";
 import Advisory from  "./pages/Advisory";
 import Dashboard from "./pages/Dashboard";
 import Market from "./pages/Market";
-import SoilType from "./pages/SoilType";
-import ImageAnalyzer from "./pages/CropDoctor";
-import MarketPrices from "./pages/MarketPrices";
 import CropAdvisory from "./pages/CropAdvisory";
 import Community from "./pages/Community";
 import MyCrop from "./pages/MyCrop";
@@ -25,8 +23,6 @@ import CommodityPrices from "./pages/CommodityPrices";
 import Waste from "./pages/Waste";
 import FPO from "./pages/FPO";
 import Inventory from "./pages/Inventory";
-import SoilAdvisory from "./pages/SoilAdvisory";
-import Profile from "./pages/Profile";
 import Learning from "./pages/Learning";
 import TopicDetail from "./pages/TopicDetail";
 import MandiPriceFetcher from "./pages/MandiPriceFetcher";
@@ -83,14 +79,13 @@ const App = () => {
 
           {/* Feature Routes */}
           <Route path="advisory" element={<Advisory />} />
-          <Route path="market-prices" element={<MarketPrices />} />
-          <Route path="soiltype" element={<SoilType />} />
-          <Route path="cropdoctor" element={<ImageAnalyzer />} />
+         
+         
+          
           <Route path="market" element={<Market />} />
           <Route path="cropAdvisory" element={<CropAdvisory />} />
           <Route path="community" element={<Community />} />
           <Route path="mycrop" element={<MyCrop />} />
-          <Route path="soiladvisory" element={<SoilAdvisory />} />
           <Route path="mandiPriceFetcher" element={<MandiPriceFetcher />} />
           <Route path="voiceBot" element={<VoiceBot />} />
           <Route path="waste" element={<Waste />} />
@@ -119,7 +114,6 @@ const App = () => {
             <Route path="animal" element={<Animal />} />
             <Route path="others" element={<Others />} />
           </Route>
-
         </Route>
       </Routes>
     </Router>
