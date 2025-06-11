@@ -9,6 +9,10 @@ import {
   Bell,
   FileText,
   ShoppingBag,
+  AlertTriangle,
+  SatelliteDish,
+  Bot,
+  ArrowRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import "@fontsource/poppins/400.css";
@@ -78,30 +82,43 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="px-4 py-6 sm:px-8 bg-gradient-to-br  min-h-screen font-poppins text-gray-800">
+    <div className="px-4 py-6 sm:px-8 bg-gradient-to-br min-h-screen font-poppins text-gray-800">
       <div className="max-w-6xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-green-800">
             {t("welcome")}, {userData?.fullName || t("farmer")} 👋
           </h1>
-          <p className="text-base text-gray-700">{userData?.district}, {userData?.state}</p>
+          <p className="text-base text-gray-700">
+            {userData?.district}, {userData?.state}
+          </p>
         </div>
 
-        <div className="bg-white p-5 rounded-md shadow-sm border mb-8">
+        {/* Top Weather Bar */}
+        <div className="bg-white p-5 rounded-md shadow-sm border mb-8 relative">
           {weatherData ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="flex items-center gap-4">
-                <img src={weatherData.current.condition.icon} alt="Weather Icon" className="h-16 w-16" />
+                <img
+                  src={weatherData.current.condition.icon}
+                  alt="Weather Icon"
+                  className="h-16 w-16"
+                />
                 <div>
                   <h2 className="text-xl font-bold text-gray-900">
                     {weatherData.location.name}, {weatherData.location.country}
                   </h2>
-                  <p className="text-gray-800 text-base">Temperature: {weatherData.current.temp_c}°C</p>
-                  <p className="text-gray-600 text-sm">{weatherData.current.condition.text}</p>
+                  <p className="text-gray-800 text-base">
+                    Temperature: {weatherData.current.temp_c}°C
+                  </p>
+                  <p className="text-gray-600 text-sm">
+                    {weatherData.current.condition.text}
+                  </p>
                 </div>
               </div>
               <div>
-                <h3 className="text-md font-semibold text-green-700 mb-2">{t("Suggestions")}</h3>
+                <h3 className="text-md font-semibold text-green-700 mb-2">
+                  {t("Suggestions")}
+                </h3>
                 {generateSuggestions()?.map((suggestion, index) => (
                   <p key={index} className="text-sm text-gray-700">• {suggestion}</p>
                 ))}
@@ -110,15 +127,49 @@ const Dashboard = () => {
           ) : (
             <p className="text-sm text-gray-500">{t("loading_weather")}</p>
           )}
+          <Link to="/dashboard/weather" className="absolute top-5 right-5 text-green-700 hover:underline flex items-center gap-1 font-medium text-sm">
+            {t("See full forecast")} <ArrowRight size={16} />
+          </Link>
         </div>
 
+        {/* Cards Section */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          <Card to="/dashboard/weather" icon={<CloudSun className="text-yellow-500" />} title={t("weather_forecast")} subtitle={t("weather_tip")} />
-          <Card to="/dashboard/advisory" icon={<FileText className="text-blue-600" />} title={t("advisory_schemes")} subtitle={t("advisory_tip")} />
-          <Card to="/dashboard/mycrop" icon={<BarChart3 className="text-green-600" />} title={t("market_prices")} subtitle={t("price_tip")} />
-          <Card to="/dashboard/voiceBot" icon={<Leaf className="text-green-500" />} title={t("crop_planner")} subtitle={t("crop_tip")} />
-          <Card to="/dashboard/Ndvi" icon={<Bell className="text-red-500" />} title={t("farming_alerts")} subtitle={t("alert_tip")} />
-          <Card to="/dashboard/inventory" icon={<ShoppingBag className="text-orange-500" />} title={t("inventory_management")} subtitle={t("inventory_tip")} />
+          <Card
+            to="/dashboard/voiceBot"
+            icon={<Bot className="text-green-500" />}
+            title="VoiceBot Assistant"
+            subtitle="Get advice using voice-based assistant."
+          />
+          <Card
+            to="/dashboard/Ndvi"
+            icon={<SatelliteDish className="text-blue-500" />}
+            title="NDVI Trend"
+            subtitle="Check crop health using NDVI trends."
+          />
+          <Card
+            to="/dashboard/mycrop"
+            icon={<BarChart3 className="text-yellow-500" />}
+            title="Market Prices"
+            subtitle="Track current mandi prices."
+          />
+          <Card
+            to="/dashboard/schemes"
+            icon={<FileText className="text-indigo-600" />}
+            title="Govt. Services"
+            subtitle="View schemes & services for farmers."
+          />
+          <Card
+            to="/dashboard/advisoryPage"
+            icon={<AlertTriangle className="text-red-500" />}
+            title="Farming Alerts"
+            subtitle="Stay alert with weather-based warnings."
+          />
+          <Card
+            to="/dashboard/cropPlanner"
+            icon={<Leaf className="text-green-700" />}
+            title="Crop Planner"
+            subtitle="Plan crop cycles based on forecast."
+          />
         </div>
       </div>
     </div>

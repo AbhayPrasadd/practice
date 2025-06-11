@@ -14,7 +14,7 @@ import Registration from "./pages/Registration";
 import Profile from "./pages/ProfilePage";
 import Advisory from  "./pages/AdvisoryPage";
 import Dashboard from "./pages/Dashboard";
-import Market from "./pages/AgroRentPage";
+import AgroRent from "./pages/AgroRentPage";
 import CropAdvisory from "./pages/CropAdvisory";
 import Community from "./pages/CommunityPage";
 import MyCrop from "./pages/MyCrop";
@@ -77,29 +77,30 @@ const App = () => {
         >
           {/* Main Dashboard */}
           <Route index element={<Dashboard />} />
+       
+             {/* Dashboard Utility*/}
+
+
 
           {/* Feature Routes */}
-          <Route path="advisory" element={<Advisory />} />
-         
-         
-          
-          <Route path="market" element={<Market />} />
+          <Route path="advisoryPage" element={<Advisory />} />
           <Route path="cropAdvisory" element={<CropAdvisory />} />
-          <Route path="community" element={<Community />} />
+          <Route path="communityPage" element={<Community />} />
           <Route path="mycrop" element={<MyCrop />} />
           <Route path="mandiPriceFetcher" element={<MandiPriceFetcher />} />
           <Route path="voiceBot" element={<VoiceBot />} />
           <Route path="waste" element={<Waste />} />
           <Route path="test" element={<Test />} />
           <Route path="inventory" element={<Inventory />} />
-          <Route path="fpo" element={<FPO />} />
-          <Route path="profile" element={<Profile />} />
+          <Route path="fpoPage" element={<FPO />} />
+          <Route path="profilePage" element={<Profile />} />
           <Route path="Ndvi" element={<Ndvi />} />
-            <Route path="weather" element={<Weather />} />
+          <Route path="weather" element={<Weather />} />
+          <Route path="agroRent" element={<AgroRent />} />
 
 
           {/* Learning Section */}
-          <Route path="learning" element={<Learning />} />
+          <Route path="learningPage" element={<Learning />} />
           <Route path="learning/:id" element={<TopicDetail />} />
 
           {/* Commodity Pricing */}

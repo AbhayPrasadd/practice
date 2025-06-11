@@ -28,7 +28,7 @@ const uploadToCloudinary = async (file) => {
   }
 };
 
-const MachineryList = () => {
+const AgroRent = () => {
   const [machinery, setMachinery] = useState([]);
   const [loading, setLoading] = useState(true);
   const [addLoading, setAddLoading] = useState(false);
@@ -306,4 +306,4 @@ const MachineryList = () => {
   );
 };
 
-export default MachineryList;
+export default AgroRent;

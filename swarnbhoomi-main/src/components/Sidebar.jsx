@@ -10,7 +10,6 @@ import {
   ClipboardList,
   UserCheck,
   X,
-  User,
   Package,
   Trash2,
   FlaskConical,
@@ -23,15 +22,15 @@ const Sidebar = ({ setIsSidebarOpen }) => {
 
   const menuItems = useMemo(
     () => [
-      { name: t("Profile"), path: "/dashboard/profile", icon: <User size={20} /> },
+     
       { name: t("Dashboard"), path: "/dashboard", icon: <Home size={20} /> },
-       { name: t("Advisory"), path: "/dashboard/advisory", icon: <UserCheck size={20} /> },
+       { name: t("Advisory"), path: "/dashboard/advisoryPage", icon: <UserCheck size={20} /> },
       { name: t("Crop Advisory"), path: "/dashboard/cropAdvisory", icon: <UserCheck size={20} /> },
-      { name: t("Fpo"), path: "/dashboard/fpo", icon: <Users size={20} /> },
-      { name: t("Agri-Rent"), path: "/dashboard/market", icon: <ShoppingCart size={20} /> },
+      { name: t("Fpo"), path: "/dashboard/fpoPage", icon: <Users size={20} /> },
+      { name: t("Agro-Rent"), path: "/dashboard/agroRent", icon: <ShoppingCart size={20} /> },
       { name: t("Schemes"), path: "/dashboard/schemes", icon: <ClipboardList size={20} /> },
-      { name: t("Learning"), path: "/dashboard/learning", icon: <BookOpen size={20} /> },
-      { name: t("Community"), path: "/dashboard/community", icon: <MessageSquare size={20} /> },
+      { name: t("Learning"), path: "/dashboard/learningPage", icon: <BookOpen size={20} /> },
+      { name: t("Community"), path: "/dashboard/communityPage", icon: <MessageSquare size={20} /> },
       { name: t("Mandi Price"), path: "/dashboard/mandiPriceFetcher", icon: <BadgeIndianRupee size={20} /> },
       { name: t("Commodity"), path: "/dashboard/commoditySelection", icon: <Package size={20} /> },
       { name: t("Waste"), path: "/dashboard/waste", icon: <Trash2 size={20} /> },

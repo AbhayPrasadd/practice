@@ -150,7 +150,7 @@ const saveTokenToFirestore = async (token) => {
                     <li
                       className="px-4 py-2 hover:bg-gray-100 flex items-center gap-2 cursor-pointer"
                       onClick={() => {
-                        navigate("/dashboard/profile");
+                        navigate("/dashboard/profilePage");
                         setAvatarOpen(false);
                       }}
                     >
