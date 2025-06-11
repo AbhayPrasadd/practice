@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Menu, Bell, LogOut, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../firebase";
-import { setupFCM, listenToForegroundMessages } from "../utils/fcmService";
 import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = ({ setIsSidebarOpen }) => {
@@ -12,20 +10,6 @@ const Navbar = ({ setIsSidebarOpen }) => {
   const [notifications, setNotifications] = useState([]);
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
-
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/firebase-messaging-sw.js")
-        .then(() => {
-          setupFCM();
-        })
-        .catch(console.error);
-    }
-
-    const unsubscribe = listenToForegroundMessages(setNotifications);
-    return () => unsubscribe();
-  }, []);
 
   return (
     <>

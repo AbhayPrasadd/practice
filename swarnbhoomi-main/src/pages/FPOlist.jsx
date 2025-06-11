@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 
 const FpoListing = () => {
-  const fpoData = [
-    { id: 1, name: "Green Agri FPO", state: "Odisha", district: "Bhubaneswar", services: ["Seeds", "Fertilizers", "Machinery"], contact: "+91 9876543210" },
-    { id: 2, name: "Organic Farmers Co-op", state: "Odisha", district: "Cuttack", services: ["Organic Farming Training", "Market Linkage"], contact: "+91 9123456789" },
-    { id: 3, name: "Smart Agro FPO", state: "Maharashtra", district: "Pune", services: ["Seeds", "Fertilizers"], contact: "+91 9001234567" },
-    { id: 4, name: "AgriTech Farmers Hub", state: "Punjab", district: "Ludhiana", services: ["Pesticides", "Machinery"], contact: "+91 9876012345" },
-    { id: 5, name: "Harvest Growers", state: "Gujarat", district: "Ahmedabad", services: ["Fertilizers", "Market Linkage"], contact: "+91 7889456123" },
-    { id: 6, name: "EcoFarmers Network", state: "Karnataka", district: "Bangalore", services: ["Organic Farming", "Seeds"], contact: "+91 8765012398" },
-    { id: 7, name: "AgroBoost Cooperative", state: "Tamil Nadu", district: "Chennai", services: ["Training", "Machinery", "Seeds"], contact: "+91 9012345678" }
-  ];
+const fpoData = [
+  { id: 1, name: "Green Agri FPO", state: "Odisha", district: "Bhubaneswar", services: ["Seeds", "Fertilizers", "Machinery"], contact: "+91 9876543210" },
+  { id: 2, name: "Organic Farmers Co-op", state: "Odisha", district: "Cuttack", services: ["Organic Farming Training", "Market Linkage"], contact: "+91 9123456789" },
+  { id: 3, name: "Smart Agro FPO", state: "Maharashtra", district: "Pune", services: ["Seeds", "Fertilizers"], contact: "+91 9001234567" },
+  { id: 4, name: "AgriTech Farmers Hub", state: "Punjab", district: "Ludhiana", services: ["Pesticides", "Machinery"], contact: "+91 9876012345" },
+  { id: 5, name: "Harvest Growers", state: "Gujarat", district: "Ahmedabad", services: ["Fertilizers", "Market Linkage"], contact: "+91 7889456123" },
+  { id: 6, name: "EcoFarmers Network", state: "Karnataka", district: "Bangalore", services: ["Organic Farming", "Seeds"], contact: "+91 8765012398" },
+  { id: 7, name: "AgroBoost Cooperative", state: "Tamil Nadu", district: "Chennai", services: ["Training", "Machinery", "Seeds"], contact: "+91 9012345678" },
+  { id: 8, name: "Krishi Mitra FPO", state: "Rajasthan", district: "Jaipur", services: ["Soil Testing", "Fertilizers"], contact: "+91 9823456780" },
+  { id: 9, name: "Bharat Agri Collective", state: "Madhya Pradesh", district: "Indore", services: ["Machinery", "Market Linkage", "Training"], contact: "+91 9812345678" }
+];
+
 
   const [selectedState, setSelectedState] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");

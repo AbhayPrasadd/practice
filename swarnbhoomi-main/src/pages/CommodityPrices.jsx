@@ -32,7 +32,7 @@ const CommodityPrices = () => {
     setLoading(true);
     setData([]);
     axios
-      .get("http://localhost:3000/mandi-prices", { params: { commodity: name } })
+      .get("https://swarnabhumi-backend.onrender.com/api/mandi-prices", { params: { commodity: name } })
       .then((res) => setData(res.data))
       .catch((err) => console.error("Refresh failed:", err))
       .finally(() => setLoading(false));

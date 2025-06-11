@@ -135,27 +135,27 @@ const AgroRent = () => {
   });
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-6 max-w-7xl">
+    <div className="container mx-auto px-4 py-6 max-w-10xl">
       {loading ? (
         <p className="text-center text-gray-500">Loading machinery...</p>
       ) : (
         <>
-          <div className="bg-white p-4 rounded-lg shadow mb-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-green-800 text-center mb-4">
-              Find Equipment Near You
+          <div className="bg-white p-4 border mb-6">
+            <h2 className="text-xl font-semibold text-green-800 text-center mb-4">
+              Agro Equipment Rentals in Siddharthnagar & Balrampur
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
               <input
                 type="text"
-                placeholder="Search by name"
+                placeholder="Search equipment"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="border p-2 rounded text-sm w-full"
+                className="border p-2 text-sm w-full"
               />
               <select
                 value={filterCategory}
                 onChange={(e) => setFilterCategory(e.target.value)}
-                className="border p-2 rounded text-sm w-full"
+                className="border p-2 text-sm w-full"
               >
                 <option value="">All Categories</option>
                 <option value="Tractor">Tractor</option>
@@ -166,23 +166,25 @@ const AgroRent = () => {
               <select
                 value={filterRentType}
                 onChange={(e) => setFilterRentType(e.target.value)}
-                className="border p-2 rounded text-sm w-full"
+                className="border p-2 text-sm w-full"
               >
                 <option value="">All Rent Types</option>
                 <option value="Hourly">Hourly</option>
                 <option value="Daily">Daily</option>
                 <option value="Weekly">Weekly</option>
               </select>
-              <input
-                type="text"
-                placeholder="Location"
+              <select
                 value={filterLocation}
                 onChange={(e) => setFilterLocation(e.target.value)}
-                className="border p-2 rounded text-sm w-full"
-              />
+                className="border p-2 text-sm w-full"
+              >
+                <option value="">All Locations</option>
+                <option value="Siddharthnagar">Siddharthnagar</option>
+                <option value="Balrampur">Balrampur</option>
+              </select>
               <button
                 onClick={() => setShowForm(!showForm)}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm w-full"
+                className="bg-green-600 text-white px-4 py-2 hover:bg-green-700 text-sm w-full"
               >
                 {showForm ? "Close Form" : "List Equipment"}
               </button>
@@ -191,7 +193,7 @@ const AgroRent = () => {
 
           {showForm && (
             <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-              <div className="bg-white p-6 rounded-xl w-[90%] sm:w-[500px] shadow-lg">
+              <div className="bg-white p-6 w-[90%] sm:w-[500px]">
                 <h2 className="text-lg font-bold mb-4 text-center">
                   Add Your Equipment
                 </h2>
@@ -206,7 +208,7 @@ const AgroRent = () => {
                         placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
                         value={value}
                         onChange={handleInputChange}
-                        className="border w-full p-2 rounded text-sm"
+                        className="border w-full p-2 text-sm"
                         required
                       />
                     ))}
@@ -215,21 +217,21 @@ const AgroRent = () => {
                     type="file"
                     accept="image/*"
                     onChange={(e) => setImageFile(e.target.files[0])}
-                    className="border w-full p-2 rounded text-sm"
+                    className="border w-full p-2 text-sm"
                   />
 
                   {imageFile && (
                     <img
                       src={URL.createObjectURL(imageFile)}
                       alt="Preview"
-                      className="w-full h-28 object-cover rounded"
+                      className="w-full h-28 object-cover"
                     />
                   )}
 
                   <div className="flex justify-between pt-2">
                     <button
                       type="submit"
-                      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm"
+                      className="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 text-sm"
                       disabled={addLoading}
                     >
                       {addLoading ? "Submitting..." : "Submit"}
@@ -237,7 +239,7 @@ const AgroRent = () => {
                     <button
                       type="button"
                       onClick={() => setShowForm(false)}
-                      className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm"
+                      className="bg-red-600 text-white px-4 py-2 hover:bg-red-700 text-sm"
                     >
                       Cancel
                     </button>
@@ -247,17 +249,16 @@ const AgroRent = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {filteredMachinery.map((item) => (
               <div
                 key={item.id}
-                className="relative bg-white shadow-sm rounded-xl overflow-hidden border text-xs"
+                className="bg-white border text-sm p-2 relative"
               >
                 {item.creator === currentUser?.uid && (
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="absolute top-2 right-2 text-red-500 text-sm hover:text-red-700 z-10"
-                    title="Delete this listing"
+                    className="absolute top-2 right-2 text-red-500 text-sm hover:text-red-700"
                   >
                     ❌
                   </button>
@@ -267,34 +268,24 @@ const AgroRent = () => {
                   src={
                     item.image?.startsWith("http")
                       ? item.image
-                      : item.image?.startsWith("/")
-                      ? item.image
                       : "https://via.placeholder.com/400"
                   }
                   alt={item.name}
-                  className="w-full h-28 object-cover"
+                  className="w-full h-32 object-cover"
                 />
-                <div className="p-2">
-                  <h3 className="text-sm font-semibold text-gray-800 truncate">
-                    {item.name}
-                  </h3>
-                  <p className="text-xs text-gray-600 truncate">
-                    Category: {item.category}
-                  </p>
-                  <p className="text-xs text-green-700 font-medium">
+                <div className="pt-2">
+                  <p className="font-semibold text-gray-800 truncate">{item.name}</p>
+                  <p className="text-gray-600">{item.category}</p>
+                  <p className="text-green-700 font-medium">
                     ₹{item.price} / {item.rentType}
                   </p>
-                  <p className="text-xs text-gray-500 truncate">
-                    Location: {item.location}
-                  </p>
-                  <p className="text-xs text-gray-700 truncate">
-                    Owner: {item.ownerName}
-                  </p>
+                  <p className="text-gray-600">📍 {item.location}</p>
+                  <p className="text-gray-700">👤 {item.ownerName}</p>
                   <a
                     href={`tel:${item.contact}`}
-                    className="mt-2 inline-block bg-blue-600 text-white text-xs px-3 py-1 rounded hover:bg-blue-700"
+                    className="mt-2 inline-block bg-blue-600 text-white px-3 py-1 hover:bg-blue-700"
                   >
-                    Call
+                    Call Now
                   </a>
                 </div>
               </div>
