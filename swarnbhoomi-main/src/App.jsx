@@ -11,25 +11,25 @@ import AuthPage from "./pages/AuthPage";
 import Registration from "./pages/Registration";
 
 // Dashboard Pages
-import Profile from "./pages/ProfilePage";
-import Advisory from  "./pages/AdvisoryPage";
 import Dashboard from "./pages/Dashboard";
+import MyCrop from "./pages/MyCrop";
+import VoiceBot from "./pages/VoiceBot";
+import Inventory from "./pages/Inventory";
+import Weather from "./pages/Weather";
+import Profile from "./pages/ProfilePage";
+import Advisory from "./pages/AdvisoryPage";
 import AgroRent from "./pages/AgroRentPage";
 import CropAdvisory from "./pages/CropAdvisory";
 import Community from "./pages/CommunityPage";
-import MyCrop from "./pages/MyCrop";
-import VoiceBot from "./pages/VoiceBot";
-import CommodityPrices from "./pages/CommodityPrices";
 import Waste from "./pages/Waste";
 import FPO from "./pages/FpoPage";
-import Inventory from "./pages/Inventory";
 import Learning from "./pages/Learning";
 import TopicDetail from "./pages/TopicDetail";
-import MandiPriceFetcher from "./pages/MandiPriceFetcher";
 import Test from "./pages/Test";
-import CommoditySelection from "./pages/CommoditySelection";
 import Ndvi from "./pages/Ndvi";
-import Weather from "./pages/Weather";
+import MandiPage from "./pages/MandiPage";
+import CommoditySelection from "./pages/CommoditySelection";
+import CommodityPrices from "./pages/CommodityPrices"; // ✅ FIXED: Correct component
 
 // Schemes Section
 import SchemesPage from "./pages/SchemesPage";
@@ -64,7 +64,6 @@ const App = () => {
   return (
     <Router>
       <Routes>
-
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<AuthPage />} />
@@ -75,19 +74,13 @@ const App = () => {
           path="/dashboard/*"
           element={user ? <Layout /> : <Navigate to="/auth" />}
         >
-          {/* Main Dashboard */}
           <Route index element={<Dashboard />} />
-       
-             {/* Dashboard Utility*/}
 
-
-
-          {/* Feature Routes */}
+          {/* Feature Pages */}
           <Route path="advisoryPage" element={<Advisory />} />
           <Route path="cropAdvisory" element={<CropAdvisory />} />
           <Route path="communityPage" element={<Community />} />
           <Route path="mycrop" element={<MyCrop />} />
-          <Route path="mandiPriceFetcher" element={<MandiPriceFetcher />} />
           <Route path="voiceBot" element={<VoiceBot />} />
           <Route path="waste" element={<Waste />} />
           <Route path="test" element={<Test />} />
@@ -97,7 +90,7 @@ const App = () => {
           <Route path="Ndvi" element={<Ndvi />} />
           <Route path="weather" element={<Weather />} />
           <Route path="agroRent" element={<AgroRent />} />
-
+          <Route path="mandiPage" element={<MandiPage />} />
 
           {/* Learning Section */}
           <Route path="learningPage" element={<Learning />} />

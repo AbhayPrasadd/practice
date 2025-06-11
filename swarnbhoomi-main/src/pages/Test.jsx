@@ -1,44 +1,59 @@
 import React, { useState } from "react";
-import { db } from "../firebase"; // adjust path as needed
-import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebase";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { doc, getDoc } from "firebase/firestore";
 
-const Test = () => {
-  const [uploadStatus, setUploadStatus] = useState("");
+const FCMTester = () => {
+  const [title, setTitle] = useState("Test Notification");
+  const [body, setBody] = useState("This is a test body.");
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const sendTestNotification = async () => {
+    const user = auth.currentUser;
+    if (!user) return toast.error("Please login first");
+
+    const docSnap = await getDoc(doc(db, "users", user.uid));
+    const fcmToken = docSnap.data()?.fcmToken;
+
+    if (!fcmToken) return toast.error("FCM token not found. Try refreshing page");
 
     try {
-      const text = await file.text();
-      const cropData = JSON.parse(text);
-
-      let successCount = 0;
-      for (const crop of cropData) {
-        if (!crop.name) continue;
-        await setDoc(doc(db, "cropGuide", crop.name), crop);
-        successCount++;
-      }
-
-      setUploadStatus(`✅ Successfully uploaded ${successCount} crops.`);
+      await axios.post("http://localhost:3000/send-notification", {
+        token: fcmToken,
+        title,
+        body,
+        uid: user.uid,
+      });
+      toast.success("✅ Notification sent!");
     } catch (err) {
-      console.error("Error uploading crop guides:", err);
-      setUploadStatus("❌ Failed to upload. Please check your file format.");
+      console.error("Send failed:", err);
+      toast.error("❌ Notification failed");
     }
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto bg-white shadow-md rounded-lg mt-10">
-      <h2 className="text-xl font-bold text-green-700 mb-4">📥 Upload Crop Guides from JSON</h2>
+    <div className="max-w-md mx-auto p-6 bg-white shadow rounded mt-10">
+      <h2 className="text-xl font-bold mb-4">Send Test Notification</h2>
       <input
-        type="file"
-        accept=".json"
-        onChange={handleFileChange}
-        className="border px-4 py-2 w-full rounded mb-4"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        className="w-full mb-2 p-2 border rounded"
+        placeholder="Notification Title"
       />
-      {uploadStatus && <p className="text-sm text-center mt-2">{uploadStatus}</p>}
+      <input
+        value={body}
+        onChange={(e) => setBody(e.target.value)}
+        className="w-full mb-4 p-2 border rounded"
+        placeholder="Notification Body"
+      />
+      <button
+        onClick={sendTestNotification}
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+      >
+        🚀 Send Notification
+      </button>
     </div>
   );
 };
 
-export default Test;
+export default FCMTester;

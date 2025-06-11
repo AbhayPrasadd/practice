@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Menu, Bell, LogOut, User } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { messaging, auth, db } from "../firebase";
-import { getToken, deleteToken, onMessage } from "firebase/messaging";
-import { doc, setDoc } from "firebase/firestore";
+import { auth } from "../firebase";
+import { setupFCM, listenToForegroundMessages } from "../utils/fcmService";
 import toast, { Toaster } from "react-hot-toast";
 
 const Navbar = ({ setIsSidebarOpen }) => {
@@ -14,65 +13,17 @@ const Navbar = ({ setIsSidebarOpen }) => {
   const [avatarOpen, setAvatarOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
 
-const saveTokenToFirestore = async (token) => {
-  const user = auth.currentUser;
-  if (!user) return;
-
-  const userRef = doc(db, "users", user.uid);
-  await setDoc(userRef, { fcmToken: token }, { merge: true });
-
-  // ✅ Log token to console
-  console.log("🔑 FCM Token saved for user:", user.uid);
-  console.log("📋 Paste this token in Postman for testing:", token);
-};
-
-
-  const handleNotificationSetup = async () => {
-    if (Notification.permission === "default") {
-      const result = await Notification.requestPermission();
-      if (result !== "granted") {
-        toast.error("⚠️ Notifications blocked by user");
-        return;
-      }
-    }
-
-    if (Notification.permission === "granted") {
-      try {
-        // Clean any old token
-        await deleteToken(messaging);
-
-        const token = await getToken(messaging, {
-          vapidKey: "BHaK9hrm5c9TTRGM6F-fJQY-6N3aZqqpLPc-moGrGCTqL2iZ4e2uI3BsgkWXQiVsu_Jk5sgUNYeDmNTgLuG4t5s",
-        });
-
-        await saveTokenToFirestore(token);
-        toast.success("🔔 Notifications enabled");
-      } catch (err) {
-        console.error("❌ Token error:", err);
-        toast.error("Error getting FCM token");
-      }
-    }
-  };
-
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       navigator.serviceWorker
         .register("/firebase-messaging-sw.js")
         .then(() => {
-          handleNotificationSetup();
+          setupFCM();
         })
         .catch(console.error);
     }
 
-    const unsubscribe = onMessage(messaging, (payload) => {
-      const { title, body } = payload.notification;
-      toast(`${title}: ${body}`);
-      setNotifications((prev) => [
-        { title, body, time: new Date().toLocaleTimeString() },
-        ...prev,
-      ]);
-    });
-
+    const unsubscribe = listenToForegroundMessages(setNotifications);
     return () => unsubscribe();
   }, []);
 
@@ -94,46 +45,44 @@ const saveTokenToFirestore = async (token) => {
 
           {/* Right: Bell + Avatar */}
           <div className="flex items-center gap-3">
-
-{/* Notification Icon */}
-           <div className="relative">
-  <button
-    className="text-white p-2 hover:bg-white/10 rounded-full"
-    onClick={() => setNotifOpen(!notifOpen)}
-  >
-    <Bell className="h-6 w-6" />
-  </button>
-  {notifOpen && (
-    <div className="absolute right-0 mt-2 w-80 max-h-[400px] overflow-auto bg-white rounded-xl shadow-2xl p-4 z-50 animate-fade-in">
-      <div className="flex items-center justify-between mb-3">
-        <h4 className="text-lg font-bold text-gray-800">🔔 Notifications</h4>
-        <button
-          onClick={() => setNotifications([])}
-          className="text-sm text-red-600 hover:underline"
-        >
-          Clear All
-        </button>
-      </div>
-      {notifications.length > 0 ? (
-        <ul className="space-y-3">
-          {notifications.map((n, i) => (
-            <li
-              key={i}
-              className="p-3 bg-gray-50 border rounded-lg shadow-sm hover:bg-gray-100 transition-all"
-            >
-              <div className="font-medium text-gray-900">{n.title}</div>
-              <div className="text-gray-700 text-sm">{n.body}</div>
-              <div className="text-xs text-gray-500 mt-1">{n.time}</div>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-gray-500 text-sm">No new notifications</p>
-      )}
-    </div>
-  )}
-</div>
-
+            {/* Notification Icon */}
+            <div className="relative">
+              <button
+                className="text-white p-2 hover:bg-white/10 rounded-full"
+                onClick={() => setNotifOpen(!notifOpen)}
+              >
+                <Bell className="h-6 w-6" />
+              </button>
+              {notifOpen && (
+                <div className="absolute right-0 mt-2 w-80 max-h-[400px] overflow-auto bg-white rounded-xl shadow-2xl p-4 z-50 animate-fade-in">
+                  <div className="flex items-center justify-between mb-3">
+                    <h4 className="text-lg font-bold text-gray-800">🔔 Notifications</h4>
+                    <button
+                      onClick={() => setNotifications([])}
+                      className="text-sm text-red-600 hover:underline"
+                    >
+                      Clear All
+                    </button>
+                  </div>
+                  {notifications.length > 0 ? (
+                    <ul className="space-y-3">
+                      {notifications.map((n, i) => (
+                        <li
+                          key={i}
+                          className="p-3 bg-gray-50 border rounded-lg shadow-sm hover:bg-gray-100 transition-all"
+                        >
+                          <div className="font-medium text-gray-900">{n.title}</div>
+                          <div className="text-gray-700 text-sm">{n.body}</div>
+                          <div className="text-xs text-gray-500 mt-1">{n.time}</div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="text-gray-500 text-sm">No new notifications</p>
+                  )}
+                </div>
+              )}
+            </div>
 
             {/* Avatar Dropdown */}
             <div className="relative">

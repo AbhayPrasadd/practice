@@ -16,7 +16,7 @@ const FpoPage = () => {
           }`}
           onClick={() => setActiveTab(0)}
         >
-          📖 What is FPO?
+          📍 Nearby FPOs
         </button>
         <button
           className={`p-2 flex-1 ${
@@ -24,7 +24,7 @@ const FpoPage = () => {
           }`}
           onClick={() => setActiveTab(1)}
         >
-          📍 Nearby FPOs
+          🔍 Search FPOs
         </button>
         <button
           className={`p-2 flex-1 ${
@@ -32,15 +32,15 @@ const FpoPage = () => {
           }`}
           onClick={() => setActiveTab(2)}
         >
-          🔍 Search FPOs
+          📖 What is FPO?
         </button>
       </div>
 
       {/* Content */}
       <div className="mt-4">
-        {activeTab === 0 && <WhatIsFPO/>}
-        {activeTab === 1 && <FPOnearby  />}
-        {activeTab === 2 && <FPOlist/>}
+        {activeTab === 0 && <FPOnearby />}
+        {activeTab === 1 && <FPOlist />}
+        {activeTab === 2 && <WhatIsFPO />}
       </div>
     </div>
   );

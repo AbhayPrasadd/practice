@@ -1,29 +1,38 @@
-// src/components/MandiPriceFetcher.js
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import filterData from "../data/mandiData"; // import your full filter data
+import Select from "react-select";
+import filterData from "../data/mandiData";
 
 const commodityImages = {
-  Mango: "/commodities/mango.jpg",
-  Wheat: "/commodities/wheat.jpg",
-  Onion: "/commodities/onion.jpg",
-  Tomato: "/commodities/tomato.jpg",
-  Potato: "/commodities/potato.jpg",
-  "Green Chilli": "/commodities/greenchilli.jpg",
-  Soyabean: "/commodities/soyabean.jpg",
-  Groundnut: "/commodities/groundnut.jpg",
-  Brinjal: "/commodities/brinjal.jpg",
-  Apple: "/commodities/apple.jpg",
-  Banana: "/commodities/banana.jpg",
-  Grapes: "/commodities/grapes.jpg",
-  Cabbage: "/commodities/cabbage.jpg",
-  Cauliflower: "/commodities/cauliflower.jpg",
-  Carrot: "/commodities/carrot.jpg",
-  Peas: "/commodities/peas.jpg",
-  Garlic: "/commodities/garlic.jpg",
-  Ginger: "/commodities/ginger.jpg",
-  Papaya: "/commodities/papaya.jpg",
-  Pomegranate: "/commodities/pomegranate.jpg"
+  // Fruits
+  Mango: "/fruits/mango.jpeg",
+  Apple: "/fruits/apple.jpeg",
+  Guava: "/fruits/guava.jpeg",
+  Banana: "/fruits/banana.jpeg",
+  Pomegranate: "/fruits/pomegranate.jpeg",
+  Papaya: "/fruits/papaya.jpeg",
+
+  // Vegetables
+  Onion: "/vegetables/onion.jpg",
+  Tomato: "/vegetables/tomato.jpg",
+  Potato: "/vegetables/potato.jpg",
+  Brinjal: "/vegetables/brinjal.jpg",
+  Cabbage: "/vegetables/cabbage.jpg",
+  Cauliflower: "/vegetables/cauliflower.jpg",
+  Carrot: "/vegetables/carrot.jpg",
+  Peas: "/vegetables/peas.jpg",
+
+  // Oilseeds
+  Groundnut: "/oilseeds/groundnut.jpeg",
+  Soyabean: "/oilseeds/soyabean.jpeg",
+
+  // Spices
+  Garlic: "/spices/garlic.jpeg",
+  Ginger: "/spices/ginger.jpeg",
+  "Green Chilli": "/spices/chilli.jpeg",
+
+  // Cereals / Crops
+  Wheat: "/cereals/wheat.jpeg",
 };
 
 
@@ -35,17 +44,18 @@ const MandiPriceFetcher = () => {
   const [prices, setPrices] = useState([]);
 
   useEffect(() => {
-    const uniqueStates = [...new Set(filterData.map(i => i.State))];
-    setStates(uniqueStates);
+    const uniqueStates = [...new Set(filterData.map((i) => i.State))];
+    setStates(uniqueStates.map((s) => ({ value: s, label: s })));
   }, []);
 
   useEffect(() => {
     if (filters.state) {
       const stateDistricts = filterData
-        .filter(i => i.State === filters.state)
-        .map(i => i.District);
-      setDistricts([...new Set(stateDistricts)]);
-      setFilters(prev => ({ ...prev, district: "", commodity: "" }));
+        .filter((i) => i.State === filters.state)
+        .map((i) => i.District);
+      const uniqueDistricts = [...new Set(stateDistricts)];
+      setDistricts(uniqueDistricts.map((d) => ({ value: d, label: d })));
+      setFilters((prev) => ({ ...prev, district: "", commodity: "" }));
       setCommodities([]);
     } else {
       setDistricts([]);
@@ -56,11 +66,11 @@ const MandiPriceFetcher = () => {
   useEffect(() => {
     if (filters.state && filters.district) {
       const matched = filterData.filter(
-        i => i.State === filters.state && i.District === filters.district
+        (i) => i.State === filters.state && i.District === filters.district
       );
-      const districtCommodities = [...new Set(matched.map(i => i.Commodity))];
-      setCommodities(districtCommodities);
-      setFilters(prev => ({ ...prev, commodity: "" }));
+      const districtCommodities = [...new Set(matched.map((i) => i.Commodity))];
+      setCommodities(districtCommodities.map((c) => ({ value: c, label: c })));
+      setFilters((prev) => ({ ...prev, commodity: "" }));
     } else {
       setCommodities([]);
     }
@@ -72,8 +82,8 @@ const MandiPriceFetcher = () => {
         params: {
           state: filters.state,
           district: filters.district,
-          commodity: filters.commodity
-        }
+          commodity: filters.commodity,
+        },
       });
       setPrices(res.data);
     } catch (err) {
@@ -82,44 +92,56 @@ const MandiPriceFetcher = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 bg-white shadow rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">📈 Mandi Price Checker</h2>
+    <div className="max-w-5xl mx-auto p-6">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6">📈 Mandi Price Checker</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <select className="p-2 border rounded" onChange={e => setFilters({ ...filters, state: e.target.value })} value={filters.state}>
-          <option value="">Select State</option>
-          {states.map((state, idx) => <option key={idx}>{state}</option>)}
-        </select>
+      {/* Filters using react-select */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <Select
+          options={states}
+          placeholder="Select State"
+          onChange={(option) => setFilters({ ...filters, state: option?.value || "", district: "", commodity: "" })}
+          value={filters.state ? { label: filters.state, value: filters.state } : null}
+        />
 
-        <select className="p-2 border rounded" onChange={e => setFilters({ ...filters, district: e.target.value })} value={filters.district}>
-          <option value="">Select District</option>
-          {districts.map((dist, idx) => <option key={idx}>{dist}</option>)}
-        </select>
+        <Select
+          options={districts}
+          placeholder="Select District"
+          onChange={(option) => setFilters({ ...filters, district: option?.value || "", commodity: "" })}
+          value={filters.district ? { label: filters.district, value: filters.district } : null}
+          isDisabled={!filters.state}
+        />
 
-        <select className="p-2 border rounded" onChange={e => setFilters({ ...filters, commodity: e.target.value })} value={filters.commodity}>
-          <option value="">Select Commodity</option>
-          {commodities.map((com, idx) => <option key={idx}>{com}</option>)}
-        </select>
+        <Select
+          options={commodities}
+          placeholder="Select Commodity"
+          onChange={(option) => setFilters({ ...filters, commodity: option?.value || "" })}
+          value={filters.commodity ? { label: filters.commodity, value: filters.commodity } : null}
+          isDisabled={!filters.district}
+        />
       </div>
 
-      <button
-        onClick={fetchPrices}
-        className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        disabled={!filters.state || !filters.district || !filters.commodity}
-      >
-        🔍 Get Prices
-      </button>
+      <div className="text-center mb-6">
+        <button
+          onClick={fetchPrices}
+          className="px-6 py-2 bg-green-600 text-white text-sm hover:bg-green-700 transition"
+          disabled={!filters.state || !filters.district || !filters.commodity}
+        >
+          🔍 Get Prices
+        </button>
+      </div>
 
+      {/* Results */}
       {prices.length > 0 && (
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {prices.map((item, idx) => (
-            <div key={idx} className="border rounded shadow p-4 flex flex-col md:flex-row items-start gap-4">
+            <div key={idx} className="border border-gray-200 p-4 bg-gray-50 flex gap-4">
               <img
                 src={commodityImages[item.commodity] || "/images/commodities/default.jpg"}
                 alt={item.commodity}
-                className="w-32 h-32 object-cover rounded"
+                className="w-28 h-28 object-cover"
               />
-              <div className="text-sm">
+              <div className="text-sm text-gray-700">
                 <p><strong>Commodity:</strong> {item.commodity}</p>
                 <p><strong>Market:</strong> {item.market}</p>
                 <p><strong>Modal Price:</strong> ₹{item.modal_price}</p>

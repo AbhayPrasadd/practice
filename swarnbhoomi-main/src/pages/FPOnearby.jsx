@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { GoogleMap, Marker, LoadScript } from "@react-google-maps/api";
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyDQmlpnfUCxPaykD5-sB2PqF605TBU7FAU";
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
 
 const FPOnearby = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
