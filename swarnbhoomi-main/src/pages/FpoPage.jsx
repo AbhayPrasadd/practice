@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import FPOlist from "./FPOlist";
 import FPOnearby from "./FPOnearby";
-import WhatIsFPO from "./WhatIsFpo"; // New component
+import WhatIsFPO from "./WhatIsFpo";
 
 const FpoPage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const { t } = useTranslation();
 
   return (
     <div className="w-full p-4">
@@ -16,7 +18,7 @@ const FpoPage = () => {
           }`}
           onClick={() => setActiveTab(0)}
         >
-          📍 Nearby FPOs
+          📍 {t("fpo_nearby_tab")}
         </button>
         <button
           className={`p-2 flex-1 ${
@@ -24,7 +26,7 @@ const FpoPage = () => {
           }`}
           onClick={() => setActiveTab(1)}
         >
-          🔍 Search FPOs
+          🔍 {t("fpo_search_tab")}
         </button>
         <button
           className={`p-2 flex-1 ${
@@ -32,7 +34,7 @@ const FpoPage = () => {
           }`}
           onClick={() => setActiveTab(2)}
         >
-          📖 What is FPO?
+          📖 {t("fpo_what_is_tab")}
         </button>
       </div>
 

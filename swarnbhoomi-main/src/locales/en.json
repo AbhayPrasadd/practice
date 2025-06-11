@@ -129,5 +129,23 @@
   "cancel": "Cancel",
   "demo_post_1": "Today I harvested fresh cauliflower 🥦! Feels great to see the result of hard work.",
   "demo_post_2": "Tips: Mix a bit of turmeric in soil to avoid fungal infections. 🌾💡",
-  "demo_post_3": "Rainy day in the fields today. Crops are happy!"
+  "demo_post_3": "Rainy day in the fields today. Crops are happy!",
+  
+  "govt_schemes": "Government Schemes",
+  "back": "Back",
+  "agri_schemes": "Agriculture Schemes",
+  "agri_schemes_desc": "Support for crop production, irrigation, and soil health.",
+  "irrigation_schemes": "Irrigation Schemes",
+  "irrigation_schemes_desc": "Schemes focused on water resource management and irrigation.",
+  "horticulture_schemes": "Horticulture Schemes",
+  "horticulture_schemes_desc": "Schemes promoting fruits, vegetables, and flower farming.",
+  "instrument_schemes": "Agriculture Instruments",
+  "instrument_schemes_desc": "Subsidies and support for tools and modern equipment.",
+  "allied_schemes": "Allied Sector Schemes",
+  "allied_schemes_desc": "Support for animal husbandry, fisheries, and poultry.",
+  "other_schemes": "Other Schemes",
+  "other_schemes_desc": "General support, reforms, and financial inclusion schemes.",
+   "fpo_nearby_tab": "Nearby FPOs",
+  "fpo_search_tab": "Search FPOs",
+  "fpo_what_is_tab": "What is FPO?"
 }
