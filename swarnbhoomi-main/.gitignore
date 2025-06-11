@@ -1,4 +1,7 @@
-# Logs
+
+# Ignore all .env files
+.env
+.env.*
 .env
 logs
 *.log

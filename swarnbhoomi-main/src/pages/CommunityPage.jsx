@@ -20,8 +20,10 @@ import {
   doc,
   arrayUnion
 } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 const Community = () => {
+  const { t } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [newPost, setNewPost] = useState("");
@@ -29,13 +31,13 @@ const Community = () => {
   const [likesMap, setLikesMap] = useState({});
   const [commentsMap, setCommentsMap] = useState({});
   const [newComment, setNewComment] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const demoPosts = [
     {
       id: "demo1",
       user: "Kisan Bhai",
-      text: "Today I harvested fresh cauliflower 🥦! Feels great to see the result of hard work.",
+      text: t("demo_post_1"),
       image: "https://wallpapercave.com/wp/wp2024155.jpg",
       likes: 15,
       comments: []
@@ -43,7 +45,7 @@ const Community = () => {
     {
       id: "demo2",
       user: "Farmer Lakshmi",
-      text: "Tips: Mix a bit of turmeric in soil to avoid fungal infections. 🌾💡",
+      text: t("demo_post_2"),
       image: null,
       likes: 9,
       comments: []
@@ -51,7 +53,7 @@ const Community = () => {
     {
       id: "demo3",
       user: "Anand Kisan",
-      text: "Rainy day in the fields today. Crops are happy!",
+      text: t("demo_post_3"),
       image: "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=800&q=80",
       likes: 23,
       comments: []
@@ -72,7 +74,7 @@ const Community = () => {
     if (!newPost.trim() && !image) return;
 
     const newDemoPost = {
-      user: "You",
+      user: t("you"),
       text: newPost,
       image: image ? URL.createObjectURL(image) : null,
       likes: 0,
@@ -135,7 +137,7 @@ const Community = () => {
           className="text-green-700 hover:text-green-900 flex items-center gap-1"
         >
           <ArrowLeft size={20} />
-          <span className="text-sm">Back</span>
+          <span className="text-sm">{t("back")}</span>
         </button>
       </div>
 
@@ -150,7 +152,7 @@ const Community = () => {
                 <UserCircle className="text-green-600" size={28} />
                 <span className="font-semibold text-gray-800">{post.user}</span>
               </div>
-              {post.user === "You" && (
+              {post.user === t("you") && (
                 <button onClick={() => handleDelete(post.id)}>
                   <Trash2 className="text-red-600" size={20} />
                 </button>
@@ -173,15 +175,15 @@ const Community = () => {
                   className="flex items-center gap-1 hover:text-green-600"
                 >
                   <ThumbsUp size={16} />
-                  <span>{post.likes || 0} Like</span>
+                  <span>{post.likes || 0} {t("like")}</span>
                 </button>
                 <button className="flex items-center gap-1 hover:text-blue-600">
                   <MessageSquare size={16} />
-                  <span>Comment</span>
+                  <span>{t("comment")}</span>
                 </button>
                 <button className="flex items-center gap-1 hover:text-purple-600">
                   <Share2 size={16} />
-                  <span>Share</span>
+                  <span>{t("share")}</span>
                 </button>
               </div>
               <div className="space-y-2">
@@ -191,7 +193,7 @@ const Community = () => {
                 <div className="flex items-center gap-2 mt-2">
                   <input
                     type="text"
-                    placeholder="Add a comment..."
+                    placeholder={t("add_comment")}
                     value={commentsMap[post.id] || ""}
                     onChange={(e) =>
                       setCommentsMap({ ...commentsMap, [post.id]: e.target.value })
@@ -205,7 +207,7 @@ const Community = () => {
                     }}
                     className="text-white bg-green-600 hover:bg-green-700 px-3 py-1 rounded"
                   >
-                    Post
+                    {t("post")}
                   </button>
                 </div>
               </div>
@@ -219,18 +221,18 @@ const Community = () => {
         onClick={() => setModalOpen(true)}
         className="fixed bottom-20 right-6 bg-green-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-green-700 transition z-50 text-sm font-semibold"
       >
-        Ask in Community
+        {t("ask_community")}
       </button>
 
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-transparent flex items-center justify-center z-50">
           <div className="bg-white rounded-xl w-[90%] max-w-md p-6 shadow-xl">
-            <h2 className="text-xl font-semibold mb-4 text-green-700">Create a Post</h2>
+            <h2 className="text-xl font-semibold mb-4 text-green-700">{t("create_post")}</h2>
             <textarea
               className="w-full border border-gray-300 p-3 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
               rows="4"
-              placeholder="Share your experience, question, or idea..."
+              placeholder={t("share_placeholder")}
               value={newPost}
               onChange={(e) => setNewPost(e.target.value)}
             ></textarea>
@@ -250,13 +252,13 @@ const Community = () => {
                   onClick={() => setModalOpen(false)}
                   className="px-3 py-2 text-sm rounded-md text-gray-600 hover:bg-gray-200"
                 >
-                  Cancel
+                  {t("cancel")}
                 </button>
                 <button
                   onClick={handlePost}
                   className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 text-sm rounded-md"
                 >
-                  Post
+                  {t("post")}
                 </button>
               </div>
             </div>
