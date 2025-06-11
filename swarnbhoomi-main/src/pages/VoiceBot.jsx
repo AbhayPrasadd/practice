@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   PhoneCall,
   Mic,
@@ -6,16 +7,27 @@ import {
   CloudSun,
   FileText,
   AlertTriangle,
+  ArrowLeft,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const VoiceBot = () => {
   const { t } = useTranslation();
-  const phoneNumber = "18001232474";
+  const navigate = useNavigate();
+  const phoneNumber = "+13239188958";
 
   return (
     <div className="min-h-[calc(100vh-64px)] p-4 md:p-10 bg-gray-50 font-poppins">
       <div className="max-w-7xl mx-auto">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center text-green-700 mb-4 hover:underline text-sm"
+        >
+          <ArrowLeft className="w-4 h-4 mr-1" />
+          {t("Back")}
+        </button>
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl md:text-4xl font-extrabold text-green-800">
@@ -47,19 +59,12 @@ const VoiceBot = () => {
 
         {/* IVR Explanation */}
         <div className="mb-10">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            {t("What is IVR?")}
-          </h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">{t("What is IVR?")}</h2>
           <p className="text-base text-gray-700 mb-3 leading-relaxed">
-            <strong>Traditional IVR</strong> systems play pre-recorded messages
-            and require users to press buttons (e.g., "Press 1 for Crop
-            Advisory").
+            <strong>Traditional IVR</strong> systems play pre-recorded messages and require users to press buttons (e.g., "Press 1 for Crop Advisory").
           </p>
           <p className="text-base text-gray-700 leading-relaxed">
-            <strong>ML-based IVR</strong> uses speech recognition and natural
-            language understanding so farmers can speak in their own words. Our
-            assistant listens, understands, and responds contextually in their
-            language.
+            <strong>ML-based IVR</strong> uses speech recognition and natural language understanding so farmers can speak in their own words. Our assistant listens, understands, and responds contextually in their language.
           </p>
         </div>
 
@@ -90,9 +95,7 @@ const VoiceBot = () => {
         {/* Footer Note */}
         <div className="mt-12 text-center">
           <p className="text-base text-gray-500 italic">
-            {t(
-              "Available in Hindi, Bengali, Marathi, Tamil, and more regional languages."
-            )}
+            {t("Available in Hindi, Bengali, Marathi, Tamil, and more regional languages.")}
           </p>
         </div>
       </div>

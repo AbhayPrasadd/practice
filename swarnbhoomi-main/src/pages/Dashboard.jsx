@@ -160,7 +160,7 @@ const Dashboard = () => {
             subtitle="Guidance for sown crops only."
           />
           <Card
-            to="/dashboard/advisoryPage"
+            to="/dashboard/farmingAlerts"
             icon={<AlertTriangle className="text-red-500" />}
             title="Farming Alerts"
             subtitle="Weather and pest alerts."

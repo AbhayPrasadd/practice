@@ -29,7 +29,8 @@ import Test from "./pages/Test";
 import Ndvi from "./pages/Ndvi";
 import MandiPage from "./pages/MandiPage";
 import CommoditySelection from "./pages/CommoditySelection";
-import CommodityPrices from "./pages/CommodityPrices"; // ✅ FIXED: Correct component
+import CommodityPrices from "./pages/CommodityPrices"; 
+import FarmingAlerts from "./pages/FarmingAlerts";
 
 // Schemes Section
 import SchemesPage from "./pages/SchemesPage";
@@ -91,6 +92,8 @@ const App = () => {
           <Route path="weather" element={<Weather />} />
           <Route path="agroRent" element={<AgroRent />} />
           <Route path="mandiPage" element={<MandiPage />} />
+           <Route path="farmingAlerts" element={<FarmingAlerts />} />
+
 
           {/* Learning Section */}
           <Route path="learningPage" element={<Learning />} />
