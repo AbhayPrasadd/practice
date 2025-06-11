@@ -80,7 +80,7 @@ const App = () => {
           <Route path="advisoryPage" element={<Advisory />} />
           <Route path="cropAdvisory" element={<CropAdvisory />} />
           <Route path="communityPage" element={<Community />} />
-          <Route path="mycrop" element={<MyCrop />} />
+          <Route path="cropGuide" element={<MyCrop />} />
           <Route path="voiceBot" element={<VoiceBot />} />
           <Route path="waste" element={<Waste />} />
           <Route path="test" element={<Test />} />

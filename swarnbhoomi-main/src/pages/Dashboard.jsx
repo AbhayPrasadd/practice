@@ -6,13 +6,11 @@ import {
   CloudSun,
   BarChart3,
   Leaf,
-  Bell,
   FileText,
-  ShoppingBag,
   AlertTriangle,
   SatelliteDish,
   Bot,
-  ArrowRight,
+  ArrowRight
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import "@fontsource/poppins/400.css";
@@ -40,7 +38,7 @@ const Dashboard = () => {
     };
 
     const fetchWeatherData = async (city) => {
-      const apiKey = "8b75356541d14871aa0164352252503";
+      const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
       const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
       try {
         const response = await fetch(url);
@@ -64,17 +62,17 @@ const Dashboard = () => {
 
     crops.forEach((crop) => {
       if (temp > 30 && condition.includes("sun")) {
-        suggestions.push(`${crop}: Consider irrigating regularly due to high temperature.`);
+        suggestions.push(`${crop}: Irrigate regularly due to high temp.`);
       } else if (condition.includes("rain")) {
-        suggestions.push(`${crop}: Check for water logging and fungal diseases.`);
+        suggestions.push(`${crop}: Watch for water logging & diseases.`);
       } else if (temp < 15) {
-        suggestions.push(`${crop}: Protect from frost, ensure proper mulching.`);
+        suggestions.push(`${crop}: Protect from frost with mulching.`);
       } else {
-        suggestions.push(`${crop}: Weather is moderate. Monitor growth regularly.`);
+        suggestions.push(`${crop}: Weather is moderate. Monitor growth.`);
       }
     });
 
-    return suggestions.slice(0, 3);
+    return suggestions.slice(0, 2);
   };
 
   if (loading) {
@@ -96,7 +94,7 @@ const Dashboard = () => {
         {/* Top Weather Bar */}
         <div className="bg-white p-5 rounded-md shadow-sm border mb-8 relative">
           {weatherData ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-center gap-4">
                 <img
                   src={weatherData.current.condition.icon}
@@ -108,7 +106,7 @@ const Dashboard = () => {
                     {weatherData.location.name}, {weatherData.location.country}
                   </h2>
                   <p className="text-gray-800 text-base">
-                    Temperature: {weatherData.current.temp_c}°C
+                    Temp: {weatherData.current.temp_c}°C
                   </p>
                   <p className="text-gray-600 text-sm">
                     {weatherData.current.condition.text}
@@ -127,8 +125,11 @@ const Dashboard = () => {
           ) : (
             <p className="text-sm text-gray-500">{t("loading_weather")}</p>
           )}
-          <Link to="/dashboard/weather" className="absolute top-5 right-5 text-green-700 hover:underline flex items-center gap-1 font-medium text-sm">
-            {t("See full forecast")} <ArrowRight size={16} />
+          <Link
+            to="/dashboard/weather"
+            className="absolute top-5 right-5 text-green-700 hover:underline flex items-center gap-1 font-medium text-sm"
+          >
+            →
           </Link>
         </div>
 
@@ -138,37 +139,37 @@ const Dashboard = () => {
             to="/dashboard/voiceBot"
             icon={<Bot className="text-green-500" />}
             title="VoiceBot Assistant"
-            subtitle="Get advice using voice-based assistant."
+            subtitle="Talk to get help on crops & queries."
           />
           <Card
             to="/dashboard/Ndvi"
             icon={<SatelliteDish className="text-blue-500" />}
-            title="NDVI Trend"
-            subtitle="Check crop health using NDVI trends."
+            title="Crop Health (Geo-Sensing)"
+            subtitle="NDVI-based field health analysis."
           />
           <Card
-            to="/dashboard/mycrop"
+            to="/dashboard/mandiPage"
             icon={<BarChart3 className="text-yellow-500" />}
             title="Market Prices"
-            subtitle="Track current mandi prices."
+            subtitle="Track mandi prices for your crops."
           />
           <Card
-            to="/dashboard/schemes"
-            icon={<FileText className="text-indigo-600" />}
-            title="Govt. Services"
-            subtitle="View schemes & services for farmers."
+            to="/dashboard/cropGuide"
+            icon={<Leaf className="text-green-700" />}
+            title="My Crop Guide"
+            subtitle="Guidance for sown crops only."
           />
           <Card
             to="/dashboard/advisoryPage"
             icon={<AlertTriangle className="text-red-500" />}
             title="Farming Alerts"
-            subtitle="Stay alert with weather-based warnings."
+            subtitle="Weather and pest alerts."
           />
           <Card
-            to="/dashboard/cropPlanner"
-            icon={<Leaf className="text-green-700" />}
-            title="Crop Planner"
-            subtitle="Plan crop cycles based on forecast."
+            to="/dashboard/schemes"
+            icon={<FileText className="text-indigo-600" />}
+            title="Govt. Services"
+            subtitle="Schemes, subsidies & help."
           />
         </div>
       </div>
