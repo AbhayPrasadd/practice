@@ -10,7 +10,7 @@ const FPOnearby = () => {
   const [selectedFPO, setSelectedFPO] = useState(null);
   const [manualLocation, setManualLocation] = useState("");
 
-  const defaultLocation = { lat: 28.6139, lng: 77.2090 }; // Delhi
+  const defaultLocation = { lat: 28.6139, lng: 77.2090 }; 
 
   const handleGetCurrentLocation = () => {
     alert("Please allow location access to find nearby FPO centers.");
@@ -110,7 +110,7 @@ const FPOnearby = () => {
               onClick={handleGetCurrentLocation}
               className="bg-blue-600 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 text-sm w-full"
             >
-              📍 Get My Location
+              Get My Location
             </button>
             <div className="flex gap-1">
               <input

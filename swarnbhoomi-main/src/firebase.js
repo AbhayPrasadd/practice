@@ -22,5 +22,5 @@ const googleProvider = new GoogleAuthProvider();
 const db = getFirestore(app); 
 const messaging = getMessaging(app);
 
-// ✅ Export Firestore
+// Export Firestore
 export { auth, googleProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, db, collection, addDoc,setDoc,doc ,getDocs,storage,messaging,};
