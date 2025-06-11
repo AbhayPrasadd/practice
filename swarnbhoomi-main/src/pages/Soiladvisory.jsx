@@ -31,7 +31,6 @@ const SoilAdvisory = () => {
   const [state, setState] = useState("");
   const [district, setDistrict] = useState("");
   const [location, setLocation] = useState("");
-
   const [soilType, setSoilType] = useState("");
   const [concern, setConcern] = useState("");
   const [soilPH, setSoilPH] = useState("");
@@ -82,115 +81,87 @@ const SoilAdvisory = () => {
         })
       });
 
-      if (!response.ok) {
-        throw new Error("Server error. Try again later.");
-      }
+      if (!response.ok) throw new Error("Server error. Try again later.");
 
       const data = await response.json();
-      const points = data.advisory.split(/[\n.]+/).map(point => point.trim()).filter(point => point);
+      const points = data.advisory.split(/[\n.]+/).map((p) => p.trim()).filter(Boolean);
       setAdvisoryPoints(points);
-    } catch (error) {
-      setError(`❌ ${error.message}`);
+    } catch (err) {
+      setError(`❌ ${err.message}`);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-6 text-center text-green-700">🌱 Soil Advisory System</h2>
+    <div className="max-w-6xl mx-auto px-4 py-6">
+      <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-green-700 text-center"> </h3>
 
-      <div className="bg-white rounded-xl shadow-md p-6 mb-6 space-y-6">
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className="block mb-1 font-semibold">State</label>
-            <select value={state} onChange={handleStateChange} className="w-full p-2 border rounded">
-              <option value="">Select State</option>
-              {Object.keys(stateDistricts).map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">District</label>
-            <select
-              value={district}
-              onChange={handleDistrictChange}
-              disabled={!state}
-              className="w-full p-2 border rounded"
-            >
-              <option value="">Select District</option>
-              {state && stateDistricts[state].map((d) => (
-                <option key={d} value={d}>{d}</option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">Soil Type</label>
-            <select value={soilType} onChange={(e) => setSoilType(e.target.value)} className="w-full p-2 border rounded">
-              <option value="">Select Soil Type</option>
-              <option value="sandy">Sandy</option>
-              <option value="clay">Clay</option>
-              <option value="loamy">Loamy</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">Concern</label>
-            <select value={concern} onChange={(e) => setConcern(e.target.value)} className="w-full p-2 border rounded">
-              <option value="">Select Concern</option>
-              <option value="fertility">Fertility</option>
-              <option value="water-retention">Water Retention</option>
-              <option value="ph-balance">pH Balance</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">Soil pH</label>
-            <input type="number" value={soilPH} onChange={(e) => setSoilPH(e.target.value)} className="w-full p-2 border rounded" />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">Nitrogen</label>
-            <input type="number" value={nitrogen} onChange={(e) => setNitrogen(e.target.value)} className="w-full p-2 border rounded" />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">Phosphorus</label>
-            <input type="number" value={phosphorus} onChange={(e) => setPhosphorus(e.target.value)} className="w-full p-2 border rounded" />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">Potassium</label>
-            <input type="number" value={potassium} onChange={(e) => setPotassium(e.target.value)} className="w-full p-2 border rounded" />
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">Moisture</label>
-            <input type="number" value={moisture} onChange={(e) => setMoisture(e.target.value)} className="w-full p-2 border rounded" />
-          </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block mb-1 text-sm font-semibold">State</label>
+          <select value={state} onChange={handleStateChange} className="w-full px-2 py-2 border text-sm">
+            <option value="">Select State</option>
+            {Object.keys(stateDistricts).map((s) => <option key={s}>{s}</option>)}
+          </select>
         </div>
 
+        <div>
+          <label className="block mb-1 text-sm font-semibold">District</label>
+          <select
+            value={district}
+            onChange={handleDistrictChange}
+            disabled={!state}
+            className="w-full px-2 py-2 border text-sm"
+          >
+            <option value="">Select District</option>
+            {state && stateDistricts[state].map((d) => <option key={d}>{d}</option>)}
+          </select>
+        </div>
+
+        <div>
+          <label className="block mb-1 text-sm font-semibold">Soil Type</label>
+          <select value={soilType} onChange={(e) => setSoilType(e.target.value)} className="w-full px-2 py-2 border text-sm">
+            <option value="">Select Soil Type</option>
+            <option value="sandy">Sandy</option>
+            <option value="clay">Clay</option>
+            <option value="loamy">Loamy</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block mb-1 text-sm font-semibold">Concern</label>
+          <select value={concern} onChange={(e) => setConcern(e.target.value)} className="w-full px-2 py-2 border text-sm">
+            <option value="">Select Concern</option>
+            <option value="fertility">Fertility</option>
+            <option value="water-retention">Water Retention</option>
+            <option value="ph-balance">pH Balance</option>
+          </select>
+        </div>
+
+        <input type="number" value={soilPH} onChange={(e) => setSoilPH(e.target.value)} placeholder="Soil pH" className="w-full px-2 py-2 border text-sm" />
+        <input type="number" value={moisture} onChange={(e) => setMoisture(e.target.value)} placeholder="Moisture (%)" className="w-full px-2 py-2 border text-sm" />
+        <input type="number" value={nitrogen} onChange={(e) => setNitrogen(e.target.value)} placeholder="Nitrogen" className="w-full px-2 py-2 border text-sm" />
+        <input type="number" value={phosphorus} onChange={(e) => setPhosphorus(e.target.value)} placeholder="Phosphorus" className="w-full px-2 py-2 border text-sm" />
+        <input type="number" value={potassium} onChange={(e) => setPotassium(e.target.value)} placeholder="Potassium" className="w-full px-2 py-2 border text-sm" />
+      </div>
+
+      <div className="mt-6 text-center">
         <button
           onClick={fetchAdvisory}
           disabled={loading}
-          className="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+          className="bg-green-600 text-white px-6 py-2 text-sm rounded hover:bg-green-700"
         >
           {loading ? "Fetching Advisory..." : "Get Advisory"}
         </button>
-
-        {error && <p className="text-red-500 font-medium mt-2">{error}</p>}
+        {error && <p className="text-red-500 mt-2 font-medium text-sm">{error}</p>}
       </div>
 
       {advisoryPoints.length > 0 && (
-        <div className="bg-green-50 p-6 rounded-xl shadow-md">
+        <div className="bg-green-50 px-4 py-6 mt-6">
           <h3 className="text-xl font-semibold mb-4 text-green-800">📝 Advisory Points</h3>
-          <ul className="list-disc list-inside space-y-2 text-gray-800">
-            {advisoryPoints.map((point, index) => (
-              <li key={index}>{point}</li>
-            ))}
+          <ul className="list-disc list-inside space-y-2 text-gray-800 text-sm">
+            {advisoryPoints.map((point, index) => <li key={index}>{point}</li>)}
           </ul>
         </div>
       )}

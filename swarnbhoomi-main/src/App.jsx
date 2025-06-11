@@ -25,7 +25,6 @@ import Waste from "./pages/Waste";
 import FPO from "./pages/FpoPage";
 import Learning from "./pages/Learning";
 import TopicDetail from "./pages/TopicDetail";
-import Test from "./pages/Test";
 import Ndvi from "./pages/Ndvi";
 import MandiPage from "./pages/MandiPage";
 import CommoditySelection from "./pages/CommoditySelection";
@@ -86,7 +85,6 @@ const App = () => {
           <Route path="cropGuide" element={<MyCrop />} />
           <Route path="voiceBot" element={<VoiceBot />} />
           <Route path="waste" element={<Waste />} />
-          <Route path="test" element={<Test />} />
           <Route path="inventory" element={<Inventory />} />
           <Route path="fpoPage" element={<FPO />} />
           <Route path="profilePage" element={<Profile />} />

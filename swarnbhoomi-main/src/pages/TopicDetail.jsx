@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { topics } from "../data/topics";
 import { Tab } from "@headlessui/react";
-import { ArrowLeft, FileText, Video, Info, HelpCircle } from "lucide-react";
+import { ArrowLeft, FileText, Video, HelpCircle } from "lucide-react";
 
 const TopicDetail = () => {
   const { id } = useParams();
@@ -34,7 +34,7 @@ const TopicDetail = () => {
         {/* Tab Navigation */}
         <Tab.Group>
           <Tab.List className="flex flex-wrap sm:flex-nowrap justify-start gap-2 sm:gap-4 border-b border-gray-300 pb-2 overflow-x-auto">
-            {['Overview', 'Videos', 'Downloads', 'FAQs'].map((label, idx) => (
+            {["Videos", "Downloads", "FAQs"].map((label, idx) => (
               <Tab key={idx} as={React.Fragment}>
                 {({ selected }) => (
                   <button
@@ -44,10 +44,9 @@ const TopicDetail = () => {
                         : "text-gray-600 border-transparent hover:border-gray-300"
                     }`}
                   >
-                    {label === 'Overview' && <Info className="w-4 h-4" />}
-                    {label === 'Videos' && <Video className="w-4 h-4" />}
-                    {label === 'Downloads' && <FileText className="w-4 h-4" />}
-                    {label === 'FAQs' && <HelpCircle className="w-4 h-4" />}
+                    {label === "Videos" && <Video className="w-4 h-4" />}
+                    {label === "Downloads" && <FileText className="w-4 h-4" />}
+                    {label === "FAQs" && <HelpCircle className="w-4 h-4" />}
                     {label}
                   </button>
                 )}
@@ -56,15 +55,6 @@ const TopicDetail = () => {
           </Tab.List>
 
           <Tab.Panels className="mt-4">
-            <Tab.Panel>
-              <div className="bg-white p-3 sm:p-4 rounded shadow text-sm text-gray-700">
-                <p>
-                  Welcome to the topic: <strong>{topic.title}</strong>. This section provides an overview, key concepts,
-                  and a summary of what you will learn.
-                </p>
-              </div>
-            </Tab.Panel>
-
             <Tab.Panel>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {topic.videos?.length > 0 ? (
