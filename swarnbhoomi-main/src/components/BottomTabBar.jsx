@@ -17,22 +17,22 @@ const BottomTabBar = ({ isSidebarOpen }) => {
             <span className="text-xs">Home</span>
           </div>
         </Link>
-        <Link to="/dashboard/advisory">
+        <Link to="/dashboard/farmingAlerts">
           <div className="flex flex-col items-center">
-            <Leaf size={20} className={location.pathname === "/dashboard/advisory" ? "text-yellow-300" : "text-white"} />
+            <MessageSquare size={20} className={location.pathname === "/dashboard/advisory" ? "text-yellow-300" : "text-white"} />
+            <span className="text-xs">Alerts</span>
+          </div>
+        </Link>
+        <Link to="/dashboard/advisoryPage">
+          <div className="flex flex-col items-center scale-125">
+            <PlusCircle size={28} className="text-yellow-300" />
             <span className="text-xs">Advisory</span>
           </div>
         </Link>
-        <Link to="/dashboard/community">
-          <div className="flex flex-col items-center scale-125">
-            <PlusCircle size={28} className="text-yellow-300" />
-            <span className="text-xs">Ask</span>
-          </div>
-        </Link>
-        <Link to="/dashboard/alerts">
+        <Link to="/dashboard/communityPage">
           <div className="flex flex-col items-center">
-            <MessageSquare size={20} className={location.pathname === "/dashboard/alerts" ? "text-yellow-300" : "text-white"} />
-            <span className="text-xs">Alerts</span>
+            <Leaf size={20} className={location.pathname === "/dashboard/alerts" ? "text-yellow-300" : "text-white"} />
+            <span className="text-xs">Community</span>
           </div>
         </Link>
         <Link to="/dashboard/profile">

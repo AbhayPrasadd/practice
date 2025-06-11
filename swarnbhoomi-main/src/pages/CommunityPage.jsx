@@ -5,9 +5,10 @@ import {
   ThumbsUp,
   Share2,
   Image as ImageIcon,
-  PlusCircle,
-  Trash2
+  Trash2,
+  ArrowLeft
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "../firebase";
 import {
@@ -28,6 +29,7 @@ const Community = () => {
   const [likesMap, setLikesMap] = useState({});
   const [commentsMap, setCommentsMap] = useState({});
   const [newComment, setNewComment] = useState("");
+  const navigate = useNavigate(); 
 
   const demoPosts = [
     {
@@ -126,6 +128,17 @@ const Community = () => {
 
   return (
     <div className="min-h-screen pb-24">
+      {/* ✅ Back Button */}
+      <div className="p-4 flex items-center gap-2">
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="text-green-700 hover:text-green-900 flex items-center gap-1"
+        >
+          <ArrowLeft size={20} />
+          <span className="text-sm">Back</span>
+        </button>
+      </div>
+
       <div className="p-4 space-y-6">
         {posts.map((post) => (
           <div
@@ -201,6 +214,7 @@ const Community = () => {
         ))}
       </div>
 
+      {/* Ask Button */}
       <button
         onClick={() => setModalOpen(true)}
         className="fixed bottom-20 right-6 bg-green-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-green-700 transition z-50 text-sm font-semibold"
@@ -208,6 +222,7 @@ const Community = () => {
         Ask in Community
       </button>
 
+      {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-transparent flex items-center justify-center z-50">
           <div className="bg-white rounded-xl w-[90%] max-w-md p-6 shadow-xl">

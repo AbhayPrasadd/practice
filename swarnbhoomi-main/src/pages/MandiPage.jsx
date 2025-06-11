@@ -1,13 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 import CommoditySelection from "./CommoditySelection";
 import MandiPriceFetcher from "./MandiPriceFetcher";
 
 const MandiPage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const navigate = useNavigate();
 
   return (
     <div className="w-full p-4">
-      <h1 className="text-3xl font-bold text-center text-green-800 mb-6">🏪 Mandi Dashboard</h1>
+      {/* Back Button */}
+      <div className="flex items-center mb-2">
+        <button onClick={() => navigate("/dashboard")} className="text-green-700 hover:text-green-900 flex items-center gap-1">
+          <ArrowLeft size={20} /> <span className="text-sm">Back</span>
+        </button>
+      </div>
+
+      <h1 className="text-xl sm:text-2xl font-bold text-center text-green-800 mb-4">🏪 Mandi Dashboard</h1>
 
       {/* Tabs */}
       <div className="flex border-b border-gray-300">

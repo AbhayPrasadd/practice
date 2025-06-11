@@ -2,7 +2,41 @@ import React, { useEffect, useState } from "react";
 import { db, auth } from "../firebase";
 import { doc, getDoc, updateDoc, collection, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import dayjs from "dayjs"; 
+import dayjs from "dayjs";
+
+const commodityImages = {
+  // Fruits
+  Mango: "/fruits/mango.jpeg",
+  Apple: "/fruits/apple.jpeg",
+  Guava: "/fruits/guava.jpeg",
+  Banana: "/fruits/banana.jpeg",
+  Pomegranate: "/fruits/pomegranate.jpeg",
+  Papaya: "/fruits/papaya.jpeg",
+
+  // Vegetables
+  Onion: "/vegetables/onion.jpg",
+  Tomato: "/vegetables/tomato.jpg",
+  Potato: "/vegetables/potato.jpg",
+  Brinjal: "/vegetables/brinjal.jpg",
+  Cabbage: "/vegetables/cabbage.jpg",
+  Cauliflower: "/vegetables/cauliflower.jpg",
+  Carrot: "/vegetables/carrot.jpg",
+  Peas: "/vegetables/peas.jpg",
+
+  // Oilseeds
+  Groundnut: "/oilseeds/groundnut.jpeg",
+  Soyabean: "/oilseeds/soyabean.jpeg",
+
+  // Spices
+  Garlic: "/spices/garlic.jpeg",
+  Ginger: "/spices/ginger.jpeg",
+  "Green Chilli": "/spices/chilli.jpeg",
+
+  // Cereals / Crops
+  Wheat: "/cereals/wheat.jpeg",
+  Rice: "/cereals/rice.jpeg",
+  Bajra: "/cereals/barley.jpeg",
+};
 
 const MyCrop = () => {
   const [selectedCrops, setSelectedCrops] = useState([]);
@@ -85,7 +119,17 @@ const MyCrop = () => {
   }
 
   return (
-    <div className="p-4 min-h-screen ">
+    <div className="p-4 min-h-screen">
+      {/* Back button */}
+      <div className="flex items-center mb-4">
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="text-green-700 hover:text-green-900 text-sm flex items-center gap-1"
+        >
+          ← Back to Dashboard
+        </button>
+      </div>
+
       <h2 className="text-2xl font-bold text-center text-green-800 mb-2">🌾 My Crop Guidance</h2>
       <p className="text-center text-gray-600 mb-6">Enter sowing date to get weekly insights and care tips.</p>
 
@@ -95,16 +139,18 @@ const MyCrop = () => {
           const week = sowingDate ? calculateWeeksSinceSowing(sowingDate) : null;
           const info = cropGuideData[crop];
 
+          const cropImage = info?.image || commodityImages[crop] || "/vegetables/default.jpg";
+
           return (
             <div
               key={crop}
-              className="bg-gray-50 border border-gray-200 shadow-sm p-4 flex flex-col justify-between"
+              className="bg-white border border-gray-200 shadow-md p-4 rounded-lg flex flex-col justify-between"
             >
               <div>
                 <img
-                  src={info?.image || "/vegetables/default.jpg"}
+                  src={cropImage}
                   alt={crop}
-                  className="w-full h-40 object-cover mb-3"
+                  className="w-full h-44 object-cover rounded mb-3 border"
                 />
                 <h4 className="text-lg font-semibold text-green-700 mb-2">🌿 {crop}</h4>
 
@@ -113,11 +159,11 @@ const MyCrop = () => {
                     type="date"
                     value={sowingDate}
                     onChange={(e) => handleSowingDateChange(crop, e.target.value)}
-                    className="flex-grow border px-2 py-1 text-sm"
+                    className="flex-grow border px-2 py-1 text-sm rounded"
                   />
                   <button
                     onClick={() => handleSaveDate(crop)}
-                    className="bg-green-600 hover:bg-green-700 text-white text-sm py-2 px-4 transition"
+                    className="bg-green-600 hover:bg-green-700 text-white text-sm py-2 px-4 rounded"
                   >
                     💾 Save
                   </button>

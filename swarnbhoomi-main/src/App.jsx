@@ -18,8 +18,8 @@ import Inventory from "./pages/Inventory";
 import Weather from "./pages/Weather";
 import Profile from "./pages/ProfilePage";
 import Advisory from "./pages/AdvisoryPage";
-import AgroRent from "./pages/AgroRentPage";
-import CropAdvisory from "./pages/CropAdvisory";
+import AgroRentTab from "./pages/AgroRentTab";
+import SoilAdvisory from "./pages/SoilAdvisory";
 import Community from "./pages/CommunityPage";
 import Waste from "./pages/Waste";
 import FPO from "./pages/FpoPage";
@@ -31,6 +31,8 @@ import MandiPage from "./pages/MandiPage";
 import CommoditySelection from "./pages/CommoditySelection";
 import CommodityPrices from "./pages/CommodityPrices"; 
 import FarmingAlerts from "./pages/FarmingAlerts";
+
+
 
 // Schemes Section
 import SchemesPage from "./pages/SchemesPage";
@@ -79,7 +81,7 @@ const App = () => {
 
           {/* Feature Pages */}
           <Route path="advisoryPage" element={<Advisory />} />
-          <Route path="cropAdvisory" element={<CropAdvisory />} />
+          <Route path="SoilAdvisory" element={<SoilAdvisory />} />
           <Route path="communityPage" element={<Community />} />
           <Route path="cropGuide" element={<MyCrop />} />
           <Route path="voiceBot" element={<VoiceBot />} />
@@ -90,7 +92,7 @@ const App = () => {
           <Route path="profilePage" element={<Profile />} />
           <Route path="Ndvi" element={<Ndvi />} />
           <Route path="weather" element={<Weather />} />
-          <Route path="agroRent" element={<AgroRent />} />
+          <Route path="agroRentTab" element={<AgroRentTab />} />
           <Route path="mandiPage" element={<MandiPage />} />
            <Route path="farmingAlerts" element={<FarmingAlerts />} />
 

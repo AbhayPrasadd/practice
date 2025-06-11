@@ -81,8 +81,8 @@ const Dashboard = () => {
 
   return (
     <div className="px-4 py-6 sm:px-8 bg-gradient-to-br min-h-screen font-poppins text-gray-800">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-6">
+      <div className="max-w-8xl mx-auto">
+        <div className="mb-1">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-green-800">
             {t("welcome")}, {userData?.fullName || t("farmer")} 👋
           </h1>

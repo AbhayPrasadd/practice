@@ -47,7 +47,7 @@ const Others = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6">
+    <div className="min-h-screen  px-4 py-8 sm:px-6">
       {/* Back Button */}
       <div className="mb-4">
         <button

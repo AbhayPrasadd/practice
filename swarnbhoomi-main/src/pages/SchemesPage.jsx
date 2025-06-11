@@ -7,6 +7,7 @@ import {
   Users,
   Droplet,
   Wrench,
+  ArrowLeft,
 } from "lucide-react";
 
 const schemeCategories = [
@@ -56,10 +57,20 @@ const SchemesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6">
-      <h1 className="text-3xl font-bold text-center text-green-800 mb-10">
-        🏩 Government Schemes for Farmers
-      </h1>
+    <div className="min-h-screen px-4 py-6 sm:px-6">
+      {/* Back Button */}
+      <div className="flex items-center mb-4">
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="text-green-700 hover:text-green-900 flex items-center gap-1"
+        >
+          <ArrowLeft size={20} /> <span className="text-sm">Back</span>
+        </button>
+      </div>
+
+      <h3 className="text-2xl font-bold text-center text-green-800 mb-8">
+        Government Schemes
+      </h3>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
         {schemeCategories.map((category, idx) => (
@@ -68,13 +79,13 @@ const SchemesPage = () => {
             onClick={() => handleCardClick(category.link)}
             className="bg-white border border-gray-200 shadow-sm hover:shadow-lg transition p-4 sm:p-6 cursor-pointer text-center"
           >
-            <div className="flex justify-center mb-4">
-              {category.icon}
-            </div>
+            <div className="flex justify-center mb-4">{category.icon}</div>
             <h2 className="text-sm sm:text-base font-semibold text-gray-800 mb-2">
               {category.title}
             </h2>
-            <p className="text-xs sm:text-sm text-gray-600">{category.description}</p>
+            <p className="text-xs sm:text-sm text-gray-600">
+              {category.description}
+            </p>
           </div>
         ))}
       </div>
