@@ -3,21 +3,23 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import CommoditySelection from "./CommoditySelection";
 import MandiPriceFetcher from "./MandiPriceFetcher";
+import { useTranslation } from "react-i18next";
 
 const MandiPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <div className="w-full p-4">
       {/* Back Button */}
       <div className="flex items-center mb-2">
         <button onClick={() => navigate("/dashboard")} className="text-green-700 hover:text-green-900 flex items-center gap-1">
-          <ArrowLeft size={20} /> <span className="text-sm">Back</span>
+          <ArrowLeft size={20} /> <span className="text-sm">{t("back")}</span>
         </button>
       </div>
 
-      <h1 className="text-xl sm:text-2xl font-bold text-center text-green-800 mb-4">🏪 Mandi Dashboard</h1>
+      <h1 className="text-xl sm:text-2xl font-bold text-center text-green-800 mb-4">🏪 {t("mandi_dashboard")}</h1>
 
       {/* Tabs */}
       <div className="flex border-b border-gray-300">
@@ -27,7 +29,7 @@ const MandiPage = () => {
           }`}
           onClick={() => setActiveTab(0)}
         >
-          🌾 Select by Crop
+          🌾 {t("select_by_crop")}
         </button>
         <button
           className={`p-3 flex-1 text-sm md:text-base transition ${
@@ -35,7 +37,7 @@ const MandiPage = () => {
           }`}
           onClick={() => setActiveTab(1)}
         >
-          📊 Search by Filters
+          📊 {t("search_by_filters")}
         </button>
       </div>
 

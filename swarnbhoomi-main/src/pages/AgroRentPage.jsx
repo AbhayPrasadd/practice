@@ -11,6 +11,7 @@ import { db } from "../firebase";
 import axios from "axios";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import { useTranslation } from "react-i18next";
 
 const animatedComponents = makeAnimated();
 
@@ -71,6 +72,8 @@ const AgroRent = () => {
     ownerName: "",
     contact: "",
   });
+
+  const { t } = useTranslation();
 
   const fetchMachinery = async () => {
     try {
@@ -145,7 +148,7 @@ const AgroRent = () => {
         <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap justify-between">
           <input
             type="text"
-            placeholder="Search equipment"
+            placeholder={t("search_equipment")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="border p-2 text-sm w-full sm:w-[48%]"
@@ -155,7 +158,7 @@ const AgroRent = () => {
             options={categoryOptions}
             value={categoryOption}
             onChange={setCategoryOption}
-            placeholder="Category"
+            placeholder={t("category")}
             className="w-full sm:w-[48%] text-sm"
             components={animatedComponents}
           />
@@ -164,7 +167,7 @@ const AgroRent = () => {
             options={rentTypeOptions}
             value={rentTypeOption}
             onChange={setRentTypeOption}
-            placeholder="Rent Type"
+            placeholder={t("rent_type")}
             className="w-full sm:w-[48%] text-sm"
             components={animatedComponents}
           />
@@ -173,7 +176,7 @@ const AgroRent = () => {
             options={locationOptions}
             value={locationOption}
             onChange={setLocationOption}
-            placeholder="Location"
+            placeholder={t("location")}
             className="w-full sm:w-[48%] text-sm"
             components={animatedComponents}
           />
@@ -182,7 +185,7 @@ const AgroRent = () => {
             onClick={() => setShowForm(true)}
             className="bg-green-600 text-white px-4 py-2 hover:bg-green-700 w-full sm:w-auto"
           >
-            List Your Equipment
+            {t("list_equipment")}
           </button>
         </div>
       </div>
@@ -191,12 +194,12 @@ const AgroRent = () => {
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 w-[90%] sm:w-[500px] rounded-md shadow-lg">
             <h2 className="text-lg font-bold mb-4 text-center text-green-700">
-              Add Equipment
+              {t("add_equipment")}
             </h2>
             <form onSubmit={handleAddMachinery} className="space-y-3">
               <input
                 name="name"
-                placeholder="Equipment Name"
+                placeholder={t("equipment_name")}
                 value={newMachinery.name}
                 onChange={(e) => setNewMachinery({ ...newMachinery, name: e.target.value })}
                 className="border w-full p-2 text-sm"
@@ -206,13 +209,13 @@ const AgroRent = () => {
                 options={categoryOptions}
                 value={categoryOption}
                 onChange={setCategoryOption}
-                placeholder="Select Category"
+                placeholder={t("select_category")}
                 className="text-sm"
                 components={animatedComponents}
               />
               <input
                 name="price"
-                placeholder="Price"
+                placeholder={t("price")}
                 value={newMachinery.price}
                 onChange={(e) => setNewMachinery({ ...newMachinery, price: e.target.value })}
                 className="border w-full p-2 text-sm"
@@ -222,7 +225,7 @@ const AgroRent = () => {
                 options={rentTypeOptions}
                 value={rentTypeOption}
                 onChange={setRentTypeOption}
-                placeholder="Select Rent Type"
+                placeholder={t("select_rent_type")}
                 className="text-sm"
                 components={animatedComponents}
               />
@@ -230,13 +233,13 @@ const AgroRent = () => {
                 options={locationOptions}
                 value={locationOption}
                 onChange={setLocationOption}
-                placeholder="Select Location"
+                placeholder={t("select_location")}
                 className="text-sm"
                 components={animatedComponents}
               />
               <input
                 name="ownerName"
-                placeholder="Owner Name"
+                placeholder={t("owner_name")}
                 value={newMachinery.ownerName}
                 onChange={(e) => setNewMachinery({ ...newMachinery, ownerName: e.target.value })}
                 className="border w-full p-2 text-sm"
@@ -244,7 +247,7 @@ const AgroRent = () => {
               />
               <input
                 name="contact"
-                placeholder="Contact Number"
+                placeholder={t("contact_number")}
                 value={newMachinery.contact}
                 onChange={(e) => setNewMachinery({ ...newMachinery, contact: e.target.value })}
                 className="border w-full p-2 text-sm"
@@ -269,14 +272,14 @@ const AgroRent = () => {
                   className="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 text-sm"
                   disabled={addLoading}
                 >
-                  {addLoading ? "Submitting..." : "Submit"}
+                  {addLoading ? t("submitting") : t("submit")}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
                   className="bg-red-600 text-white px-4 py-2 hover:bg-red-700 text-sm"
                 >
-                  Cancel
+                  {t("cancel")}
                 </button>
               </div>
             </form>
@@ -295,14 +298,14 @@ const AgroRent = () => {
             <div className="pt-2">
               <p className="font-semibold text-gray-800 truncate">{item.name}</p>
               <p className="text-gray-600">{item.category}</p>
-              <p className="text-green-700 font-medium">₹{item.price} / {item.rentType}</p>
+              <p className="text-green-700 font-medium">₹{item.price} / {t(item.rentType)}</p>
               <p className="text-gray-600">📍 {item.location}</p>
               <p className="text-gray-700">👤 {item.ownerName}</p>
               <a
                 href={`tel:${item.contact}`}
                 className="mt-2 inline-block bg-blue-600 text-white px-3 py-1 hover:bg-blue-700 rounded"
               >
-                Call Now
+                {t("call_now")}
               </a>
             </div>
           </div>

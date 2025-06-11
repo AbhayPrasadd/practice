@@ -13,6 +13,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
@@ -75,6 +76,12 @@ const Dashboard = () => {
     return suggestions.slice(0, 2);
   };
 
+  const handleLanguageChange = (e) => {
+    const lang = e.target.value;
+    i18n.changeLanguage(lang);
+    localStorage.setItem("lang", lang);
+  };
+
   if (loading) {
     return <div className="p-4 bg-gray-100 min-h-screen text-base font-poppins">{t("loading")}</div>;
   }
@@ -82,13 +89,25 @@ const Dashboard = () => {
   return (
     <div className="px-4 py-6 sm:px-8 bg-gradient-to-br min-h-screen font-poppins text-gray-800">
       <div className="max-w-8xl mx-auto">
-        <div className="mb-1">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-green-800">
-            {t("welcome")}, {userData?.fullName || t("farmer")} 👋
-          </h1>
-          <p className="text-base text-gray-700">
-            {userData?.district}, {userData?.state}
-          </p>
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-green-800">
+              {t("welcome")}, {userData?.fullName || t("farmer")} 👋
+            </h1>
+            <p className="text-base text-gray-700">
+              {userData?.district}, {userData?.state}
+            </p>
+          </div>
+          <div>
+            <select
+              onChange={handleLanguageChange}
+              value={i18n.language}
+              className="bg-white border text-sm text-black rounded px-2 py-1"
+            >
+              <option value="en">English</option>
+              <option value="hi">हिन्दी</option>
+            </select>
+          </div>
         </div>
 
         {/* Top Weather Bar */}
@@ -138,38 +157,38 @@ const Dashboard = () => {
           <Card
             to="/dashboard/voiceBot"
             icon={<Bot className="text-green-500" />}
-            title="VoiceBot Assistant"
-            subtitle="Talk to get help on crops & queries."
+            title={t("voicebot_title")}
+            subtitle={t("voicebot_subtitle")}
           />
           <Card
             to="/dashboard/Ndvi"
             icon={<SatelliteDish className="text-blue-500" />}
-            title="Crop Health (Geo-Sensing)"
-            subtitle="NDVI-based field health analysis."
+            title={t("ndvi_title")}
+            subtitle={t("ndvi_subtitle")}
           />
           <Card
             to="/dashboard/mandiPage"
             icon={<BarChart3 className="text-yellow-500" />}
-            title="Market Prices"
-            subtitle="Track mandi prices for your crops."
+            title={t("market_title")}
+            subtitle={t("market_subtitle")}
           />
           <Card
             to="/dashboard/cropGuide"
             icon={<Leaf className="text-green-700" />}
-            title="My Crop Guide"
-            subtitle="Guidance for sown crops only."
+            title={t("cropguide_title")}
+            subtitle={t("cropguide_subtitle")}
           />
           <Card
             to="/dashboard/farmingAlerts"
             icon={<AlertTriangle className="text-red-500" />}
-            title="Farming Alerts"
-            subtitle="Weather and pest alerts."
+            title={t("alerts_title")}
+            subtitle={t("alerts_subtitle")}
           />
           <Card
             to="/dashboard/schemes"
             icon={<FileText className="text-indigo-600" />}
-            title="Govt. Services"
-            subtitle="Schemes, subsidies & help."
+            title={t("schemes_title")}
+            subtitle={t("schemes_subtitle")}
           />
         </div>
       </div>

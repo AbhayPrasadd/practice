@@ -20,16 +20,16 @@ const Sidebar = ({ setIsSidebarOpen }) => {
 
   const menuItems = useMemo(
     () => [
-      { name: t("Dashboard"), path: "/dashboard", icon: <Home size={20} /> },
-      { name: t("Advisory"), path: "/dashboard/advisoryPage", icon: <UserCheck size={20} /> },
-      { name: t("Agro-Rent"), path: "/dashboard/agroRentTab", icon: <ShoppingCart size={20} /> },
-      { name: t("Bazar Bhaav"), path: "/dashboard/mandiPage", icon: <BadgeIndianRupee size={20} /> },
-      { name: t("Soil Health"), path: "/dashboard/soilAdvisory", icon: <UserCheck size={20} /> },
-      { name: t("Fpo Search"), path: "/dashboard/fpoPage", icon: <Users size={20} /> },
-      { name: t("Schemes"), path: "/dashboard/schemes", icon: <ClipboardList size={20} /> },
-      { name: t("Krishi Parivar"), path: "/dashboard/communityPage", icon: <MessageSquare size={20} /> },
-      { name: t("Learning"), path: "/dashboard/learningPage", icon: <BookOpen size={20} /> },
-      { name: t("Waste"), path: "/dashboard/waste", icon: <Trash2 size={20} /> },
+      { name: t("dashboard"), path: "/dashboard", icon: <Home size={20} /> },
+      { name: t("advisory"), path: "/dashboard/advisoryPage", icon: <UserCheck size={20} /> },
+      { name: t("agro_rent"), path: "/dashboard/agroRentTab", icon: <ShoppingCart size={20} /> },
+      { name: t("bazar_bhaav"), path: "/dashboard/mandiPage", icon: <BadgeIndianRupee size={20} /> },
+      { name: t("soil_health"), path: "/dashboard/soilAdvisory", icon: <UserCheck size={20} /> },
+      { name: t("fpo_search"), path: "/dashboard/fpoPage", icon: <Users size={20} /> },
+      { name: t("schemes"), path: "/dashboard/schemes", icon: <ClipboardList size={20} /> },
+      { name: t("krishi_parivar"), path: "/dashboard/communityPage", icon: <MessageSquare size={20} /> },
+      { name: t("learning"), path: "/dashboard/learningPage", icon: <BookOpen size={20} /> },
+      { name: t("waste"), path: "/dashboard/waste", icon: <Trash2 size={20} /> },
     ],
     [t]
   );
@@ -69,9 +69,8 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       {/* Bottom Section: Version Info */}
       <div className="text-center text-xs text-white/60 mt-6 mb-2">
         <hr className="border-white/20 my-2" />
-        
-        <p>CarbonClad © 2025</p>
-        <p>Version 1.0.0</p>
+        <p>{t("copyright", { year: 2025 })}</p>
+        <p>{t("version", { version: "1.0.0" })}</p>
       </div>
     </div>
   );

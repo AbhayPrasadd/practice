@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { db } from "../firebase";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 const AgroListing = () => {
   const [myItems, setMyItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const currentUser = getAuth().currentUser;
+  const { t } = useTranslation();
 
   const fetchMyListings = async () => {
     setLoading(true);
@@ -23,7 +25,7 @@ const AgroListing = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this listing?");
+    const confirmDelete = window.confirm(t("confirm_delete"));
     if (!confirmDelete) return;
     try {
       await deleteDoc(doc(db, "machinery", id));
@@ -37,9 +39,9 @@ const AgroListing = () => {
     fetchMyListings();
   }, []);
 
-  if (loading) return <p className="text-center text-gray-500">Loading your listings...</p>;
+  if (loading) return <p className="text-center text-gray-500">{t("loading_listings")}</p>;
 
-  if (myItems.length === 0) return <p className="text-center text-gray-500">You have not added any equipment yet.</p>;
+  if (myItems.length === 0) return <p className="text-center text-gray-500">{t("no_equipment_added")}</p>;
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -59,7 +61,7 @@ const AgroListing = () => {
           <p className="font-semibold text-gray-800 truncate">{item.name}</p>
           <p className="text-gray-600">{item.category}</p>
           <p className="text-green-700 font-medium">
-            ₹{item.price} / {item.rentType}
+            ₹{item.price} / {t(item.rentType)}
           </p>
           <p className="text-gray-600">📍 {item.location}</p>
           <p className="text-gray-700">👤 {item.ownerName}</p>

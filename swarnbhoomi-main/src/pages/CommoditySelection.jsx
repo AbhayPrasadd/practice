@@ -1,43 +1,37 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const crops = [
+  { name: "mango", image: "/fruits/mango.jpeg" },
+  { name: "apple", image: "/fruits/apple.jpeg" },
+  { name: "guava", image: "/fruits/guava.jpeg" },
+  { name: "banana", image: "/fruits/banana.jpeg" },
+  { name: "pomegranate", image: "/fruits/pomegranate.jpeg" },
+  { name: "papaya", image: "/fruits/papaya.jpeg" },
 
-  //fruits
-  { name: "Mango", image: "/fruits/mango.jpeg" },
-  { name: "Apple", image: "/fruits/apple.jpeg" },
-  { name: "Guava", image: "/fruits/guava.jpeg" },
-  { name: "Banana", image: "/fruits/banana.jpeg" },
-  { name: "Pomegranate", image: "/fruits/pomegranate.jpeg" },
-  { name: "Papaya", image: "/fruits/papaya.jpeg" },
+  { name: "onion", image: "/vegetables/onion.jpg" },
+  { name: "tomato", image: "/vegetables/tomato.jpg" },
+  { name: "potato", image: "/vegetables/potato.jpg" },
+  { name: "brinjal", image: "/vegetables/brinjal.jpg" },
+  { name: "cabbage", image: "/vegetables/cabbage.jpg" },
+  { name: "cauliflower", image: "/vegetables/cauliflower.jpg" },
+  { name: "carrot", image: "/vegetables/carrot.jpg" },
+  { name: "peas", image: "/vegetables/peas.jpg" },
 
- //vegetables
-  { name: "Onion", image: "/vegetables/onion.jpg" },
-  { name: "Tomato", image: "/vegetables/tomato.jpg" },
-  { name: "Potato", image: "/vegetables/potato.jpg" },
+  { name: "groundnut", image: "/oilseeds/groundnut.jpeg" },
+  { name: "soyabean", image: "/oilseeds/soyabean.jpeg" },
 
-  { name: "Brinjal", image: "/vegetables/brinjal.jpg" },
-  { name: "Cabbage", image: "/vegetables/cabbage.jpg" },
-  { name: "Cauliflower", image: "/vegetables/cauliflower.jpg" },
-  { name: "Carrot", image: "/vegetables/carrot.jpg" },
-  { name: "Peas", image: "/vegetables/peas.jpg" },
+  { name: "garlic", image: "/spices/garlic.jpeg" },
+  { name: "ginger", image: "/spices/ginger.jpeg" },
+  { name: "green_chilli", image: "/spices/chilli.jpeg" },
 
-  //oilseeds
-  { name: "Groundnut", image: "/oilseeds/groundnut.jpeg" },
-  { name: "Soyabean", image: "/oilseeds/soyabean.jpeg" },
-
-  //spices
-  { name: "Garlic", image: "/spices/garlic.jpeg" },
-  { name: "Ginger", image: "/spices/ginger.jpeg" },
-  { name: "Green Chilli", image: "/spices/chilli.jpeg" },
-
-  //crops 
-  { name: "Wheat", image: "/cereals/wheat.jpeg" },
- 
+  { name: "wheat", image: "/cereals/wheat.jpeg" },
 ];
 
 const CommoditySelection = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleClick = (commodity) => {
     navigate(`/dashboard/commodity/${commodity}`);
@@ -45,7 +39,6 @@ const CommoditySelection = () => {
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
-      
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {crops.map((crop) => (
           <div
@@ -58,7 +51,7 @@ const CommoditySelection = () => {
               alt={crop.name}
               className="w-28 h-28 object-cover mx-auto rounded-full"
             />
-            <p className="mt-4 text-lg font-medium text-gray-700">{crop.name}</p>
+            <p className="mt-4 text-lg font-medium text-gray-700">{t(crop.name)}</p>
           </div>
         ))}
       </div>
