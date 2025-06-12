@@ -9,7 +9,7 @@ const FpoPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full">
       {/* Tabs */}
       <div className="flex border-b">
         <button

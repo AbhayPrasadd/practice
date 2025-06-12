@@ -11,7 +11,7 @@ const MandiPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full">
       {/* Back Button */}
       <div className="flex items-center mb-2">
         <button onClick={() => navigate("/dashboard")} className="text-green-700 hover:text-green-900 flex items-center gap-1">

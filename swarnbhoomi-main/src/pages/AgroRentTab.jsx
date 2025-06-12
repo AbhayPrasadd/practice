@@ -8,7 +8,7 @@ const AgroRentTab = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen px-4 py-6 max-w-7xl ">
+    <div className="min-h-screen max-w-8xl ">
    
 
       {/* Tabs */}

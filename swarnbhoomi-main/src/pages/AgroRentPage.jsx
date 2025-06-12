@@ -116,12 +116,7 @@ const AgroRent = () => {
       await addDoc(collection(db, "machinery"), machineryData);
       await fetchMachinery();
       setShowForm(false);
-      setNewMachinery({
-        name: "",
-        price: "",
-        ownerName: "",
-        contact: "",
-      });
+      setNewMachinery({ name: "", price: "", ownerName: "", contact: "" });
       setImageFile(null);
       setCategoryOption(null);
       setRentTypeOption(null);
@@ -131,6 +126,13 @@ const AgroRent = () => {
     } finally {
       setAddLoading(false);
     }
+  };
+
+  const resetFilters = () => {
+    setSearch("");
+    setCategoryOption(null);
+    setRentTypeOption(null);
+    setLocationOption(null);
   };
 
   const filteredMachinery = machinery.filter((item) => {
@@ -145,7 +147,7 @@ const AgroRent = () => {
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="bg-white p-4 rounded shadow">
-        <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap justify-between items-center">
           <input
             type="text"
             placeholder={t("search_equipment")}
@@ -181,15 +183,24 @@ const AgroRent = () => {
             components={animatedComponents}
           />
 
-          <button
-            onClick={() => setShowForm(true)}
-            className="bg-green-600 text-white px-4 py-2 hover:bg-green-700 w-full sm:w-auto"
-          >
-            {t("list_equipment")}
-          </button>
+          <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <button
+              onClick={resetFilters}
+              className="bg-gray-500 text-white px-4 py-2 hover:bg-gray-600 text-sm"
+            >
+              {t("reset_filters")}
+            </button>
+            <button
+              onClick={() => setShowForm(true)}
+              className="bg-green-600 text-white px-4 py-2 hover:bg-green-700 text-sm"
+            >
+              {t("list_equipment")}
+            </button>
+          </div>
         </div>
       </div>
 
+      {/* Add Equipment Form */}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white p-6 w-[90%] sm:w-[500px] rounded-md shadow-lg">
@@ -201,7 +212,9 @@ const AgroRent = () => {
                 name="name"
                 placeholder={t("equipment_name")}
                 value={newMachinery.name}
-                onChange={(e) => setNewMachinery({ ...newMachinery, name: e.target.value })}
+                onChange={(e) =>
+                  setNewMachinery({ ...newMachinery, name: e.target.value })
+                }
                 className="border w-full p-2 text-sm"
                 required
               />
@@ -217,7 +230,9 @@ const AgroRent = () => {
                 name="price"
                 placeholder={t("price")}
                 value={newMachinery.price}
-                onChange={(e) => setNewMachinery({ ...newMachinery, price: e.target.value })}
+                onChange={(e) =>
+                  setNewMachinery({ ...newMachinery, price: e.target.value })
+                }
                 className="border w-full p-2 text-sm"
                 required
               />
@@ -241,7 +256,12 @@ const AgroRent = () => {
                 name="ownerName"
                 placeholder={t("owner_name")}
                 value={newMachinery.ownerName}
-                onChange={(e) => setNewMachinery({ ...newMachinery, ownerName: e.target.value })}
+                onChange={(e) =>
+                  setNewMachinery({
+                    ...newMachinery,
+                    ownerName: e.target.value,
+                  })
+                }
                 className="border w-full p-2 text-sm"
                 required
               />
@@ -249,7 +269,9 @@ const AgroRent = () => {
                 name="contact"
                 placeholder={t("contact_number")}
                 value={newMachinery.contact}
-                onChange={(e) => setNewMachinery({ ...newMachinery, contact: e.target.value })}
+                onChange={(e) =>
+                  setNewMachinery({ ...newMachinery, contact: e.target.value })
+                }
                 className="border w-full p-2 text-sm"
                 required
               />
@@ -287,13 +309,14 @@ const AgroRent = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
+      {/* Equipment Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-3">
         {filteredMachinery.map((item) => (
-          <div key={item.id} className="bg-white border text-sm p-2 rounded-md shadow-sm">
+          <div key={item.id} className="bg-white border text-sm p-2 shadow-sm">
             <img
               src={item.image || `/machinery/${item.name.toLowerCase().replace(/\s+/g, "-")}.jpg`}
               alt={item.name}
-              className="w-full h-32 object-cover rounded"
+              className="w-full h-24 sm:h-28 object-cover rounded"
             />
             <div className="pt-2">
               <p className="font-semibold text-gray-800 truncate">{item.name}</p>

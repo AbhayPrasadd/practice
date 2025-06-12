@@ -39,12 +39,13 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       {/* Top Section: Logo and Navigation */}
       <div>
         {/* Mobile Logo + Close Button */}
-        <div className="md:hidden absolute top-2 left-4 right-2 flex justify-between items-center">
-          <img src="/swarnbhoomi-logo.png" alt="SwLogo" className="h-18 w-auto" />
-          <button onClick={() => setIsSidebarOpen(false)} className="text-white">
-            <X size={22} />
-          </button>
-        </div>
+       <div className="md:hidden flex items-center justify-between px-4 absolute top-2 left-0 right-0">
+        <img src="/swarnbhoomi-logo.png" alt="SwLogo" className="h-[90px] w-auto" />
+        <button onClick={() => setIsSidebarOpen(false)} className="text-white ml-4">
+        <X size={24} />
+        </button>
+       </div>
+
 
         {/* Navigation Links */}
         <nav className="space-y-1 mt-4">

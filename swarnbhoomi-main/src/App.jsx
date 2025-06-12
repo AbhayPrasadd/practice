@@ -65,6 +65,7 @@ const App = () => {
 
   return (
     <Router>
+      
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<LandingPage />} />
