@@ -72,8 +72,8 @@ const Advisory = () => {
           minTemp: daily.temperature_2m_min[i],
           rainfall: daily.precipitation_sum[i]
         }));
-      } catch (error) {
-        console.warn("⚠️ Weather API failed. Using default data.", error.message);
+      } catch {
+        console.warn("Weather API failed, using defaults.");
       }
 
       try {
@@ -81,20 +81,9 @@ const Advisory = () => {
           params: { lat: latitude, lng: longitude }
         });
         const response = ndviRes.data;
-
-        if (
-          response &&
-          typeof response.ndvi_mean === "number" &&
-          typeof response.ndvi_min === "number" &&
-          typeof response.ndvi_max === "number" &&
-          response.ndvi_breakdown
-        ) {
-          ndvi = response;
-        } else {
-          console.warn("⚠️ NDVI response incomplete. Using defaults.");
-        }
-      } catch (error) {
-        console.warn("⚠️ NDVI API failed. Using default data.", error.message);
+        if (response.ndvi_mean) ndvi = response;
+      } catch {
+        console.warn("NDVI API failed, using defaults.");
       }
 
       localStorage.setItem(cacheKey, JSON.stringify({ weather, ndvi }));
@@ -123,8 +112,7 @@ const Advisory = () => {
 
       const res = await axios.post("https://swarnabhumi-backend.onrender.com/api/getAdvice", payload);
       setAdvisoryText(res.data.advice || t("no_advisory"));
-    } catch (error) {
-      console.error("❌ Advisory generation failed:", error);
+    } catch {
       setAdvisoryText(t("fetch_failed"));
     } finally {
       setIsLoading(false);
@@ -132,110 +120,95 @@ const Advisory = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto px-4 sm:px-6 py-4 space-y-6">
+    <div className="max-w-8xl mx-auto px-4 sm:px-6 py-6 space-y-6">
       <h2 className="text-2xl sm:text-3xl font-bold text-green-800 text-center">{t("smart_crop_advisory")}</h2>
 
-      {/* Form Inputs */}
-      <div className="grid grid-cols-1 gap-4">
-        {/* Row 1: Latitude + Longitude + Location Button */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">{t("latitude")}</label>
-            <input
-              value={latitude}
-              onChange={(e) => setLatitude(parseFloat(e.target.value))}
-              className="border p-2 w-full text-sm"
-              type="number"
-              placeholder={t("latitude")}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">{t("longitude")}</label>
-            <input
-              value={longitude}
-              onChange={(e) => setLongitude(parseFloat(e.target.value))}
-              className="border p-2 w-full text-sm"
-              type="number"
-              placeholder={t("longitude")}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">{t("location")}</label>
-            <button
-              onClick={() => {
-                navigator.geolocation.getCurrentPosition(
-                  (pos) => {
-                    setLatitude(pos.coords.latitude);
-                    setLongitude(pos.coords.longitude);
-                  },
-                  () => alert(t("location_denied"))
-                );
-              }}
-              className="bg-green-700 text-white p-2 w-full hover:bg-green-800 text-sm"
-            >
-              {t("Get My Location")}
-            </button>
-          </div>
+      {/* Inputs */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold">{t("latitude")}</label>
+          <input
+            value={latitude}
+            onChange={(e) => setLatitude(parseFloat(e.target.value))}
+            type="number"
+            className="w-full p-2 border rounded"
+          />
         </div>
-
-        {/* Row 2: Language + Crop + Stage */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">{t("language")}</label>
-            <select value={language} onChange={(e) => setLanguage(e.target.value)} className="border p-2 w-full text-sm">
-              <option>English</option>
-              <option>Hindi</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">{t("crop")}</label>
-            <select value={crop} onChange={(e) => setCrop(e.target.value)} className="border p-2 w-full text-sm">
-              {cropOptions.map((c) => <option key={c}>{c}</option>)}
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">{t("stage")}</label>
-            <select value={stage} onChange={(e) => setStage(e.target.value)} className="border p-2 w-full text-sm">
-              <option>{t("sowing")}</option>
-              <option>{t("growth")}</option>
-              <option>{t("harvesting")}</option>
-            </select>
-          </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold">{t("longitude")}</label>
+          <input
+            value={longitude}
+            onChange={(e) => setLongitude(parseFloat(e.target.value))}
+            type="number"
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold">{t("location")}</label>
+          <button
+            onClick={() =>
+              navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                  setLatitude(pos.coords.latitude);
+                  setLongitude(pos.coords.longitude);
+                },
+                () => alert(t("location_denied"))
+              )
+            }
+            className="w-full p-2 bg-green-700 text-white rounded hover:bg-green-800 text-sm"
+          >
+            {t("Get My Location")}
+          </button>
         </div>
       </div>
 
-      {/* NDVI and Weather */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="bg-green-100 p-4 shadow-sm space-y-2">
-          <h3 className="font-semibold text-green-900">{t("ndvi_overview")}</h3>
-          {ndviData ? (
-            <>
-              <p>{t("mean")}: {ndviData.ndvi_mean || "-"}, {t("min")}: {ndviData.ndvi_min || "-"}, {t("max")}: {ndviData.ndvi_max || "-"}</p>
-              {ndviData.ndvi_breakdown ? (
-                <p>{t("poor")}: {ndviData.ndvi_breakdown.poor_percent ?? 0}%, {t("moderate")}: {ndviData.ndvi_breakdown.moderate_percent ?? 0}%, {t("good")}: {ndviData.ndvi_breakdown.good_percent ?? 0}%</p>
-              ) : <p>{t("no_ndvi_data")}</p>}
-            </>
-          ) : <p>{t("ndvi_unavailable")}</p>}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="space-y-2">
+          <label className="text-sm font-semibold">{t("language")}</label>
+          <select value={language} onChange={(e) => setLanguage(e.target.value)} className="w-full p-2 border rounded">
+            <option>English</option>
+            <option>Hindi</option>
+          </select>
         </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold">{t("crop")}</label>
+          <select value={crop} onChange={(e) => setCrop(e.target.value)} className="w-full p-2 border rounded">
+            {cropOptions.map((c) => <option key={c}>{c}</option>)}
+          </select>
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-semibold">{t("stage")}</label>
+          <select value={stage} onChange={(e) => setStage(e.target.value)} className="w-full p-2 border rounded">
+            <option>{t("sowing")}</option>
+            <option>{t("growth")}</option>
+            <option>{t("harvesting")}</option>
+          </select>
+        </div>
+      </div>
 
-        <div className="bg-blue-100 p-4 shadow-sm space-y-1">
-          <h3 className="font-semibold text-blue-900">{t("weather_update")}</h3>
-          {weatherData ? weatherData.map((d, i) => (
+      {/* Weather + NDVI */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="bg-green-50 p-4 rounded shadow space-y-2">
+          <h3 className="text-green-800 font-semibold">{t("ndvi_overview")}</h3>
+          <p>{t("mean")}: {ndviData?.ndvi_mean ?? "-"}, {t("min")}: {ndviData?.ndvi_min ?? "-"}, {t("max")}: {ndviData?.ndvi_max ?? "-"}</p>
+          <p>{t("poor")}: {ndviData?.ndvi_breakdown?.poor_percent ?? 0}%, {t("moderate")}: {ndviData?.ndvi_breakdown?.moderate_percent ?? 0}%, {t("good")}: {ndviData?.ndvi_breakdown?.good_percent ?? 0}%</p>
+        </div>
+        <div className="bg-blue-50 p-4 rounded shadow space-y-2">
+          <h3 className="text-blue-800 font-semibold">{t("weather_update")}</h3>
+          {weatherData?.map((d, i) => (
             <p key={i}>{d.date}: {t("max")}: {d.maxTemp}°C, {t("min")}: {d.minTemp}°C, {t("rain")}: {d.rainfall}mm</p>
-          )) : <p>{t("weather_unavailable")}</p>}
+          ))}
         </div>
       </div>
 
-      {/* Advisory Buttons */}
-      <div className="flex flex-wrap justify-center gap-1 mt-4">
+      {/* Topics */}
+      <div className="flex flex-wrap justify-center gap-2">
         {["Crop Health", "Weather Alert", "General Advisory"].map((topic) => (
           <button
             key={topic}
             onClick={() => fetchAdvisory(topic)}
-            className={`px-2 py-2 text-sm font-medium transition-all ${
-              selectedTopic === topic
-                ? "bg-green-700 text-white shadow"
-                : "bg-gray-100 text-gray-800 hover:bg-green-200"
+            className={`px-4 py-2 rounded text-sm font-semibold shadow-sm transition-all ${
+              selectedTopic === topic ? "bg-green-700 text-white" : "bg-gray-100 text-gray-800 hover:bg-green-100"
             }`}
           >
             {t(topic.toLowerCase().replace(/ /g, "_"))}
@@ -243,23 +216,19 @@ const Advisory = () => {
         ))}
       </div>
 
-      {/* Advisory Output */}
-      <div className="relative p-4 bg-yellow-100 border-l-4 border-yellow-600 shadow-md">
-        <strong className="block text-yellow-800 mb-2 text-base">{t("advisory")}: 📢</strong>
+      {/* Advisory Result */}
+      <div className="relative p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded shadow-md">
+        <strong className="text-yellow-800 block mb-2">{t("advisory")}</strong>
         {isLoading ? (
           <div className="flex items-center gap-2 text-yellow-800 text-sm">
             <Loader2 className="animate-spin h-5 w-5" /> {t("generating")}
           </div>
         ) : (
-          <p className="text-yellow-900 whitespace-pre-line text-sm leading-relaxed">{advisoryText}</p>
+          <p className="text-yellow-900 whitespace-pre-line text-sm">{advisoryText}</p>
         )}
         <div className="absolute top-2 right-2 flex gap-3">
-          <button className="text-yellow-700 hover:text-yellow-900" title={t("save")}>
-            <Download size={18} />
-          </button>
-          <button className="text-yellow-700 hover:text-yellow-900" title={t("listen")}>
-            <Volume2 size={18} />
-          </button>
+          <button className="text-yellow-700 hover:text-yellow-900" title={t("save")}><Download size={18} /></button>
+          <button className="text-yellow-700 hover:text-yellow-900" title={t("listen")}><Volume2 size={18} /></button>
         </div>
       </div>
     </div>

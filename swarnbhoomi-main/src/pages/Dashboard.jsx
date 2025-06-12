@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
+
+
 import {
   CloudSun,
   BarChart3,
@@ -192,6 +194,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
+      
     </div>
   );
 };

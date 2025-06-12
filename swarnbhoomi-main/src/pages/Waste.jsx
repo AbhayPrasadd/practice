@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import {
   Recycle,
-  Leaf,
-  Flame,
-  Droplet,
-  BookOpen,
   Lightbulb,
   MapPin,
   Download,
@@ -38,12 +34,14 @@ const Waste = () => {
   };
 
   return (
-    <div className="min-h-screen p-4 sm:p-6 bg-white">
+    <div className="min-h-screen py-6 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-6">
           <Recycle className="w-6 h-6 text-green-700" />
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-800">Waste to Wealth: Smart Waste Solutions</h1>
+          <h1 className="text-2xl font-bold text-green-800">
+            Waste to Wealth: Smart Waste Solutions 
+          </h1>
         </div>
 
         {/* Search Bar */}
@@ -53,60 +51,68 @@ const Waste = () => {
             placeholder="Search by waste type, method or use..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full sm:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm"
+            className="w-full sm:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
           />
           <Search className="absolute right-3 top-2.5 w-4 h-4 text-gray-400" />
         </div>
 
         {/* Waste Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
           {filtered.map((waste) => (
             <div
               key={waste.id}
               onClick={() => setSelected(waste)}
-              className={`cursor-pointer rounded-lg border p-4 text-center shadow-sm hover:shadow-md transition ${
-                selected?.id === waste.id ? "bg-green-50 border-green-500" : "bg-gray-50"
+              className={`cursor-pointer rounded-lg border p-4 text-center shadow-md hover:scale-105 hover:border-green-600 transition transform duration-200 ${
+                selected?.id === waste.id ? "bg-white border-green-500" : "bg-white"
               }`}
             >
-              <Lightbulb className="mx-auto mb-2 w-5 h-5 text-yellow-500" />
-              <h3 className="text-sm font-semibold text-gray-700">{waste.type}</h3>
-              <p className="text-xs text-gray-500">{waste.method}</p>
+              <Lightbulb className="mx-auto mb-2 w-6 h-6 text-yellow-500" />
+              <h3 className="text-sm font-semibold text-gray-800">{waste.type}</h3>
+              <p className="text-xs text-gray-500 italic">{waste.method}</p>
             </div>
           ))}
         </div>
 
         {/* Info Panel */}
         {selected && (
-          <div className="bg-green-50 p-4 rounded-lg shadow border border-green-300">
-            <h2 className="text-lg font-bold text-green-800 mb-2">
+          <div className="bg-white p-6 rounded-lg shadow-lg border border-green-300">
+            <h2 className="text-xl font-bold text-green-800 mb-2">
               {selected.method} for {selected.type}
             </h2>
-            <p className="text-sm text-gray-700 mb-2">
-              Transform <strong>{selected.type}</strong> into <strong>{selected.use}</strong> using <strong>{selected.method}</strong>. Improve soil health, reduce waste and earn more.
+            <p className="text-sm text-gray-700 mb-3 leading-relaxed">
+              ✅ Transform <strong>{selected.type}</strong> into <strong>{selected.use}</strong> using <strong>{selected.method}</strong>.  
+              This not only reduces waste but also generates value and supports eco-farming 🌱.
             </p>
-            <div className="mb-3">
-              <h4 className="text-sm font-semibold text-gray-800 mb-1">Practical Tips:</h4>
-              <ul className="list-disc list-inside text-sm text-gray-600 space-y-1">
+
+            <div>
+              <h4 className="text-sm font-semibold text-gray-800 mb-2">Practical Tips:</h4>
+              <ul className="flex flex-wrap gap-2">
                 {selected.tips.map((tip, idx) => (
-                  <li key={idx}>{tip}</li>
+                  <li
+                    key={idx}
+                    className=" text-green-800 text-xs px-3 py-1 rounded-full border border-green-300"
+                  >
+                    {tip}
+                  </li>
                 ))}
               </ul>
             </div>
-            <div className="flex flex-wrap items-center gap-3 mt-4">
+
+            <div className="flex flex-wrap items-center gap-4 mt-6">
               <a
                 href="/docs/waste2wealth-guide.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-sm text-green-700 underline"
+                className="inline-flex items-center text-sm text-green-700 hover:underline"
               >
                 <Download className="w-4 h-4 mr-1" /> Full Guide
               </a>
-              <button className="inline-flex items-center text-sm text-blue-700 underline">
+              <button className="inline-flex items-center text-sm text-blue-700 hover:underline">
                 <MapPin className="w-4 h-4 mr-1" /> Find Local Buyer / Support
               </button>
               <button
                 onClick={() => handleSellClick(selected.type)}
-                className="inline-flex items-center text-sm text-purple-700 underline"
+                className="inline-flex items-center text-sm text-purple-700 hover:underline"
               >
                 <PlusCircle className="w-4 h-4 mr-1" /> Add Listing to Sell
               </button>
@@ -116,9 +122,9 @@ const Waste = () => {
 
         {/* Marketplace List */}
         {marketList.length > 0 && (
-          <div className="mt-8 bg-white p-4 rounded shadow border-t border-gray-200">
-            <h3 className="text-md font-semibold mb-2 text-gray-700">Your Waste Listings</h3>
-            <ul className="text-sm list-disc list-inside text-gray-600 space-y-1">
+          <div className="mt-10 bg-white p-5 rounded shadow border-t border-gray-200">
+            <h3 className="text-md font-semibold mb-3 text-gray-700">📢 Your Waste Listings</h3>
+            <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
               {marketList.map((item, idx) => (
                 <li key={idx}><strong>{item.type}:</strong> {item.detail}</li>
               ))}

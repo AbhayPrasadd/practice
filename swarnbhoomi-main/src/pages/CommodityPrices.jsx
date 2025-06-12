@@ -11,7 +11,7 @@ const CommodityPrices = () => {
   useEffect(() => {
     const fetchPrices = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/mandi-prices", {
+        const res = await axios.get("https://swarnabhumi-backend.onrender.com/api/mandi-prices", {
           params: { commodity: name }
         });
         setData(res.data);
