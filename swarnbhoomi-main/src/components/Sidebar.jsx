@@ -4,6 +4,7 @@ import {
   Home,
   BookOpen,
   Users,
+  User,
   ShoppingCart,
   MessageSquare,
   BadgeIndianRupee,
@@ -20,6 +21,7 @@ const Sidebar = ({ setIsSidebarOpen }) => {
 
   const menuItems = useMemo(
     () => [
+      { name: t("Profile"), path: "/dashboard/ProfilePage", icon: <User size={20} /> },
       { name: t("dashboard"), path: "/dashboard", icon: <Home size={20} /> },
       { name: t("advisory"), path: "/dashboard/advisoryPage", icon: <UserCheck size={20} /> },
       { name: t("agro_rent"), path: "/dashboard/agroRentTab", icon: <ShoppingCart size={20} /> },

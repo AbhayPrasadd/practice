@@ -70,7 +70,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 max-w-10xl mx-auto bg-white shadow-md">
+    <div className="min-h-screen p-6 max-w-10xl mx-auto ">
       <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-3">
           <img

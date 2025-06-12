@@ -144,7 +144,7 @@ const MyCrop = () => {
           return (
             <div
               key={crop}
-              className="bg-white border border-gray-200 shadow-md p-4 rounded-lg flex flex-col justify-between"
+              className=" border-gray-200 shadow-md p-4  flex flex-col justify-between"
             >
               <div>
                 <img
