@@ -64,7 +64,7 @@ const MyCrop = () => {
             setSelectedCrops(allCrops);
             setSowingDates(dates);
           } else {
-            alert("⚠️ You haven't selected any crops yet.");
+            alert("⚠️ You haven't selected any crops yet. Complete Your Profile First");
             navigate("/dashboard/profile");
           }
         }
