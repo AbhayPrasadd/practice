@@ -22,16 +22,16 @@ const Sidebar = ({ setIsSidebarOpen }) => {
   const menuItems = useMemo(
     () => [
       { name: t("Profile"), path: "/dashboard/ProfilePage", icon: <User size={20} /> },
-      { name: t("dashboard"), path: "/dashboard", icon: <Home size={20} /> },
-      { name: t("advisory"), path: "/dashboard/advisoryPage", icon: <UserCheck size={20} /> },
-      { name: t("agro_rent"), path: "/dashboard/agroRentTab", icon: <ShoppingCart size={20} /> },
-      { name: t("bazar_bhaav"), path: "/dashboard/mandiPage", icon: <BadgeIndianRupee size={20} /> },
-      { name: t("soil_health"), path: "/dashboard/soilAdvisory", icon: <UserCheck size={20} /> },
-      { name: t("fpo_search"), path: "/dashboard/fpoPage", icon: <Users size={20} /> },
-      { name: t("schemes"), path: "/dashboard/schemes", icon: <ClipboardList size={20} /> },
-      { name: t("krishi_parivar"), path: "/dashboard/communityPage", icon: <MessageSquare size={20} /> },
-      { name: t("learning"), path: "/dashboard/learningPage", icon: <BookOpen size={20} /> },
-      { name: t("waste"), path: "/dashboard/waste", icon: <Trash2 size={20} /> },
+      { name: t("Dashboard"), path: "/dashboard", icon: <Home size={20} /> },
+      { name: t("Advisory"), path: "/dashboard/advisoryPage", icon: <UserCheck size={20} /> },
+      { name: t("Agro-Rent"), path: "/dashboard/agroRentTab", icon: <ShoppingCart size={20} /> },
+      { name: t("Mandi Price"), path: "/dashboard/mandiPage", icon: <BadgeIndianRupee size={20} /> },
+      { name: t("Soil Health"), path: "/dashboard/soilAdvisory", icon: <UserCheck size={20} /> },
+      { name: t("Fpo Search"), path: "/dashboard/fpoPage", icon: <Users size={20} /> },
+      { name: t("Schemes"), path: "/dashboard/schemes", icon: <ClipboardList size={20} /> },
+      { name: t("Community"), path: "/dashboard/communityPage", icon: <MessageSquare size={20} /> },
+      { name: t("Education Hub"), path: "/dashboard/learningPage", icon: <BookOpen size={20} /> },
+      { name: t("Waste_Management"), path: "/dashboard/waste", icon: <Trash2 size={20} /> },
     ],
     [t]
   );

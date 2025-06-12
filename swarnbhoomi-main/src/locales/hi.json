@@ -39,21 +39,21 @@
   "crop_health": "फसल स्वास्थ्य",
   "weather_alert": "मौसम अलर्ट",
   "general_advisory": "सामान्य सलाह",
-  "advisory": "सलाह",
+  "Advisory": "सलाह",
   "generating": "जेनरेट हो रहा है...",
   "no_advisory": "कोई सलाह उत्पन्न नहीं हुई।",
   "fetch_failed": "⚠️ सलाह प्राप्त करने में विफल।",
   "save": "सहेजें",
   "listen": "सुनें",
-  "dashboard": "डैशबोर्ड",
-  "agro_rent": "कृषि किराया",
-  "bazar_bhaav": "बाज़ार भाव",
-  "soil_health": "मृदा स्वास्थ्य",
-  "fpo_search": "एफपीओ खोज",
-  "schemes": "योजनाएं",
-  "krishi_parivar": "कृषि परिवार",
-  "learning": "शिक्षा",
-  "waste": "अपशिष्ट",
+  "Dashboard": "डैशबोर्ड",
+  "Agro-Rent": "कृषि किराया",
+  "Mandi Price": "बाज़ार भाव",
+  "Soil Health": "मृदा स्वास्थ्य",
+  "Fpo Search": "एफपीओ खोज",
+  "Schemes": "योजनाएं",
+  "Community": "कृषि परिवार",
+  "Education Hub": "शिक्षा",
+  "Waste_Management": "अपशिष्ट",
   "copyright": "कार्बनक्लैड © {{year}}",
   "version": "संस्करण {{version}}",
    "mango": "आम",
@@ -146,7 +146,9 @@
   "other_schemes_desc": "सामान्य सहायता, सुधार और वित्तीय समावेशन योजनाएं।",
   "fpo_nearby_tab": "नज़दीकी एफपीओ",
   "fpo_search_tab": "एफपीओ खोजें",
-  "fpo_what_is_tab": "एफपीओ क्या है?"
+  "fpo_what_is_tab": "एफपीओ क्या है?",
+  "Profile": "प्रोफ़ाइल"
+
 }
 
 
