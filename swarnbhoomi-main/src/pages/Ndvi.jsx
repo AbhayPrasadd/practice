@@ -139,15 +139,15 @@ const NdviFarms = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-10xl mx-auto ml-2 ">
       <div className="flex justify-between items-center mb-6">
         <div className="flex gap-2 items-center">
           <button onClick={() => navigate(-1)} className="hover:text-green-700">
             <ArrowLeft size={20} />
           </button>
-          <h1 className="text-xl font-bold text-green-800">NDVI Farm Trends</h1>
+          <h1 className="text-xl font-bold text-green-800">NDVI Trend Of Your Crop</h1>
         </div>
-        <button onClick={addFarm} className="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700">➕ Add Farm</button>
+        <button onClick={addFarm} className="bg-blue-600 text-white px-4 py-2 mt-3 hover:bg-blue-700">➕ Add Farm</button>
       </div>
 
       {farms.map((farm) => (

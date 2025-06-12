@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
-
-
 import {
   CloudSun,
   BarChart3,
@@ -57,10 +55,18 @@ const Dashboard = () => {
   }, []);
 
   const generateSuggestions = () => {
-    if (!weatherData || !userData?.primaryCrops) return null;
+    if (!weatherData) return null;
+
+    const crops = userData?.primaryCrops
+      ? Object.values(userData.primaryCrops).flat()
+      : [];
+
+    if (crops.length === 0) {
+      return ["🚨 Please complete your profile to get crop-based weather suggestions."];
+    }
+
     const temp = weatherData.current.temp_c;
     const condition = weatherData.current.condition.text.toLowerCase();
-    const crops = Object.values(userData.primaryCrops).flat();
     let suggestions = [];
 
     crops.forEach((crop) => {
@@ -85,7 +91,7 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div className="p-4 bg-gray-100 min-h-screen text-base font-poppins">{t("loading")}</div>;
+    return <div className="p-1 bg-gray-100 min-h-screen text-base font-poppins">{t("loading")}</div>;
   }
 
   return (
@@ -113,7 +119,7 @@ const Dashboard = () => {
         </div>
 
         {/* Top Weather Bar */}
-        <div className="bg-white p-5 rounded-md shadow-sm border mb-8 relative">
+        <div className="bg-white p-4 rounded-md shadow-sm border mb-8 relative">
           {weatherData ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-center gap-4">
@@ -139,7 +145,16 @@ const Dashboard = () => {
                   {t("Suggestions")}
                 </h3>
                 {generateSuggestions()?.map((suggestion, index) => (
-                  <p key={index} className="text-sm text-gray-700">• {suggestion}</p>
+                  <p key={index} className={`text-sm ${suggestion.includes("complete your profile") ? "text-red-600 font-medium" : "text-gray-700"}`}>
+                    •{" "}
+                    {suggestion.includes("complete your profile") ? (
+                      <Link to="/dashboard/profile" className="underline">
+                        {suggestion}
+                      </Link>
+                    ) : (
+                      suggestion
+                    )}
+                  </p>
                 ))}
               </div>
             </div>
@@ -194,7 +209,6 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      
     </div>
   );
 };
